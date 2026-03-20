@@ -1,0 +1,322 @@
+{
+  "customerId": {
+    "canonical": "customerId",
+    "meaning": "顧客の一意識別子",
+    "flowPhase": "Input",
+    "intelligence": ["Growth", "Story", "Decision"],
+    "notionField": "顧客ID",
+    "type": "string"
+  },
+  "customerName": {
+    "canonical": "customerName",
+    "meaning": "顧客名",
+    "flowPhase": "Input",
+    "intelligence": ["Growth", "Story"],
+    "notionField": "顧客名",
+    "type": "string"
+  },
+  "industry": {
+    "canonical": "industry",
+    "meaning": "業種",
+    "flowPhase": "Input",
+    "intelligence": ["Growth"],
+    "notionField": "業種",
+    "type": "string"
+  },
+  "companySize": {
+    "canonical": "companySize",
+    "meaning": "企業規模",
+    "flowPhase": "Input",
+    "intelligence": ["Growth"],
+    "notionField": "規模",
+    "type": "string"
+  },
+  "contactPerson": {
+    "canonical": "contactPerson",
+    "meaning": "担当者名",
+    "flowPhase": "Input",
+    "intelligence": ["Voice", "Story"],
+    "notionField": "担当者",
+    "type": "string"
+  },
+  "contactEmail": {
+    "canonical": "contactEmail",
+    "meaning": "担当者メール",
+    "flowPhase": "Input",
+    "intelligence": ["Voice"],
+    "notionField": "メール",
+    "type": "string"
+  },
+  "valueMomentId": {
+    "canonical": "valueMomentId",
+    "meaning": "価値瞬間の識別子",
+    "flowPhase": "Input",
+    "intelligence": ["Growth", "Story"],
+    "notionField": "Value Moment ID",
+    "type": "string"
+  },
+  "valueMomentName": {
+    "canonical": "valueMomentName",
+    "meaning": "価値瞬間の名称",
+    "flowPhase": "Input",
+    "intelligence": ["Growth", "Story"],
+    "notionField": "Value Moment",
+    "type": "string"
+  },
+  "painPoint": {
+    "canonical": "painPoint",
+    "meaning": "顧客の課題",
+    "flowPhase": "Input",
+    "intelligence": ["Growth", "Evidence"],
+    "notionField": "課題",
+    "type": "string"
+  },
+  "context": {
+    "canonical": "context",
+    "meaning": "課題が発生する状況",
+    "flowPhase": "Input",
+    "intelligence": ["Story", "Growth"],
+    "notionField": "文脈",
+    "type": "string"
+  },
+  "experimentId": {
+    "canonical": "experimentId",
+    "meaning": "実験の識別子",
+    "flowPhase": "Input",
+    "intelligence": ["Evidence"],
+    "notionField": "Experiment ID",
+    "type": "string"
+  },
+  "hypothesis": {
+    "canonical": "hypothesis",
+    "meaning": "仮説",
+    "flowPhase": "Input",
+    "intelligence": ["Evidence", "Growth"],
+    "notionField": "仮説",
+    "type": "string"
+  },
+  "experimentMethod": {
+    "canonical": "experimentMethod",
+    "meaning": "実験方法",
+    "flowPhase": "Input",
+    "intelligence": ["Evidence"],
+    "notionField": "実験方法",
+    "type": "string"
+  },
+  "agenda": {
+    "canonical": "agenda",
+    "meaning": "会議の目的",
+    "flowPhase": "Input",
+    "intelligence": ["PowerMeeting"],
+    "notionField": "アジェンダ",
+    "type": "string"
+  },
+  "participants": {
+    "canonical": "participants",
+    "meaning": "会議参加者",
+    "flowPhase": "Input",
+    "intelligence": ["Voice", "PowerMeeting"],
+    "notionField": "参加者",
+    "type": "string[]"
+  },
+  "gapLevel": {
+    "canonical": "gapLevel",
+    "meaning": "現状と理想の差分",
+    "flowPhase": "Processing",
+    "intelligence": ["Growth", "Decision"],
+    "notionField": "Gap Level",
+    "type": "number"
+  },
+  "priorityScore": {
+    "canonical": "priorityScore",
+    "meaning": "優先度スコア",
+    "flowPhase": "Processing",
+    "intelligence": ["Growth"],
+    "notionField": "Priority",
+    "type": "number"
+  },
+  "painSeverity": {
+    "canonical": "painSeverity",
+    "meaning": "課題の深刻度",
+    "flowPhase": "Processing",
+    "intelligence": ["Growth"],
+    "notionField": "Pain Severity",
+    "type": "number"
+  },
+  "opportunitySize": {
+    "canonical": "opportunitySize",
+    "meaning": "機会規模",
+    "flowPhase": "Processing",
+    "intelligence": ["Growth"],
+    "notionField": "Opportunity Size",
+    "type": "number"
+  },
+  "successMetric": {
+    "canonical": "successMetric",
+    "meaning": "成功指標",
+    "flowPhase": "Insight",
+    "intelligence": ["Evidence"],
+    "notionField": "KPI",
+    "type": "string"
+  },
+  "decisionRationale": {
+    "canonical": "decisionRationale",
+    "meaning": "意思決定理由",
+    "flowPhase": "Insight",
+    "intelligence": ["Decision", "Story"],
+    "notionField": "選択理由",
+    "type": "string"
+  },
+  "narrative": {
+    "canonical": "narrative",
+    "meaning": "顧客の物語",
+    "flowPhase": "Insight",
+    "intelligence": ["Story"],
+    "notionField": "ストーリー",
+    "type": "string"
+  },
+  "valueHypothesis": {
+    "canonical": "valueHypothesis",
+    "meaning": "価値仮説",
+    "flowPhase": "Insight",
+    "intelligence": ["Growth"],
+    "notionField": "価値仮説",
+    "type": "string"
+  },
+  "decisionOptions": {
+    "canonical": "decisionOptions",
+    "meaning": "選択肢",
+    "flowPhase": "Insight",
+    "intelligence": ["Decision"],
+    "notionField": "選択肢",
+    "type": "string[]"
+  },
+  "chosenOption": {
+    "canonical": "chosenOption",
+    "meaning": "選択された行動",
+    "flowPhase": "Action",
+    "intelligence": ["Decision", "PowerMeeting"],
+    "notionField": "決定内容",
+    "type": "string"
+  },
+  "nextAction": {
+    "canonical": "nextAction",
+    "meaning": "次のアクション",
+    "flowPhase": "Action",
+    "intelligence": ["Decision", "PowerMeeting"],
+    "notionField": "次のアクション",
+    "type": "string"
+  },
+  "actionItems": {
+    "canonical": "actionItems",
+    "meaning": "実行タスク",
+    "flowPhase": "Action",
+    "intelligence": ["PowerMeeting"],
+    "notionField": "アクションアイテム",
+    "type": "string[]"
+  },
+  "owner": {
+    "canonical": "owner",
+    "meaning": "実行責任者",
+    "flowPhase": "Action",
+    "intelligence": ["PowerMeeting"],
+    "notionField": "Owner",
+    "type": "string"
+  },
+  "dueDate": {
+    "canonical": "dueDate",
+    "meaning": "期限",
+    "flowPhase": "Action",
+    "intelligence": ["PowerMeeting", "Decision"],
+    "notionField": "期限",
+    "type": "date"
+  },
+  "meetingDecisions": {
+    "canonical": "meetingDecisions",
+    "meaning": "会議での意思決定",
+    "flowPhase": "Action",
+    "intelligence": ["PowerMeeting", "Decision"],
+    "notionField": "決定事項",
+    "type": "string"
+  },
+  "meetingNotes": {
+    "canonical": "meetingNotes",
+    "meaning": "議事録",
+    "flowPhase": "Action",
+    "intelligence": ["PowerMeeting", "Story"],
+    "notionField": "議事録",
+    "type": "string"
+  },
+  "experimentResult": {
+    "canonical": "experimentResult",
+    "meaning": "実験結果",
+    "flowPhase": "Feedback",
+    "intelligence": ["Evidence"],
+    "notionField": "結果",
+    "type": "string"
+  },
+  "customerFeedback": {
+    "canonical": "customerFeedback",
+    "meaning": "顧客の反応",
+    "flowPhase": "Feedback",
+    "intelligence": ["Story", "Growth"],
+    "notionField": "顧客反応",
+    "type": "string"
+  },
+  "resultSignal": {
+    "canonical": "resultSignal",
+    "meaning": "結果のシグナル",
+    "flowPhase": "Feedback",
+    "intelligence": ["Evidence"],
+    "notionField": "シグナル",
+    "type": "string"
+  },
+  "learning": {
+    "canonical": "learning",
+    "meaning": "学び",
+    "flowPhase": "Learning",
+    "intelligence": ["Evidence", "Story"],
+    "notionField": "学び",
+    "type": "string"
+  },
+  "updatedHypothesis": {
+    "canonical": "updatedHypothesis",
+    "meaning": "更新された仮説",
+    "flowPhase": "Learning",
+    "intelligence": ["Evidence", "Growth"],
+    "notionField": "更新仮説",
+    "type": "string"
+  },
+  "updatedNarrative": {
+    "canonical": "updatedNarrative",
+    "meaning": "更新されたストーリー",
+    "flowPhase": "Learning",
+    "intelligence": ["Story"],
+    "notionField": "更新ストーリー",
+    "type": "string"
+  },
+  "playbookUpdate": {
+    "canonical": "playbookUpdate",
+    "meaning": "プレイブック更新",
+    "flowPhase": "Learning",
+    "intelligence": ["Growth", "Evidence"],
+    "notionField": "プレイブック更新",
+    "type": "string"
+  },
+  "bestPractice": {
+    "canonical": "bestPractice",
+    "meaning": "ベストプラクティス",
+    "flowPhase": "Learning",
+    "intelligence": ["Growth"],
+    "notionField": "Best Practice",
+    "type": "string"
+  },
+  "antiPattern": {
+    "canonical": "antiPattern",
+    "meaning": "アンチパターン",
+    "flowPhase": "Learning",
+    "intelligence": ["Growth"],
+    "notionField": "Anti Pattern",
+    "type": "string"
+  }
+}
