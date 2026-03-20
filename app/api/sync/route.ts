@@ -13,6 +13,10 @@ import { FieldMapper }        from "@/sync/mappers/field_mapper";
 import { IntelligenceMapper } from "@/sync/mappers/intelligence_mapper";
 import { getServerStore }     from "@/store/serverStore";
 
+// Force runtime env var resolution — prevents static build-time optimization
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
 function buildEngine(): SyncEngine {
   const apiKey = process.env.NOTION_API_KEY;
   const dbId   = process.env.NOTION_DATABASE_ID;

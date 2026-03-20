@@ -5,6 +5,9 @@
 import { NextResponse } from "next/server";
 import { getServerStore } from "@/store/serverStore";
 
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
 export async function GET() {
   const store = getServerStore();
   return NextResponse.json({
