@@ -1,40 +1,40 @@
 // tests/schema_validator.test.ts
 import { SchemaValidator } from "../src/sync/validators/schema_validator";
-import { getInputEntries } from "../src/dictionary";
 
 const validator = new SchemaValidator();
 
-// Input フェーズの必須フィールド（Notion フィールド名）をすべて含む完全レコード
-function fullRecord(): Record<string, unknown> {
-  return Object.fromEntries(getInputEntries().map((e) => [e.notionField, "dummy"]));
-}
-
 describe("SchemaValidator", () => {
-  it("全必須フィールドが揃っている場合は例外を投げない", () => {
-    expect(() => validator.validate([fullRecord()])).not.toThrow();
+  it("完全なレコードは例外を投げない", () => {
+    const record = {
+      "Company（会社名）": "ACME Corp",
+      "Pain Points（ペインポイント）": "高コスト",
+    };
+    expect(() => validator.validate([record])).not.toThrow();
   });
 
   it("空レコード配列は例外を投げない", () => {
     expect(() => validator.validate([])).not.toThrow();
   });
 
-  it("必須フィールドが欠けている場合は例外を投げる", () => {
-    const record = fullRecord();
-    // 最初の Input フィールドを削除
-    const firstField = getInputEntries()[0].notionField;
-    delete record[firstField];
-
-    expect(() => validator.validate([record])).toThrow(firstField);
+  it("辞書に定義されていないフィールドのみのレコードは通過する", () => {
+    expect(() => validator.validate([{ "未知フィールド": "value" }])).not.toThrow();
   });
 
-  it("余分なフィールドがあっても例外を投げない", () => {
-    const record = { ...fullRecord(), "余分なフィールド": "extra" };
+  it("既知フィールドが undefined の場合は例外を投げる", () => {
+    const record = { "Company（会社名）": undefined };
+    expect(() => validator.validate([record])).toThrow("Company（会社名）");
+  });
+
+  it("既知フィールドが null は許容する（任意フィールド）", () => {
+    const record = { "Company（会社名）": null };
     expect(() => validator.validate([record])).not.toThrow();
   });
 
-  it("複数レコードのうち1件が不正な場合は例外を投げる", () => {
-    const valid   = fullRecord();
-    const invalid = { "顧客名": "only this" }; // 他のフィールドが欠けている
-    expect(() => validator.validate([valid, invalid])).toThrow();
+  it("複数レコードを検証する", () => {
+    const records = [
+      { "Company（会社名）": "A社" },
+      { "Company（会社名）": "B社" },
+    ];
+    expect(() => validator.validate(records)).not.toThrow();
   });
 });

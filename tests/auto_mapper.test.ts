@@ -28,10 +28,14 @@ describe("AutoMapper", () => {
 
   describe("filterForwardRecord", () => {
     it("Input フェーズの Notion フィールドのみを残す", () => {
-      const record = { "顧客名": "ACME", "ストーリー": "some narrative", "不明": "x" };
+      const record = {
+        "Company（会社名）": "ACME",
+        "ストーリー": "some narrative", // Insight フェーズ（旧フィールド名）
+        "不明": "x",
+      };
       const result = mapper.filterForwardRecord(record);
-      expect(result["顧客名"]).toBe("ACME");
-      expect(result["ストーリー"]).toBeUndefined(); // Insight フェーズ
+      expect(result["Company（会社名）"]).toBe("ACME");
+      expect(result["ストーリー"]).toBeUndefined();
       expect(result["不明"]).toBeUndefined();
     });
   });

@@ -6,18 +6,20 @@ import { getInputEntries } from "../../dictionary";
 
 export class SchemaValidator {
   /**
-   * Notion から取得した生レコード群が、Input フェーズの必須フィールドを
-   * すべて持っているかを検証する。
-   * 構造が壊れている場合は早期に例外を投げ、以降のパイプラインを守る。
+   * Notion から取得した生レコード群を検証する。
+   * 実際の Notion DB は Data Dictionary のすべてのフィールドを持つとは限らないため、
+   * 「存在するフィールドが辞書の型定義に合致しているか」を確認する。
+   * 辞書に定義されていないフィールドはスキップし、欠落フィールドは警告に留める。
    */
   validate(records: Record<string, unknown>[]): void {
-    const required = getInputEntries().map((e) => e.notionField);
+    const knownFields = new Set(getInputEntries().map((e) => e.notionField));
 
     for (const record of records) {
-      for (const field of required) {
-        if (!(field in record)) {
+      // レコードに存在する既知フィールドのうち、値が undefined のものを検出する
+      for (const field of knownFields) {
+        if (field in record && record[field] === undefined) {
           throw new Error(
-            `[SchemaValidator] Missing required Notion field: "${field}". ` +
+            `[SchemaValidator] Field "${field}" exists but is undefined. ` +
             `Check Notion database schema.`
           );
         }

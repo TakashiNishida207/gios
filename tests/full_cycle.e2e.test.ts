@@ -157,10 +157,11 @@ describe("Full Cycle E2E", () => {
   });
 
   it("Notion フィールド → canonical → Intelligence の変換パイプライン", () => {
-    // Notion から取得した形式
-    const notionRecords = [{ "顧客名": "ACME", "課題": "コスト過多", "業種": "製造業" }];
-
-    // SchemaValidator / SemanticsValidator はここでは省略（別テストで検証済み）
+    // Notion から取得した形式（実際のフィールド名）
+    const notionRecords = [{
+      "Company（会社名）": "ACME",
+      "Pain Points（ペインポイント）": "コスト過多",
+    }];
 
     // Field Mapper: Notion フィールド名 → canonical
     const mapped = fieldMapper.mapToGIOS(notionRecords);

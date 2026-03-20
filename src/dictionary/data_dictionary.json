@@ -12,7 +12,7 @@
     "meaning": "顧客名",
     "flowPhase": "Input",
     "intelligence": ["Growth", "Story"],
-    "notionField": "顧客名",
+    "notionField": "Company（会社名）",
     "type": "string"
   },
   "industry": {
@@ -36,7 +36,7 @@
     "meaning": "担当者名",
     "flowPhase": "Input",
     "intelligence": ["Voice", "Story"],
-    "notionField": "担当者",
+    "notionField": "Role（役職）",
     "type": "string"
   },
   "contactEmail": {
@@ -68,7 +68,7 @@
     "meaning": "顧客の課題",
     "flowPhase": "Input",
     "intelligence": ["Growth", "Evidence"],
-    "notionField": "課題",
+    "notionField": "Pain Points（ペインポイント）",
     "type": "string"
   },
   "context": {
@@ -76,7 +76,7 @@
     "meaning": "課題が発生する状況",
     "flowPhase": "Input",
     "intelligence": ["Story", "Growth"],
-    "notionField": "文脈",
+    "notionField": "Notes（メモ）",
     "type": "string"
   },
   "experimentId": {
@@ -92,7 +92,7 @@
     "meaning": "仮説",
     "flowPhase": "Input",
     "intelligence": ["Evidence", "Growth"],
-    "notionField": "仮説",
+    "notionField": "JTBD（ジョブトゥービーダン）",
     "type": "string"
   },
   "experimentMethod": {
@@ -132,7 +132,7 @@
     "meaning": "優先度スコア",
     "flowPhase": "Processing",
     "intelligence": ["Growth"],
-    "notionField": "Priority",
+    "notionField": "PMF Score（PMF スコア）",
     "type": "number"
   },
   "painSeverity": {

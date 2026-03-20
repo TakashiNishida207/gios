@@ -42,7 +42,7 @@ describe("SemanticsValidator", () => {
 
   it("string 型フィールドに数値が来た場合は例外を投げる", () => {
     expect(() =>
-      validator.validate([{ "顧客名": 123 }])
+      validator.validate([{ "Company（会社名）": 123 }])
     ).toThrow("customerName");
   });
 

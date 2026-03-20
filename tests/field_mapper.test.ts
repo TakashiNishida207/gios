@@ -6,21 +6,24 @@ const mapper = new FieldMapper();
 describe("FieldMapper", () => {
   describe("mapToGIOS", () => {
     it("Notion フィールド名を canonical 名に変換する", () => {
-      const records = [{ "顧客名": "ACME Corp", "業種": "SaaS" }];
+      const records = [{
+        "Company（会社名）": "ACME Corp",
+        "Pain Points（ペインポイント）": "高コスト",
+      }];
       const result  = mapper.mapToGIOS(records);
       expect(result[0]["customerName"]).toBe("ACME Corp");
-      expect(result[0]["industry"]).toBe("SaaS");
+      expect(result[0]["painPoint"]).toBe("高コスト");
     });
 
     it("Insight フェーズのフィールドは含まない（Input のみ）", () => {
-      const records = [{ "ストーリー": "some narrative", "顧客名": "ACME" }];
+      const records = [{ "ストーリー": "some narrative", "Company（会社名）": "ACME" }];
       const result  = mapper.mapToGIOS(records);
       expect(result[0]["narrative"]).toBeUndefined();
       expect(result[0]["customerName"]).toBe("ACME");
     });
 
     it("Data Dictionary にない Notion フィールドは無視する", () => {
-      const records = [{ "存在しないフィールド": "value", "顧客名": "X" }];
+      const records = [{ "存在しないフィールド": "value", "Company（会社名）": "X" }];
       const result  = mapper.mapToGIOS(records);
       expect(result[0]["存在しないフィールド"]).toBeUndefined();
       expect(result[0]["customerName"]).toBe("X");
