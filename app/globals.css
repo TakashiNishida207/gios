@@ -1,3 +1,50 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  --bg: #0c0c0b; --bg2: #131312; --bg3: #1a1a18; --bg4: #202020;
+  --border: rgba(255,255,255,0.06); --border-hover: rgba(255,255,255,0.12);
+  --text-primary: #e8e6e0; --text-secondary: #7a7870; --text-tertiary: #4a4844;
+  --accent: #c8b89a; --accent-dim: rgba(200,184,154,0.12);
+  --teal: #6eb5a0; --teal-dim: rgba(110,181,160,0.1);
+  --amber: #c4975a; --amber-dim: rgba(196,151,90,0.1);
+  --purple: #8b82c0; --purple-dim: rgba(139,130,192,0.1);
+  --green: #7aaa80; --green-dim: rgba(122,170,128,0.1);
+  --red: #b56e6e; --red-dim: rgba(181,110,110,0.1);
+  --mono: 'DM Mono', monospace; --serif: 'Instrument Serif', serif; --sans: 'DM Sans', sans-serif;
+}
+
+/* Light mode overrides */
+[data-theme="light"] {
+  --bg:  #ffffff; --bg2: #f5f5f3; --bg3: #ebebea; --bg4: #e2e1de;
+  --border: rgba(0,0,0,0.08); --border-hover: rgba(0,0,0,0.15);
+  --text-primary: #1a1a18; --text-secondary: #5a5855; --text-tertiary: #9a9895;
+  --accent-dim: rgba(200,184,154,0.18);
+  --teal-dim:   rgba(110,181,160,0.15);
+  --amber-dim:  rgba(196,151,90,0.15);
+  --purple-dim: rgba(139,130,192,0.15);
+  --green-dim:  rgba(122,170,128,0.15);
+  --red-dim:    rgba(181,110,110,0.15);
+}
+
+/* Smooth theme crossfade — active only during toggle */
+html.theme-switching,
+html.theme-switching * {
+  transition: background-color 0.25s ease, color 0.2s ease, border-color 0.25s ease !important;
+}
+
+html, body { height: 100%; background: var(--bg); color: var(--text-primary); font-family: var(--sans); font-size: 13px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+@keyframes fadeIn { to { opacity:1; transform:translateY(0); } }
+
+.fade-in { opacity:0; transform:translateY(6px); animation:fadeIn 0.3s ease forwards; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 2px; }

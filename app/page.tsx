@@ -4,5 +4,5 @@
 import Dashboard from "@/ui/screens/Dashboard";
 
 export default function Home() {
-  return <Dashboard lang="ja" />;
+  return <Dashboard />;
 }

@@ -7,31 +7,79 @@
 
 import { useState } from "react";
 import { useGIOSStore } from "@/store";
+import { usePreferences } from "@/ui/preferences";
 
-type Props = { lang?: "en" | "ja" };
 
-// Data Dictionary の Input フェーズ変数に対応するフォームフィールド
-const FIELDS = [
-  { canonical: "customerName",    en: "Customer Name",    ja: "顧客名",     type: "text"  },
-  { canonical: "industry",        en: "Industry",         ja: "業種",       type: "text"  },
-  { canonical: "companySize",     en: "Company Size",     ja: "規模",       type: "text"  },
-  { canonical: "contactPerson",   en: "Contact Person",   ja: "担当者",     type: "text"  },
-  { canonical: "contactEmail",    en: "Contact Email",    ja: "メール",     type: "email" },
-  { canonical: "valueMomentName", en: "Value Moment",     ja: "Value Moment", type: "text" },
-  { canonical: "painPoint",       en: "Pain Point",       ja: "課題",       type: "textarea" },
-  { canonical: "context",         en: "Context",          ja: "文脈",       type: "textarea" },
-  { canonical: "hypothesis",      en: "Hypothesis",       ja: "仮説",       type: "textarea" },
-  { canonical: "agenda",          en: "Meeting Agenda",   ja: "アジェンダ", type: "textarea" },
+// Section definitions — Data Dictionary Input phase variables
+const SECTIONS = [
+  {
+    number: 1,
+    en: "Customer",
+    ja: "顧客",
+    fields: [
+      { canonical: "customerName",  en: "Customer Name",  ja: "顧客名",  type: "text"  },
+      { canonical: "industry",      en: "Industry",       ja: "業種",    type: "text"  },
+      { canonical: "companySize",   en: "Company Size",   ja: "規模",    type: "text"  },
+      { canonical: "contactPerson", en: "Contact Person", ja: "担当者",  type: "text"  },
+      { canonical: "contactEmail",  en: "Contact Email",  ja: "メール",  type: "email" },
+    ],
+  },
+  {
+    number: 2,
+    en: "Value Moment",
+    ja: "Value Moment",
+    fields: [
+      { canonical: "valueMomentName", en: "Value Moment",  ja: "Value Moment", type: "text"     },
+      { canonical: "painPoint",       en: "Pain Point",    ja: "課題",         type: "textarea" },
+      { canonical: "context",         en: "Context",       ja: "文脈",         type: "textarea" },
+    ],
+  },
+  {
+    number: 3,
+    en: "Experiment",
+    ja: "実験",
+    fields: [
+      { canonical: "hypothesis",        en: "Hypothesis",        ja: "仮説",     type: "textarea" },
+      { canonical: "experimentMethod",  en: "Experiment Method", ja: "実験方法", type: "text"     },
+    ],
+  },
+  {
+    number: 4,
+    en: "Meeting",
+    ja: "会議",
+    fields: [
+      { canonical: "agenda", en: "Meeting Agenda", ja: "アジェンダ", type: "textarea" },
+    ],
+  },
 ] as const;
 
-export default function InputScreen({ lang = "ja" }: Props) {
+// Flat field list for form state initialisation
+const ALL_FIELDS = SECTIONS.flatMap((s) => s.fields as readonly { canonical: string; en: string; ja: string; type: string }[]);
+
+const inputStyle: React.CSSProperties = {
+  background: "var(--bg3)",
+  border: "1px solid var(--border)",
+  borderRadius: 6,
+  padding: "8px 12px",
+  color: "var(--text-primary)",
+  fontFamily: "var(--sans)",
+  fontSize: 12,
+  width: "100%",
+  outline: "none",
+  transition: "border-color 0.15s",
+};
+
+export default function InputScreen() {
   const setFlow = useGIOSStore((s) => s.setFlow);
   const input   = useGIOSStore((s) => s.flow.Input);
+  const { lang } = usePreferences();
 
   const [form, setForm] = useState<Record<string, string>>(
-    () => Object.fromEntries(FIELDS.map((f) => [f.canonical, String(input[f.canonical] ?? "")]))
+    () =>
+      Object.fromEntries(ALL_FIELDS.map((f) => [f.canonical, String(input[f.canonical] ?? "")]))
   );
-  const [saved, setSaved] = useState(false);
+  const [saved, setSaved]       = useState(false);
+  const [focusedField, setFocus] = useState<string | null>(null);
 
   const handleChange = (canonical: string, value: string) => {
     setForm((prev) => ({ ...prev, [canonical]: value }));
@@ -47,63 +95,268 @@ export default function InputScreen({ lang = "ja" }: Props) {
     setSaved(true);
   };
 
-  return (
-    <div className="min-h-screen bg-white px-8 py-10">
-      {/* ヘッダー */}
-      <header className="mb-8 border-b border-gray-100 pb-6">
-        <p className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-1">Input</p>
-        <h1 className="text-2xl font-semibold text-gray-900">
-          {lang === "ja" ? "インプット" : "Input"}
-        </h1>
-        <p className="mt-1 text-sm text-gray-400">
-          {lang === "ja"
-            ? "現実世界の事実を記録する"
-            : "Record facts from the real world"}
-        </p>
-      </header>
+  // Preview: filled fields
+  const filledEntries = Object.entries(form).filter(([, v]) => v.trim() !== "");
 
-      {/* フォーム */}
-      <form
-        className="space-y-6 max-w-xl"
-        onSubmit={(e) => { e.preventDefault(); handleSave(); }}
+  return (
+    <div style={{ overflowY: "auto", height: "100%" }}>
+      <div
+        style={{
+          padding: "28px 32px",
+          maxWidth: 1100,
+          display: "grid",
+          gridTemplateColumns: "1fr 280px",
+          gap: 0,
+          minHeight: "calc(100% - 56px)",
+        }}
       >
-        {FIELDS.map(({ canonical, en, ja, type }) => (
-          <div key={canonical}>
-            <label className="block text-xs font-mono text-gray-400 uppercase tracking-widest mb-1">
-              {lang === "ja" ? ja : en}
-            </label>
-            {type === "textarea" ? (
-              <textarea
-                value={form[canonical]}
-                onChange={(e) => handleChange(canonical, e.target.value)}
-                rows={3}
-                className="w-full border border-gray-200 rounded px-3 py-2 text-sm text-gray-900 bg-white focus:outline-none focus:border-gray-400 resize-none"
-              />
+        {/* Left: form area */}
+        <div style={{ paddingRight: 28, borderRight: "1px solid var(--border)" }}>
+          {/* Header */}
+          <header style={{ marginBottom: 24, paddingBottom: 20, borderBottom: "1px solid var(--border)" }}>
+            <p
+              style={{
+                fontFamily: "var(--mono)",
+                fontSize: 9,
+                letterSpacing: "0.12em",
+                color: "var(--teal)",
+                textTransform: "uppercase",
+                marginBottom: 6,
+              }}
+            >
+              Input
+            </p>
+            <h1
+              style={{
+                fontFamily: "var(--serif)",
+                fontSize: 26,
+                fontWeight: 400,
+                color: "var(--text-primary)",
+                marginBottom: 4,
+              }}
+            >
+              {lang === "ja" ? "インプット" : "Input"}
+            </h1>
+            <p style={{ fontSize: 12, color: "var(--text-secondary)" }}>
+              {lang === "ja"
+                ? "現実世界の事実を記録する"
+                : "Record facts from the real world"}
+            </p>
+          </header>
+
+          {/* Sections */}
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSave();
+            }}
+          >
+            {SECTIONS.map((section, si) => (
+              <div
+                key={section.number}
+                style={{
+                  marginBottom: 28,
+                  paddingBottom: 28,
+                  borderBottom: si < SECTIONS.length - 1 ? "1px solid var(--border)" : "none",
+                }}
+              >
+                {/* Section header with numbered circle */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 10,
+                    marginBottom: 16,
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 22,
+                      height: 22,
+                      borderRadius: "50%",
+                      background: "var(--teal-dim)",
+                      border: "1px solid rgba(110,181,160,0.3)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontFamily: "var(--mono)",
+                      fontSize: 9,
+                      color: "var(--teal)",
+                      flexShrink: 0,
+                    }}
+                  >
+                    {section.number}
+                  </div>
+                  <span
+                    style={{
+                      fontFamily: "var(--mono)",
+                      fontSize: 10,
+                      letterSpacing: "0.08em",
+                      color: "var(--teal)",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {lang === "ja" ? section.ja : section.en}
+                  </span>
+                </div>
+
+                {/* Fields */}
+                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  {section.fields.map(({ canonical, en, ja, type }) => (
+                    <div key={canonical}>
+                      <label
+                        style={{
+                          display: "block",
+                          fontFamily: "var(--mono)",
+                          fontSize: 9,
+                          letterSpacing: "0.08em",
+                          color: "var(--text-tertiary)",
+                          textTransform: "uppercase",
+                          marginBottom: 5,
+                        }}
+                      >
+                        {lang === "ja" ? ja : en}
+                      </label>
+                      {type === "textarea" ? (
+                        <textarea
+                          value={form[canonical]}
+                          onChange={(e) => handleChange(canonical, e.target.value)}
+                          onFocus={() => setFocus(canonical)}
+                          onBlur={() => setFocus(null)}
+                          rows={3}
+                          style={{
+                            ...inputStyle,
+                            resize: "none",
+                            borderColor:
+                              focusedField === canonical
+                                ? "var(--teal)"
+                                : "var(--border)",
+                          }}
+                        />
+                      ) : (
+                        <input
+                          type={type}
+                          value={form[canonical]}
+                          onChange={(e) => handleChange(canonical, e.target.value)}
+                          onFocus={() => setFocus(canonical)}
+                          onBlur={() => setFocus(null)}
+                          style={{
+                            ...inputStyle,
+                            borderColor:
+                              focusedField === canonical
+                                ? "var(--teal)"
+                                : "var(--border)",
+                          }}
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+
+            {/* Save button */}
+            <div style={{ display: "flex", alignItems: "center", gap: 12, paddingTop: 4 }}>
+              <button
+                type="submit"
+                style={{
+                  padding: "8px 18px",
+                  background: "var(--teal)",
+                  border: "none",
+                  borderRadius: 6,
+                  color: "var(--bg)",
+                  fontFamily: "var(--mono)",
+                  fontSize: 11,
+                  fontWeight: 500,
+                  cursor: "pointer",
+                  letterSpacing: "0.04em",
+                }}
+              >
+                {lang === "ja" ? "保存" : "Save"}
+              </button>
+              {saved && (
+                <span
+                  style={{
+                    fontFamily: "var(--mono)",
+                    fontSize: 10,
+                    color: "var(--teal)",
+                  }}
+                >
+                  {lang === "ja" ? "保存しました" : "Saved"}
+                </span>
+              )}
+            </div>
+          </form>
+        </div>
+
+        {/* Right: preview panel */}
+        <div style={{ paddingLeft: 24, paddingTop: 0 }}>
+          <div
+            style={{
+              position: "sticky",
+              top: 28,
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "var(--mono)",
+                fontSize: 9,
+                letterSpacing: "0.1em",
+                color: "var(--text-tertiary)",
+                textTransform: "uppercase",
+                marginBottom: 14,
+                paddingTop: 2,
+              }}
+            >
+              {lang === "ja" ? "プレビュー" : "Preview"}
+            </p>
+            {filledEntries.length === 0 ? (
+              <p style={{ fontFamily: "var(--mono)", fontSize: 10, color: "var(--text-tertiary)" }}>
+                {lang === "ja" ? "入力待ち" : "Awaiting input"}
+              </p>
             ) : (
-              <input
-                type={type}
-                value={form[canonical]}
-                onChange={(e) => handleChange(canonical, e.target.value)}
-                className="w-full border border-gray-200 rounded px-3 py-2 text-sm text-gray-900 bg-white focus:outline-none focus:border-gray-400"
-              />
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {filledEntries.map(([k, v]) => (
+                  <div
+                    key={k}
+                    style={{
+                      background: "var(--bg2)",
+                      border: "1px solid var(--border)",
+                      borderRadius: 6,
+                      padding: "8px 10px",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontFamily: "var(--mono)",
+                        fontSize: 9,
+                        color: "var(--text-tertiary)",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.06em",
+                        marginBottom: 2,
+                      }}
+                    >
+                      {k}
+                    </p>
+                    <p
+                      style={{
+                        fontFamily: "var(--mono)",
+                        fontSize: 10,
+                        color: "var(--text-secondary)",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {v}
+                    </p>
+                  </div>
+                ))}
+              </div>
             )}
           </div>
-        ))}
-
-        <div className="flex items-center gap-4 pt-2">
-          <button
-            type="submit"
-            className="px-5 py-2 bg-gray-900 text-white text-sm rounded hover:bg-gray-700 transition-colors"
-          >
-            {lang === "ja" ? "保存" : "Save"}
-          </button>
-          {saved && (
-            <span className="text-xs text-gray-400">
-              {lang === "ja" ? "保存しました" : "Saved"}
-            </span>
-          )}
         </div>
-      </form>
+      </div>
     </div>
   );
 }
