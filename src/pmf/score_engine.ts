@@ -3,6 +3,8 @@
 // 因果ループ: structured_evidence → scores → phase_judgment
 // 重要: PMF Score は GIOS 内部指標。Notion に同期しない。
 
+import { PMF_THRESHOLDS } from "./config/pmfThresholds";
+
 // ─── 入力型 ───────────────────────────────────────────────────────────────────
 
 export type StructuredEvidence = {
@@ -126,6 +128,7 @@ export function calculatePMFScore(scores: Omit<PMFScores, "segment" | "pmf_score
  * フェーズ判定
  * Pre-PMF → PMF → Chasm → Scale の順で判定
  * Scale が最も厳しい条件。上から判定し該当した段階を返す。
+ * しきい値は pmfThresholds.ts で一元管理する。
  */
 export function judgePhase(
   scores:   PMFScores,
@@ -133,10 +136,11 @@ export function judgePhase(
 ): PhaseLabel {
   const { pmf_score } = scores;
   const growthChannels = evidence.growth_channels ?? 0;
+  const t = PMF_THRESHOLDS;
 
-  if (pmf_score >= 75 && growthChannels >= 2) return "Scale";
-  if (pmf_score >= 70 && evidence.segment_dominance >= 0.6) return "Chasm";
-  if (pmf_score >= 60) return "PMF";
+  if (pmf_score >= t.threshold_scale && growthChannels >= t.growth_channels_min)  return "Scale";
+  if (pmf_score >= t.threshold_chasm && evidence.segment_dominance >= t.dominance_threshold) return "Chasm";
+  if (pmf_score >= t.threshold_pmf)  return "PMF";
   return "Pre-PMF";
 }
 

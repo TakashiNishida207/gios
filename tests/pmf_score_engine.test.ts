@@ -67,9 +67,9 @@ describe("Test 1: Near PMF — strong retention and Sean Ellis signal", () => {
     expect(c).toBeGreaterThan(0);
   });
 
-  it("pmf_score should be >= 60 → phase PMF", () => {
+  it("pmf_score should be >= threshold_pmf (55) → phase PMF", () => {
     const result = computePMF(evidence);
-    expect(result.scores.pmf_score).toBeGreaterThanOrEqual(60);
+    expect(result.scores.pmf_score).toBeGreaterThanOrEqual(55);
     expect(result.phase).toBe("PMF");
   });
 });
