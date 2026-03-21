@@ -16,6 +16,7 @@ const NAV = [
   { href: "/power-meeting", en: "Power Meeting", ja: "パワーMTG",      icon: "meeting"  },
   { href: "/learning",      en: "Learning",      ja: "学習",           icon: "learning" },
   { href: "/pmf",           en: "PMF Score",     ja: "PMFスコア",      icon: "pmf"      },
+  { href: "/admin",         en: "Admin",         ja: "管理",           icon: "admin"    },
 ] as const;
 
 const PHASE_ACTIVE: Record<string, string> = {
@@ -26,6 +27,7 @@ const PHASE_ACTIVE: Record<string, string> = {
   "/power-meeting": "var(--green)",
   "/learning":      "var(--amber)",
   "/pmf":           "var(--green)",
+  "/admin":         "var(--amber)",
 };
 
 const PHASE_ACTIVE_BG: Record<string, string> = {
@@ -36,6 +38,7 @@ const PHASE_ACTIVE_BG: Record<string, string> = {
   "/power-meeting": "var(--green-dim)",
   "/learning":      "var(--amber-dim)",
   "/pmf":           "var(--green-dim)",
+  "/admin":         "var(--amber-dim)",
 };
 
 const FLOW_PHASES = [
@@ -97,6 +100,13 @@ const ICONS: Record<string, React.ReactNode> = {
       <circle cx="7" cy="7" r="1.2" fill="currentColor" stroke="none"/>
     </svg>
   ),
+  admin: (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.2">
+      <circle cx="7" cy="6" r="2.5"/>
+      <path d="M2 12c0-2.5 2-4 5-4s5 1.5 5 4"/>
+      <polyline points="10,2 12,4 10,6"/>
+    </svg>
+  ),
 };
 
 export default function Sidebar() {
@@ -133,7 +143,7 @@ export default function Sidebar() {
           OS
         </div>
         {NAV.map(({ href, en, ja, icon }) => {
-          const active = pathname === href;
+          const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
           const color  = active ? PHASE_ACTIVE[href] : "var(--text-secondary)";
           const bg     = active ? PHASE_ACTIVE_BG[href] : "transparent";
           return (
