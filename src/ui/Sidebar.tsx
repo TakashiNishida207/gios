@@ -16,6 +16,7 @@ const NAV = [
   { href: "/power-meeting", en: "Power Meeting", ja: "パワーMTG",      icon: "meeting"  },
   { href: "/learning",      en: "Learning",      ja: "学習",           icon: "learning" },
   { href: "/pmf",           en: "PMF Score",     ja: "PMFスコア",      icon: "pmf"      },
+  { href: "/chasm",         en: "Chasm Score",   ja: "Chasmスコア",    icon: "chasm"    },
   { href: "/admin",         en: "Admin",         ja: "管理",           icon: "admin"    },
 ] as const;
 
@@ -27,6 +28,7 @@ const PHASE_ACTIVE: Record<string, string> = {
   "/power-meeting": "var(--green)",
   "/learning":      "var(--amber)",
   "/pmf":           "var(--green)",
+  "/chasm":         "var(--amber)",
   "/admin":         "var(--amber)",
 };
 
@@ -38,6 +40,7 @@ const PHASE_ACTIVE_BG: Record<string, string> = {
   "/power-meeting": "var(--green-dim)",
   "/learning":      "var(--amber-dim)",
   "/pmf":           "var(--green-dim)",
+  "/chasm":         "var(--amber-dim)",
   "/admin":         "var(--amber-dim)",
 };
 
@@ -98,6 +101,13 @@ const ICONS: Record<string, React.ReactNode> = {
       <circle cx="7" cy="7" r="5.5"/>
       <path d="M7 7 L7 3" strokeLinecap="round"/>
       <circle cx="7" cy="7" r="1.2" fill="currentColor" stroke="none"/>
+    </svg>
+  ),
+  chasm: (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.2">
+      <path d="M1 10 L5 4 L7 7 L9 3 L13 8"/>
+      <line x1="5" y1="10" x2="5" y2="12" strokeDasharray="1,1"/>
+      <line x1="9" y1="10" x2="9" y2="12" strokeDasharray="1,1"/>
     </svg>
   ),
   admin: (
