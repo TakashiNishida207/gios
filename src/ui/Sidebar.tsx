@@ -15,6 +15,7 @@ const NAV = [
   { href: "/action",        en: "Action",        ja: "アクション",     icon: "action"   },
   { href: "/power-meeting", en: "Power Meeting", ja: "パワーMTG",      icon: "meeting"  },
   { href: "/learning",      en: "Learning",      ja: "学習",           icon: "learning" },
+  { href: "/pmf",           en: "PMF Score",     ja: "PMFスコア",      icon: "pmf"      },
 ] as const;
 
 const PHASE_ACTIVE: Record<string, string> = {
@@ -24,6 +25,7 @@ const PHASE_ACTIVE: Record<string, string> = {
   "/action":        "var(--accent)",
   "/power-meeting": "var(--green)",
   "/learning":      "var(--amber)",
+  "/pmf":           "var(--green)",
 };
 
 const PHASE_ACTIVE_BG: Record<string, string> = {
@@ -33,6 +35,7 @@ const PHASE_ACTIVE_BG: Record<string, string> = {
   "/action":        "var(--accent-dim)",
   "/power-meeting": "var(--green-dim)",
   "/learning":      "var(--amber-dim)",
+  "/pmf":           "var(--green-dim)",
 };
 
 const FLOW_PHASES = [
@@ -85,6 +88,13 @@ const ICONS: Record<string, React.ReactNode> = {
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.2">
       <path d="M2 10L7 3l5 7H2z"/>
       <line x1="7" y1="7" x2="7" y2="11"/>
+    </svg>
+  ),
+  pmf: (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.2">
+      <circle cx="7" cy="7" r="5.5"/>
+      <path d="M7 7 L7 3" strokeLinecap="round"/>
+      <circle cx="7" cy="7" r="1.2" fill="currentColor" stroke="none"/>
     </svg>
   ),
 };

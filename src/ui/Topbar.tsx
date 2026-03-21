@@ -13,6 +13,7 @@ const PHASE_COLORS: Record<string, { color: string; bg: string; border: string; 
   "/action":        { color: "var(--accent)",  bg: "var(--accent-dim)",  border: "rgba(200,184,154,0.2)",  label: "ACTION PHASE"   },
   "/power-meeting": { color: "var(--green)",   bg: "var(--green-dim)",   border: "rgba(122,170,128,0.2)",  label: "POWER MEETING"  },
   "/learning":      { color: "var(--amber)",   bg: "var(--amber-dim)",   border: "rgba(196,151,90,0.2)",   label: "LEARNING PHASE" },
+  "/pmf":           { color: "var(--green)",   bg: "var(--green-dim)",   border: "rgba(122,170,128,0.2)",  label: "PMF SCORE"      },
 };
 
 // Sun icon — shown in dark mode (click → switch to light)
