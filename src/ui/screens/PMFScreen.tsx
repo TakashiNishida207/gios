@@ -23,10 +23,10 @@ const PHASE_COLORS: Record<string, { color: string; bg: string; border: string }
 
 const DEMO_SEGMENTS = ["Enterprise", "SMB", "Consumer"];
 
-// PMF スコアに応じた色を返す
+// PMF スコアに応じた色を返す（score は 0-1 正規化済み）
 function scoreColor(score: number): string {
-  if (score >= 60) return "var(--green)";
-  if (score >= 40) return "var(--amber)";
+  if (score >= 0.60) return "var(--green)";
+  if (score >= 0.40) return "var(--amber)";
   return "var(--red)";
 }
 
@@ -126,7 +126,7 @@ export default function PMFScreen() {
   const handleCalculate = async () => {
     setLoading(true);
     try {
-      const res  = await fetch("/api/pmf/score", {
+      const res  = await fetch("/api/pmf/score/calculate", {
         method:  "POST",
         headers: { "Content-Type": "application/json" },
         body:    JSON.stringify(evidence),
@@ -248,10 +248,10 @@ export default function PMFScreen() {
                 PMF Score
               </p>
 
-              {/* Large score number */}
+              {/* Large score number — pmfScore は 0-1、表示時に × 100 */}
               <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginBottom: 14 }}>
                 <span style={{ fontFamily: "var(--mono)", fontSize: 48, fontWeight: 300, color: gaugeColor, lineHeight: 1 }}>
-                  {Math.round(pmfScore)}
+                  {Math.round(pmfScore * 100)}
                 </span>
                 <span style={{ fontFamily: "var(--mono)", fontSize: 14, color: "var(--text-tertiary)" }}>/ 100</span>
               </div>
@@ -259,7 +259,7 @@ export default function PMFScreen() {
               {/* Gauge bar */}
               <div style={{ height: 6, background: "var(--bg3)", borderRadius: 3, overflow: "hidden", marginBottom: 14 }}>
                 <div style={{
-                  width: `${pmfScore}%`, height: "100%", borderRadius: 3,
+                  width: `${pmfScore * 100}%`, height: "100%", borderRadius: 3,
                   background: gaugeColor, transition: "width 0.8s ease",
                 }} />
               </div>

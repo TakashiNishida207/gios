@@ -1,6 +1,7 @@
 // tests/pmf_score_engine.test.ts
 // PMF Score Engine — 4つのテストケース
 // 因果ループ: エビデンス入力 → スコア計算 → フェーズ判定の正確性を保証する
+// スコアはすべて 0-1 正規化済み（UI 表示時は × 100 して 0-100 に変換）
 
 import {
   calculateBehavioralScore,
@@ -28,15 +29,14 @@ function makeEvidence(overrides: Partial<StructuredEvidence>): StructuredEvidenc
     ltv:                        0,
     cac:                        0,
     churn_sensitivity:          0,
-    growth_channels:            0,
     ...overrides,
   };
 }
 
-// ─── TEST 1: Near PMF — pmf_score >= 60 → phase = "PMF" ──────────────────────
+// ─── TEST 1: Near PMF — pmf_score >= threshold_pmf (0.60) → phase = "PMF" ────
 
 describe("Test 1: Near PMF — strong retention and Sean Ellis signal", () => {
-  // Calibrated to produce pmf_score ≈ 60.77 (>= 60)
+  // Calibrated to produce pmf_score ≈ 0.6077 (>= 0.60)
   const evidence = makeEvidence({
     segment:                    "Enterprise",
     retention_rate:             0.75,
@@ -67,9 +67,9 @@ describe("Test 1: Near PMF — strong retention and Sean Ellis signal", () => {
     expect(c).toBeGreaterThan(0);
   });
 
-  it("pmf_score should be >= threshold_pmf (55) → phase PMF", () => {
+  it("pmf_score should be >= threshold_pmf (0.60) → phase PMF", () => {
     const result = computePMF(evidence);
-    expect(result.scores.pmf_score).toBeGreaterThanOrEqual(55);
+    expect(result.scores.pmf_score).toBeGreaterThanOrEqual(0.55);
     expect(result.phase).toBe("PMF");
   });
 });
@@ -92,9 +92,9 @@ describe("Test 2: Far from PMF — weak across all dimensions", () => {
     churn_sensitivity:          0.60,
   });
 
-  it("pmf_score should be < 40", () => {
+  it("pmf_score should be < 0.40", () => {
     const result = computePMF(evidence);
-    expect(result.scores.pmf_score).toBeLessThan(40);
+    expect(result.scores.pmf_score).toBeLessThan(0.40);
   });
 
   it("phase should be Pre-PMF", () => {
@@ -105,14 +105,14 @@ describe("Test 2: Far from PMF — weak across all dimensions", () => {
   it("economic_score should be penalized by high cac and churn", () => {
     const c = calculateEconomicScore(evidence);
     // cac=0.5, churn=0.6 → net economic drag
-    expect(c).toBeLessThan(0.3);
+    expect(c).toBeLessThan(0.30);
   });
 });
 
 // ─── TEST 3: Segment divergence — SegA strong, SegB weak ─────────────────────
 
 describe("Test 3: Segment divergence", () => {
-  // Calibrated to produce pmf_score ≈ 79.23 (>= 75) with growth_channels=2 → Scale
+  // Calibrated to produce pmf_score ≈ 0.7923 (>= 0.75) with growth_channels=2 → Scale
   const segA = makeEvidence({
     segment:                    "Enterprise",
     retention_rate:             0.90,
@@ -146,7 +146,7 @@ describe("Test 3: Segment divergence", () => {
 
   it("Enterprise segment should reach Scale phase", () => {
     const result = computePMF(segA);
-    expect(result.scores.pmf_score).toBeGreaterThanOrEqual(75);
+    expect(result.scores.pmf_score).toBeGreaterThanOrEqual(0.75);
     expect(result.phase).toBe("Scale");
   });
 
@@ -158,7 +158,7 @@ describe("Test 3: Segment divergence", () => {
   it("Enterprise pmf_score >> Consumer pmf_score", () => {
     const rA = computePMF(segA);
     const rB = computePMF(segB);
-    expect(rA.scores.pmf_score).toBeGreaterThan(rB.scores.pmf_score + 30);
+    expect(rA.scores.pmf_score).toBeGreaterThan(rB.scores.pmf_score + 0.30);
   });
 });
 
@@ -197,9 +197,9 @@ describe("Test 4: Contradictory signals — retention=0.7 but sean_ellis=0.1", (
 
   it("pmf_score reflects tension — neither clearly PMF nor clearly Pre-PMF", () => {
     const result = computePMF(evidence);
-    // Expect a middling score (not very high, not very low)
-    expect(result.scores.pmf_score).toBeGreaterThan(35);
-    expect(result.scores.pmf_score).toBeLessThan(75);
+    // Expect a middling score (not very high, not very low) — 0-1 scale
+    expect(result.scores.pmf_score).toBeGreaterThan(0.35);
+    expect(result.scores.pmf_score).toBeLessThan(0.75);
   });
 
   it("judgePhase correctly handles ambiguous input", () => {
