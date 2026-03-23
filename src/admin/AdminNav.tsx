@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { usePreferences } from "@/ui/preferences";
 
 const ADMIN_NAV = [
+  { href: "/admin/dashboard",    en: "Dashboard",    ja: "ダッシュボード",   dot: "var(--accent)" },
   { href: "/admin/tenants",      en: "Tenants",      ja: "テナント",         dot: "var(--teal)"   },
   { href: "/admin/users",        en: "Users",        ja: "ユーザー",         dot: "var(--blue)"   },
   { href: "/admin/roles",        en: "Roles",        ja: "ロール",           dot: "var(--purple)" },
