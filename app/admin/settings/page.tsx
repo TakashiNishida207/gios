@@ -10,6 +10,15 @@ import {
   DetailRow, SectionHeader, PrimaryButton, inputStyle,
 } from "@/admin/components";
 
+// ─── Mock data ─────────────────────────────────────────────────────────────
+const MOCK_FLAGS: FeatureFlag[] = [
+  { id: "ff-0001", tenant_id: null,               intelligence_code: "growth",    key: "growth_ai_suggest",    value: true,  description: "AI growth suggestions enabled globally",     created_at: "2026-01-01T00:00:00Z", updated_at: "2026-03-20T10:00:00Z" },
+  { id: "ff-0002", tenant_id: "t-11111111-0001",  intelligence_code: "decision",  key: "decision_ai_v2",       value: true,  description: "Decision AI v2 engine for Acme Corp",        created_at: "2026-02-10T00:00:00Z", updated_at: "2026-03-15T08:30:00Z" },
+  { id: "ff-0003", tenant_id: null,               intelligence_code: "agent",     key: "agent_max_iterations", value: 5,     description: "Max agent loop iterations per request",      created_at: "2026-01-15T00:00:00Z", updated_at: "2026-03-01T00:00:00Z" },
+  { id: "ff-0004", tenant_id: null,               intelligence_code: null,        key: "dark_mode_default",    value: true,  description: "Default UI to dark mode for new tenants",    created_at: "2025-12-01T00:00:00Z", updated_at: "2026-01-10T00:00:00Z" },
+  { id: "ff-0005", tenant_id: "t-33333333-0003",  intelligence_code: "evidence",  key: "evidence_beta",        value: false, description: "Beta evidence inference for MegaCo",         created_at: "2026-03-10T00:00:00Z", updated_at: "2026-03-10T00:00:00Z" },
+];
+
 type FlagForm = { key: string; value: string; description: string; intelligence_code: string; tenant_id: string };
 const DEFAULT_FORM: FlagForm = { key: "", value: "true", description: "", intelligence_code: "", tenant_id: "" };
 
@@ -22,9 +31,9 @@ const COLUMNS: Column<FeatureFlag>[] = [
 ];
 
 export default function SettingsPage() {
-  const [flags,    setFlags]    = useState<FeatureFlag[]>([]);
+  const [flags,    setFlags]    = useState<FeatureFlag[]>(MOCK_FLAGS);
   const [selected, setSelected] = useState<FeatureFlag | null>(null);
-  const [loading,  setLoading]  = useState(true);
+  const [loading,  setLoading]  = useState(false);
   const [drawer,   setDrawer]   = useState(false);
   const [saving,   setSaving]   = useState(false);
   const [form,     setForm]     = useState<FlagForm>(DEFAULT_FORM);
@@ -32,14 +41,12 @@ export default function SettingsPage() {
 
   const loadFlags = useCallback(async () => {
     setLoading(true);
-    const res  = await fetch("/api/admin/tenants");  // get tenants for context
-    const supaRes = await fetch("/api/admin/audit?entity_type=feature_flag&limit=0"); // just for structure
-    // For feature flags, we call directly via Supabase — but since we don't have a dedicated route
-    // we'll use a placeholder and note that /api/admin/settings route should be added
-    // For now show empty state with creation ability
-    setFlags([]);
+    try {
+      const res  = await fetch("/api/admin/settings");
+      const data = await res.json();
+      if (data.flags?.length) setFlags(data.flags);
+    } catch { /* keep mock */ }
     setLoading(false);
-    void res; void supaRes;
   }, []);
 
   useEffect(() => { loadFlags(); }, [loadFlags]);

@@ -6,7 +6,7 @@ import AdminNav from "@/admin/AdminNav";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "160px 1fr", height: "100%", overflow: "hidden" }}>
+    <div style={{ display: "grid", gridTemplateColumns: "240px 1fr", height: "100%", overflow: "hidden" }}>
       <AdminNav />
       <main style={{ overflowY: "auto", background: "var(--bg)" }}>
         {children}
