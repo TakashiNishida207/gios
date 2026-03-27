@@ -2,9 +2,11 @@
 // GIOS Topbar — brand, breadcrumb, flow phase badge, clock, theme + lang toggles
 
 "use client";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { usePreferences } from "./preferences";
+import { getSupabaseBrowser } from "@/lib/supabase-browser";
+import { useAuthStore } from "@/store/auth";
 
 const PHASE_COLORS: Record<string, { color: string; bg: string; border: string; label: string }> = {
   "/":              { color: "var(--accent)",  bg: "var(--accent-dim)",  border: "rgba(200,184,154,0.2)",  label: "OVERVIEW"       },
@@ -44,9 +46,18 @@ function IconMoon() {
 
 export default function Topbar() {
   const pathname = usePathname();
+  const router   = useRouter();
   const phase    = PHASE_COLORS[pathname] ?? PHASE_COLORS["/"];
   const [time, setTime] = useState("");
   const { theme, lang, toggleTheme, toggleLang } = usePreferences();
+  const { user } = useAuthStore();
+
+  async function handleSignOut() {
+    const supabase = getSupabaseBrowser();
+    await supabase.auth.signOut();
+    router.push("/auth/login");
+    router.refresh();
+  }
 
   useEffect(() => {
     const tick = () =>
@@ -145,6 +156,24 @@ export default function Topbar() {
         >
           {theme === "dark" ? <IconSun /> : <IconMoon />}
         </button>
+
+        {user && (
+          <>
+            <div style={{ width: 1, height: 14, background: "var(--border)" }} />
+            {/* User email */}
+            <span style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--text-tertiary)", letterSpacing: "0.04em", maxWidth: 160, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              {user.email}
+            </span>
+            {/* Sign out */}
+            <button
+              onClick={handleSignOut}
+              title="Sign out"
+              style={{ ...btnBase, padding: "3px 8px", fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.06em" }}
+            >
+              OUT
+            </button>
+          </>
+        )}
       </div>
     </header>
   );

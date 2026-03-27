@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import Topbar from "@/ui/Topbar";
 import Sidebar from "@/ui/Sidebar";
 import { PreferencesProvider } from "@/ui/preferences";
+import AuthProvider from "@/ui/AuthProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,6 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ja" data-theme="dark">
       <body>
+        <AuthProvider>
         <PreferencesProvider>
           <div style={{
             display: "grid",
@@ -30,6 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <main style={{ overflow: "hidden", background: "var(--bg)" }}>{children}</main>
           </div>
         </PreferencesProvider>
+        </AuthProvider>
       </body>
     </html>
   );
