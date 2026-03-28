@@ -6,6 +6,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import type { AuthChangeEvent, Session } from "@supabase/supabase-js";
 import { getSupabaseBrowser } from "@/lib/supabase-browser";
 import { useAuthStore } from "@/store/auth";
 
@@ -16,12 +17,12 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 
   useEffect(() => {
     // 初期セッション取得
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session } }: { data: { session: Session | null } }) => {
       setAuth(session?.user ?? null, session);
     });
 
     // セッション変化を監視
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: AuthChangeEvent, session: Session | null) => {
       if (session) {
         setAuth(session.user, session);
       } else {

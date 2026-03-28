@@ -1,17 +1,17 @@
 // src/lib/supabase-browser.ts
-// Supabase browser-side client — クライアントコンポーネントからのみ使用する
+// ブラウザ用 Supabase クライアント — @supabase/ssr でセッションを cookie に保存
+// cookie ベースにすることで middleware がサーバーサイドでセッションを読める
 
-import { createClient } from "@supabase/supabase-js";
+import { createBrowserClient } from "@supabase/ssr";
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-
-// シングルトン — 複数インスタンス防止
-let client: ReturnType<typeof createClient> | null = null;
+let client: ReturnType<typeof createBrowserClient> | null = null;
 
 export function getSupabaseBrowser() {
   if (!client) {
-    client = createClient(url, key);
+    client = createBrowserClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    );
   }
   return client;
 }

@@ -43,8 +43,8 @@ export default function LoginPage() {
       if (authError) {
         setError(t("error_auth"));
       } else {
-        router.push("/");
-        router.refresh();
+        // cookie がブラウザに書き込まれてから middleware が読めるよう、フルリロードで遷移する
+        window.location.href = "/dashboard";
       }
     } catch {
       setError(t("error_net"));
