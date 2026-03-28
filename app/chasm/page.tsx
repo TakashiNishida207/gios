@@ -1,57 +1,51 @@
 // app/chasm/page.tsx
-// Chasm Breakthrough Phase Score Dashboard
-// 因果ループ: structured_chasm_evidence → chasm_engine → 可視化 → Action
+// Chasm Score Dashboard — GIOS_SCORE_ENGINE による純粋関数スコア計算
+// 因果ループ: ChasmEvidence → calculateChasmScore → 可視化 → Action
 
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { usePreferences } from "@/ui/preferences";
-import type { ChasmPhaseJudgment, ChasmEvidence } from "@/chasm/chasm_engine";
-
-// ─── 型 ───────────────────────────────────────────────────────────────────────
-
-type ScoreResult = ChasmPhaseJudgment & { ok: boolean };
+import {
+  calculateChasmScore,
+  type ChasmEvidence,
+  type ChasmScoreResult,
+} from "@/score/GIOS_SCORE_ENGINE";
 
 // ─── 定数 ─────────────────────────────────────────────────────────────────────
 
-const PHASE_COLORS: Record<string, { color: string; bg: string; border: string }> = {
-  "Breakthrough": { color: "var(--green)",  bg: "var(--green-dim)",  border: "rgba(122,170,128,0.25)" },
-  "Chasm":        { color: "var(--amber)",  bg: "var(--amber-dim)",  border: "rgba(181,150,100,0.25)" },
-  "Pre-Chasm":    { color: "var(--red)",    bg: "var(--red-dim)",    border: "rgba(181,110,110,0.25)" },
+const STATUS_STYLE = {
+  "Chasm Crossed": { color: "var(--green)",  bg: "var(--green-dim)",  border: "rgba(122,170,128,0.25)" },
+  "Not Crossed":   { color: "var(--red)",    bg: "var(--red-dim)",    border: "rgba(181,110,110,0.25)" },
 };
 
 const DEMO_SEGMENTS = ["Enterprise", "SMB", "Consumer"];
 
-/** Chasm スコアに応じた色 (0-1 スケール) */
-function scoreColor(score: number): string {
-  if (score >= 0.70) return "var(--green)";
-  if (score >= 0.55) return "var(--amber)";
+function scoreColor(total: number): string {
+  if (total >= 60) return "var(--green)";
+  if (total >= 40) return "var(--amber)";
   return "var(--red)";
 }
 
-// ─── デモ用デフォルトエビデンス ───────────────────────────────────────────────
+// ─── デフォルトエビデンス ──────────────────────────────────────────────────────
 
-function defaultEvidence(segment: string): ChasmEvidence {
+function defaultEvidence(): ChasmEvidence {
   return {
-    segment,
-    win_rate:                   0,
-    deal_velocity:              30,  // 30日 (default)
-    renewal_rate:               0,
-    multi_threading_score:      0,
-    reference_count:            0,
-    reference_strength:         0,
-    before_after_clarity:       0,
-    industry_reference_density: 0,
-    adjacent_segment_fit:       0,
-    adoption_barrier:           5,   // 中程度 (default)
-    price_sensitivity:          5,   // 中程度 (default)
-    expansion_success_rate:     0,
+    segmentShare:             0,
+    segmentPainIntensity:     0,
+    referenceability:         0,
+    winRate:                  0,
+    repeatablePatternCount:   0,
+    salesCycleConsistency:    0,
+    messageClarity:           0,
+    useCaseStandardization:   0,
   };
 }
 
 // ─── サブコンポーネント ────────────────────────────────────────────────────────
 
-function ScoreBar({ label, value, color }: { label: string; value: number; color: string }) {
+function ScoreBar({ label, value, max, color }: { label: string; value: number; max: number; color: string }) {
+  const pct = max > 0 ? (value / max) * 100 : 0;
   return (
     <div style={{ marginBottom: 12 }}>
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
@@ -59,70 +53,42 @@ function ScoreBar({ label, value, color }: { label: string; value: number; color
           {label}
         </span>
         <span style={{ fontFamily: "var(--mono)", fontSize: 10, color }}>
-          {Math.round(value * 100)}
+          {Math.round(value)}<span style={{ color: "var(--text-tertiary)", fontSize: 9 }}>/{max}</span>
         </span>
       </div>
       <div style={{ height: 4, background: "var(--bg3)", borderRadius: 2, overflow: "hidden" }}>
-        <div style={{ width: `${value * 100}%`, height: "100%", background: color, borderRadius: 2, transition: "width 0.6s ease" }} />
+        <div style={{ width: `${pct}%`, height: "100%", background: color, borderRadius: 2, transition: "width 0.6s ease" }} />
       </div>
     </div>
   );
 }
 
-// 0-1 フィールド用入力（スライダー付き）
-function EvidenceInput01({
-  label, field, value, onChange,
+function EvidenceInput({
+  label, field, value, max, step, unit, onChange,
 }: {
   label: string;
   field: keyof ChasmEvidence;
   value: number;
+  max: number;
+  step: number;
+  unit?: string;
   onChange: (field: keyof ChasmEvidence, v: number) => void;
 }) {
+  const pct = Math.min(value / max, 1) * 100;
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-      <label style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--text-tertiary)", width: 180, flexShrink: 0, textTransform: "uppercase", letterSpacing: "0.05em" }}>
-        {label}
+      <label style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--text-tertiary)", width: 200, flexShrink: 0, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+        {label}{unit && <span style={{ opacity: 0.6 }}> ({unit})</span>}
       </label>
       <input
-        type="number" min="0" max="1" step="0.01"
+        type="number" min={0} max={max} step={step}
         value={value}
         onChange={(e) => onChange(field, parseFloat(e.target.value) || 0)}
         style={{ width: 64, background: "var(--bg3)", border: "1px solid var(--border)", borderRadius: 4, padding: "3px 6px", color: "var(--text-primary)", fontFamily: "var(--mono)", fontSize: 10, outline: "none" }}
       />
       <div style={{ flex: 1, height: 2, background: "var(--bg3)", borderRadius: 1, overflow: "hidden" }}>
-        <div style={{ width: `${value * 100}%`, height: "100%", background: "var(--text-tertiary)", borderRadius: 1, transition: "width 0.3s" }} />
+        <div style={{ width: `${pct}%`, height: "100%", background: "var(--text-tertiary)", borderRadius: 1, transition: "width 0.3s" }} />
       </div>
-    </div>
-  );
-}
-
-// 正の数フィールド用入力（逆数フィールド: deal_velocity / adoption_barrier / price_sensitivity）
-function EvidenceInputPositive({
-  label, field, value, unit, onChange,
-}: {
-  label: string;
-  field: keyof ChasmEvidence;
-  value: number;
-  unit:  string;
-  onChange: (field: keyof ChasmEvidence, v: number) => void;
-}) {
-  return (
-    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-      <label style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--text-tertiary)", width: 180, flexShrink: 0, textTransform: "uppercase", letterSpacing: "0.05em" }}>
-        {label}
-      </label>
-      <input
-        type="number" min="0.1" step="0.1"
-        value={value}
-        onChange={(e) => onChange(field, parseFloat(e.target.value) || 1)}
-        style={{ width: 64, background: "var(--bg3)", border: "1px solid var(--border)", borderRadius: 4, padding: "3px 6px", color: "var(--text-primary)", fontFamily: "var(--mono)", fontSize: 10, outline: "none" }}
-      />
-      <span style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--text-tertiary)", flexShrink: 0 }}>
-        {unit}
-      </span>
-      <span style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--teal)", flexShrink: 0 }}>
-        → {(1 / (value > 0 ? value : 1)).toFixed(3)}
-      </span>
     </div>
   );
 }
@@ -133,43 +99,52 @@ export default function ChasmScreen() {
   const { lang } = usePreferences();
 
   const [segment,  setSegment]  = useState(DEMO_SEGMENTS[0]);
-  const [evidence, setEvidence] = useState<ChasmEvidence>(() => defaultEvidence(DEMO_SEGMENTS[0]));
-  const [result,   setResult]   = useState<ScoreResult | null>(null);
-  const [loading,  setLoading]  = useState(false);
-
-  useEffect(() => {
-    setEvidence(defaultEvidence(segment));
-    setResult(null);
-  }, [segment]);
+  const [evidence, setEvidence] = useState<ChasmEvidence>(defaultEvidence);
+  const [result,   setResult]   = useState<ChasmScoreResult | null>(null);
 
   const handleChange = useCallback(
     (field: keyof ChasmEvidence, value: number) => {
       setEvidence((prev) => ({ ...prev, [field]: value }));
     },
-    []
+    [],
   );
 
-  const handleCalculate = async () => {
-    setLoading(true);
-    try {
-      const res  = await fetch("/api/chasm/score", {
-        method:  "POST",
-        headers: { "Content-Type": "application/json" },
-        body:    JSON.stringify(evidence),
-      });
-      const data = await res.json() as ScoreResult;
-      setResult(data);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setLoading(false);
-    }
+  const handleSegmentChange = (s: string) => {
+    setSegment(s);
+    setEvidence(defaultEvidence());
+    setResult(null);
   };
 
-  const phase       = result?.phase ?? "Pre-Chasm";
-  const phaseStyle  = PHASE_COLORS[phase] ?? PHASE_COLORS["Pre-Chasm"];
-  const chasmScore  = result?.scores.chasm_score ?? 0;
-  const gaugeColor  = scoreColor(chasmScore);
+  // 純粋関数を直接呼ぶ — API 不要
+  const handleCalculate = () => setResult(calculateChasmScore(evidence));
+
+  const total       = result?.total ?? 0;
+  const gaugeColor  = scoreColor(total);
+  const status      = result?.status ?? "Not Crossed";
+  const statusStyle = STATUS_STYLE[status];
+
+  type F = { label: string; field: keyof ChasmEvidence; max: number; step: number; unit?: string };
+
+  const FIELDS: F[] = [
+    // Segment Dominance (40点)
+    { label: lang === "ja" ? "セグメントシェア"        : "Segment Share",            field: "segmentShare",           max: 1,  step: 0.01, unit: "0–1"  },
+    { label: lang === "ja" ? "セグメント痛みの強度"    : "Segment Pain Intensity",   field: "segmentPainIntensity",   max: 10, step: 0.1,  unit: "0–10" },
+    { label: lang === "ja" ? "リファレンサビリティ"    : "Referenceability",         field: "referenceability",       max: 10, step: 0.1,  unit: "0–10" },
+    // Sales Repeatability (40点)
+    { label: lang === "ja" ? "商談勝率"                : "Win Rate",                 field: "winRate",                max: 1,  step: 0.01, unit: "0–1"  },
+    { label: lang === "ja" ? "再現可能パターン数"      : "Repeatable Pattern Count", field: "repeatablePatternCount", max: 10, step: 1,    unit: "件"   },
+    { label: lang === "ja" ? "営業サイクル一貫性"      : "Sales Cycle Consistency",  field: "salesCycleConsistency",  max: 10, step: 0.1,  unit: "0–10" },
+    // Whole Product (20点)
+    { label: lang === "ja" ? "メッセージ明確度"        : "Message Clarity",          field: "messageClarity",         max: 10, step: 0.1,  unit: "0–10" },
+    { label: lang === "ja" ? "ユースケース標準化"      : "Use Case Standardization", field: "useCaseStandardization", max: 10, step: 0.1,  unit: "0–10" },
+  ];
+
+  const sectionStyle = { background: "var(--bg2)", border: "1px solid var(--border)", borderRadius: 10, padding: "14px 18px", marginBottom: 12 };
+  const sectionLabel = (text: string, color: string) => (
+    <p style={{ fontFamily: "var(--mono)", fontSize: 8, color, textTransform: "uppercase" as const, letterSpacing: "0.1em", marginBottom: 8 }}>
+      {text}
+    </p>
+  );
 
   return (
     <div style={{ overflowY: "auto", height: "100%" }}>
@@ -187,19 +162,17 @@ export default function ChasmScreen() {
               </h1>
               <p style={{ fontSize: 12, color: "var(--text-secondary)" }}>
                 {lang === "ja"
-                  ? "支配・リファレンス・拡張の3次元でキャズム突破を測定する"
-                  : "Measure Chasm Breakthrough across dominance, reference, and expansion dimensions"}
+                  ? "セグメント支配・営業再現性・ホールプロダクトの3次元でキャズム突破を測定する"
+                  : "Measure Chasm Breakthrough across segment dominance, sales repeatability, and whole product"}
               </p>
             </div>
-
-            {/* Segment selector */}
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <span style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--text-tertiary)", letterSpacing: "0.06em", textTransform: "uppercase" }}>
                 {lang === "ja" ? "セグメント" : "Segment"}
               </span>
               <select
                 value={segment}
-                onChange={(e) => setSegment(e.target.value)}
+                onChange={(e) => handleSegmentChange(e.target.value)}
                 style={{ background: "var(--bg2)", border: "1px solid var(--border)", borderRadius: 5, padding: "5px 10px", color: "var(--text-primary)", fontFamily: "var(--mono)", fontSize: 11, cursor: "pointer", outline: "none" }}
               >
                 {DEMO_SEGMENTS.map((s) => <option key={s} value={s}>{s}</option>)}
@@ -217,93 +190,57 @@ export default function ChasmScreen() {
               {lang === "ja" ? "エビデンス入力" : "Evidence Input"}
             </p>
 
-            {/* Dominance section */}
-            <div style={{ background: "var(--bg2)", border: "1px solid var(--border)", borderRadius: 10, padding: "16px 20px", marginBottom: 12 }}>
-              <p style={{ fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.1em", color: "var(--teal)", textTransform: "uppercase", marginBottom: 12 }}>
-                {lang === "ja" ? "支配次元" : "Dominance"}
-              </p>
-              <EvidenceInput01      label={lang === "ja" ? "商談勝率"           : "Win Rate"}              field="win_rate"              value={evidence.win_rate}              onChange={handleChange} />
-              <EvidenceInputPositive label={lang === "ja" ? "成約速度（日）"    : "Deal Velocity (days)"} field="deal_velocity"         value={evidence.deal_velocity}         unit="days"  onChange={handleChange} />
-              <EvidenceInput01      label={lang === "ja" ? "更新率"             : "Renewal Rate"}          field="renewal_rate"          value={evidence.renewal_rate}          onChange={handleChange} />
-              <EvidenceInput01      label={lang === "ja" ? "マルチスレッディング" : "Multi-threading"}       field="multi_threading_score" value={evidence.multi_threading_score} onChange={handleChange} />
+            {sectionLabel(lang === "ja" ? "セグメント支配 (40点)" : "Segment Dominance (40pts)", "var(--teal)")}
+            <div style={sectionStyle}>
+              {FIELDS.slice(0, 3).map((f) => <EvidenceInput key={f.field} {...f} value={evidence[f.field]} onChange={handleChange} />)}
             </div>
 
-            {/* Reference section */}
-            <div style={{ background: "var(--bg2)", border: "1px solid var(--border)", borderRadius: 10, padding: "16px 20px", marginBottom: 12 }}>
-              <p style={{ fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.1em", color: "var(--purple)", textTransform: "uppercase", marginBottom: 12 }}>
-                {lang === "ja" ? "リファレンス次元" : "Reference"}
-              </p>
-              <EvidenceInput01 label={lang === "ja" ? "リファレンス数"       : "Reference Count"}       field="reference_count"            value={evidence.reference_count}            onChange={handleChange} />
-              <EvidenceInput01 label={lang === "ja" ? "リファレンス強度"     : "Reference Strength"}    field="reference_strength"         value={evidence.reference_strength}         onChange={handleChange} />
-              <EvidenceInput01 label={lang === "ja" ? "Before/After 明確度"  : "Before/After Clarity"}  field="before_after_clarity"       value={evidence.before_after_clarity}       onChange={handleChange} />
-              <EvidenceInput01 label={lang === "ja" ? "業界導入密度"         : "Industry Ref. Density"} field="industry_reference_density" value={evidence.industry_reference_density} onChange={handleChange} />
+            {sectionLabel(lang === "ja" ? "営業再現性 (40点)" : "Sales Repeatability (40pts)", "var(--purple)")}
+            <div style={sectionStyle}>
+              {FIELDS.slice(3, 6).map((f) => <EvidenceInput key={f.field} {...f} value={evidence[f.field]} onChange={handleChange} />)}
             </div>
 
-            {/* Expansion section */}
-            <div style={{ background: "var(--bg2)", border: "1px solid var(--border)", borderRadius: 10, padding: "16px 20px", marginBottom: 16 }}>
-              <p style={{ fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.1em", color: "var(--green)", textTransform: "uppercase", marginBottom: 12 }}>
-                {lang === "ja" ? "拡張次元" : "Expansion"}
-              </p>
-              <EvidenceInput01       label={lang === "ja" ? "隣接セグメント適合度" : "Adjacent Segment Fit"} field="adjacent_segment_fit"    value={evidence.adjacent_segment_fit}    onChange={handleChange} />
-              <EvidenceInputPositive label={lang === "ja" ? "導入障壁"            : "Adoption Barrier"}     field="adoption_barrier"       value={evidence.adoption_barrier}       unit="1-10" onChange={handleChange} />
-              <EvidenceInputPositive label={lang === "ja" ? "価格感度"            : "Price Sensitivity"}    field="price_sensitivity"      value={evidence.price_sensitivity}      unit="1-10" onChange={handleChange} />
-              <EvidenceInput01       label={lang === "ja" ? "拡張成功率"          : "Expansion Success"}    field="expansion_success_rate" value={evidence.expansion_success_rate} onChange={handleChange} />
+            {sectionLabel(lang === "ja" ? "ホールプロダクト (20点)" : "Whole Product (20pts)", "var(--amber)")}
+            <div style={{ ...sectionStyle, marginBottom: 16 }}>
+              {FIELDS.slice(6).map((f) => <EvidenceInput key={f.field} {...f} value={evidence[f.field]} onChange={handleChange} />)}
             </div>
 
             <button
               onClick={handleCalculate}
-              disabled={loading}
-              style={{ padding: "8px 20px", background: "var(--amber)", border: "none", borderRadius: 6, color: "var(--bg)", fontFamily: "var(--mono)", fontSize: 11, fontWeight: 500, cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.5 : 1, letterSpacing: "0.04em", transition: "opacity 0.15s" }}
+              style={{ padding: "8px 20px", background: "var(--amber)", border: "none", borderRadius: 6, color: "var(--bg)", fontFamily: "var(--mono)", fontSize: 11, fontWeight: 500, cursor: "pointer", letterSpacing: "0.04em" }}
             >
-              {loading ? "…" : lang === "ja" ? "スコア計算" : "Calculate Score"}
+              {lang === "ja" ? "スコア計算" : "Calculate Score"}
             </button>
           </div>
 
           {/* Right: score panel */}
           <div style={{ position: "sticky", top: 0 }}>
 
-            {/* Chasm Score Gauge */}
+            {/* Gauge */}
             <div style={{ background: "var(--bg2)", border: "1px solid var(--border)", borderRadius: 10, padding: "20px", marginBottom: 12, position: "relative", overflow: "hidden" }}>
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: gaugeColor }} />
-
-              <p style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>
-                Chasm Score
-              </p>
-
-              {/* Large score number — chasm_score は 0-1、表示時に × 100 */}
+              <p style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>Chasm Score</p>
               <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginBottom: 14 }}>
-                <span style={{ fontFamily: "var(--mono)", fontSize: 48, fontWeight: 300, color: gaugeColor, lineHeight: 1 }}>
-                  {Math.round(chasmScore * 100)}
-                </span>
+                <span style={{ fontFamily: "var(--mono)", fontSize: 48, fontWeight: 300, color: gaugeColor, lineHeight: 1 }}>{Math.round(total)}</span>
                 <span style={{ fontFamily: "var(--mono)", fontSize: 14, color: "var(--text-tertiary)" }}>/ 100</span>
               </div>
-
-              {/* Gauge bar */}
-              <div style={{ height: 6, background: "var(--bg3)", borderRadius: 3, overflow: "hidden", marginBottom: 14 }}>
-                <div style={{ width: `${chasmScore * 100}%`, height: "100%", borderRadius: 3, background: gaugeColor, transition: "width 0.8s ease" }} />
+              <div style={{ height: 6, background: "var(--bg3)", borderRadius: 3, overflow: "hidden", marginBottom: 6 }}>
+                <div style={{ width: `${total}%`, height: "100%", borderRadius: 3, background: gaugeColor, transition: "width 0.8s ease" }} />
               </div>
-
-              {/* Threshold markers: Pre-Chasm / Chasm (55%) / Breakthrough (70%) */}
-              <div style={{ position: "relative", height: 10, marginBottom: 6 }}>
-                {[55, 70].map((threshold) => (
-                  <div key={threshold} style={{ position: "absolute", left: `${threshold}%`, top: 0, width: 1, height: 10, background: "var(--border)" }} />
-                ))}
-              </div>
-              <div style={{ display: "flex", fontFamily: "var(--mono)", fontSize: 8, color: "var(--text-tertiary)", position: "relative" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", fontFamily: "var(--mono)", fontSize: 8, color: "var(--text-tertiary)" }}>
                 <span>0</span>
-                <span style={{ position: "absolute", left: "calc(55% + 2px)" }}>55</span>
-                <span style={{ position: "absolute", left: "calc(70% + 2px)" }}>70</span>
-                <span style={{ marginLeft: "auto" }}>100</span>
+                <span style={{ color: "var(--amber)", opacity: 0.7 }}>60 threshold</span>
+                <span>100</span>
               </div>
             </div>
 
-            {/* Phase badge */}
-            <div style={{ background: phaseStyle.bg, border: `1px solid ${phaseStyle.border}`, borderRadius: 8, padding: "12px 16px", marginBottom: 12, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            {/* Status */}
+            <div style={{ background: statusStyle.bg, border: `1px solid ${statusStyle.border}`, borderRadius: 8, padding: "12px 16px", marginBottom: 12, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <span style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-                {lang === "ja" ? "フェーズ" : "Phase"}
+                {lang === "ja" ? "ステータス" : "Status"}
               </span>
-              <span style={{ fontFamily: "var(--mono)", fontSize: 14, fontWeight: 500, color: phaseStyle.color, letterSpacing: "0.04em" }}>
-                {phase}
+              <span style={{ fontFamily: "var(--mono)", fontSize: 13, fontWeight: 500, color: statusStyle.color, letterSpacing: "0.04em" }}>
+                {status}
               </span>
             </div>
 
@@ -313,21 +250,9 @@ export default function ChasmScreen() {
                 <p style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 14 }}>
                   {lang === "ja" ? "次元スコア" : "Dimension Scores"}
                 </p>
-                <ScoreBar
-                  label={lang === "ja" ? "支配 (Dominance)" : "Dominance"}
-                  value={result.scores.dominance_score}
-                  color="var(--teal)"
-                />
-                <ScoreBar
-                  label={lang === "ja" ? "リファレンス (Reference)" : "Reference"}
-                  value={result.scores.reference_score}
-                  color="var(--purple)"
-                />
-                <ScoreBar
-                  label={lang === "ja" ? "拡張 (Expansion)" : "Expansion"}
-                  value={result.scores.expansion_score}
-                  color="var(--green)"
-                />
+                <ScoreBar label={lang === "ja" ? "セグメント支配"  : "Segment Dominance"}    value={result.segmentDominanceScore}   max={40} color="var(--teal)"   />
+                <ScoreBar label={lang === "ja" ? "営業再現性"      : "Sales Repeatability"}  value={result.salesRepeatabilityScore} max={40} color="var(--purple)" />
+                <ScoreBar label={lang === "ja" ? "ホールプロダクト" : "Whole Product"}        value={result.wholeProductScore}       max={20} color="var(--amber)"  />
               </div>
             ) : (
               <div style={{ background: "var(--bg2)", border: "1px solid var(--border)", borderRadius: 10, padding: "16px" }}>
