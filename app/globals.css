@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -17,7 +17,7 @@
   --green: #7aaa80; --green-dim: rgba(122,170,128,0.1);
   --red: #b56e6e; --red-dim: rgba(181,110,110,0.1);
   --blue: #3a7afe; --blue-dim: rgba(58,122,254,0.12);
-  --mono: 'DM Mono', monospace; --serif: 'Instrument Serif', serif; --sans: 'DM Sans', sans-serif;
+  --mono: 'DM Mono', 'Noto Sans JP', monospace; --serif: 'Instrument Serif', 'Noto Sans JP', serif; --sans: 'DM Sans', 'Noto Sans JP', sans-serif;
 }
 
 /* Light mode overrides */
