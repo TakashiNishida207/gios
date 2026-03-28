@@ -47,7 +47,7 @@ export default function ActionScreen() {
           </p>
           <h1
             style={{
-              fontFamily: "var(--serif)",
+              fontFamily: "var(--sans)",
               fontSize: 26,
               fontWeight: 400,
               color: "var(--text-primary)",
@@ -101,7 +101,7 @@ export default function ActionScreen() {
             {chosenOption ? (
               <p
                 style={{
-                  fontFamily: "var(--serif)",
+                  fontFamily: "var(--sans)",
                   fontSize: 18,
                   color: "var(--accent)",
                   lineHeight: 1.5,

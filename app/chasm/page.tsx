@@ -182,7 +182,7 @@ export default function ChasmScreen() {
           </p>
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between" }}>
             <div>
-              <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 400, color: "var(--text-primary)", marginBottom: 4 }}>
+              <h1 style={{ fontFamily: "var(--sans)", fontSize: 26, fontWeight: 400, color: "var(--text-primary)", marginBottom: 4 }}>
                 {lang === "ja" ? "Chasmスコア" : "Chasm Score"}
               </h1>
               <p style={{ fontSize: 12, color: "var(--text-secondary)" }}>

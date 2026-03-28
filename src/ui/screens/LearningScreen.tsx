@@ -55,7 +55,7 @@ export default function LearningScreen() {
           </p>
           <h1
             style={{
-              fontFamily: "var(--serif)",
+              fontFamily: "var(--sans)",
               fontSize: 26,
               fontWeight: 400,
               color: "var(--text-primary)",
@@ -109,7 +109,7 @@ export default function LearningScreen() {
             {mainLearning ? (
               <p
                 style={{
-                  fontFamily: "var(--serif)",
+                  fontFamily: "var(--sans)",
                   fontSize: 16,
                   color: "var(--text-primary)",
                   lineHeight: 1.8,

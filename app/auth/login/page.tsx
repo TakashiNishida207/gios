@@ -58,7 +58,7 @@ export default function LoginPage() {
       {/* ロゴ */}
       <div style={{ marginBottom: 40, textAlign: "center" }}>
         <div style={{
-          fontFamily: "var(--serif)",
+          fontFamily: "var(--sans)",
           fontSize: 28,
           color: "var(--text-primary)",
           letterSpacing: "0.04em",

@@ -116,7 +116,7 @@ export default function InsightScreen() {
           </p>
           <h1
             style={{
-              fontFamily: "var(--serif)",
+              fontFamily: "var(--sans)",
               fontSize: 26,
               fontWeight: 400,
               color: "var(--text-primary)",

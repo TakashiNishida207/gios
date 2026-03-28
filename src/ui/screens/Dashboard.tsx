@@ -105,7 +105,7 @@ export default function Dashboard() {
             </p>
             <h1
               style={{
-                fontFamily: "var(--serif)",
+                fontFamily: "var(--sans)",
                 fontSize: 26,
                 fontWeight: 400,
                 color: "var(--text-primary)",
@@ -254,7 +254,7 @@ export default function Dashboard() {
                 >
                   <div
                     style={{
-                      fontFamily: "var(--serif)",
+                      fontFamily: "var(--sans)",
                       fontSize: 15,
                       color: "var(--text-primary)",
                     }}
