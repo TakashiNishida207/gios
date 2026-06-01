@@ -74,7 +74,8 @@ export function PhaseNavigator({ currentRoleId, onClose }: Props) {
         onClick={onClose}
       >
         <div
-          style={{ background: '#fff', borderRadius: 16, boxShadow: '0 25px 50px rgba(0,0,0,0.25)', width: '100%', maxWidth: 448, padding: 24, display: 'flex', flexDirection: 'column', gap: 20 }}
+          className="bg-white"
+          style={{ borderRadius: 16, boxShadow: '0 25px 50px rgba(0,0,0,0.25)', width: '100%', maxWidth: 448, padding: 24, display: 'flex', flexDirection: 'column', gap: 20 }}
           onClick={e => e.stopPropagation()}
         >
           {/* ヘッダー */}

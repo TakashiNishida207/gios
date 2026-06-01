@@ -31,7 +31,7 @@ function ActionDescPopup({
       onClick={onClose}
     >
       <div
-        style={{ background: '#fff', borderRadius: 12, boxShadow: '0 25px 50px rgba(0,0,0,0.25)', width: '100%', maxWidth: 384, padding: 20 }}
+        className="bg-white" style={{ borderRadius: 12, boxShadow: '0 25px 50px rgba(0,0,0,0.25)', width: '100%', maxWidth: 384, padding: 20 }}
         onClick={e => e.stopPropagation()}
       >
         {/* タイトル */}
