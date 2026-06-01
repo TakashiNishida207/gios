@@ -49,3 +49,80 @@ html, body { height: 100%; background: var(--bg); color: var(--text-primary); fo
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 2px; }
+
+/* ============================================================
+   PowerMeet ダークテーマ上書き
+   data-pm-theme="dark" 配下の Tailwind グレー系クラスを
+   GIOS の CSS 変数に差し替える
+   ============================================================ */
+[data-pm-theme="dark"] {
+  background-color: var(--bg);
+  color: var(--text-primary);
+}
+/* 背景 */
+[data-pm-theme="dark"] .bg-white          { background-color: var(--bg2) !important; }
+[data-pm-theme="dark"] .bg-gray-50        { background-color: var(--bg)  !important; }
+[data-pm-theme="dark"] .bg-gray-100       { background-color: var(--bg3) !important; }
+[data-pm-theme="dark"] .bg-gray-200       { background-color: var(--bg4) !important; }
+[data-pm-theme="dark"] .hover\:bg-gray-50:hover  { background-color: var(--bg3) !important; }
+[data-pm-theme="dark"] .hover\:bg-gray-100:hover { background-color: var(--bg3) !important; }
+
+/* テキスト */
+[data-pm-theme="dark"] .text-gray-900     { color: var(--text-primary)   !important; }
+[data-pm-theme="dark"] .text-gray-800     { color: var(--text-primary)   !important; }
+[data-pm-theme="dark"] .text-gray-700     { color: var(--text-secondary) !important; }
+[data-pm-theme="dark"] .text-gray-600     { color: var(--text-secondary) !important; }
+[data-pm-theme="dark"] .text-gray-500     { color: var(--text-tertiary)  !important; }
+[data-pm-theme="dark"] .text-gray-400     { color: var(--text-tertiary)  !important; }
+[data-pm-theme="dark"] .text-gray-300     { color: var(--bg4)            !important; }
+[data-pm-theme="dark"] .text-gray-200     { color: var(--bg4)            !important; }
+[data-pm-theme="dark"] .hover\:text-gray-700:hover { color: var(--text-secondary) !important; }
+[data-pm-theme="dark"] .hover\:text-gray-900:hover { color: var(--text-primary)   !important; }
+
+/* ボーダー */
+[data-pm-theme="dark"] .border-gray-200   { border-color: var(--border)       !important; }
+[data-pm-theme="dark"] .border-gray-100   { border-color: var(--border)       !important; }
+[data-pm-theme="dark"] .divide-gray-200 > * + * { border-color: var(--border) !important; }
+
+/* アクセントカラー (青) */
+[data-pm-theme="dark"] .bg-blue-50        { background-color: var(--blue-dim)  !important; }
+[data-pm-theme="dark"] .bg-blue-600       { background-color: var(--blue)      !important; }
+[data-pm-theme="dark"] .text-blue-600     { color: var(--blue)                 !important; }
+[data-pm-theme="dark"] .border-blue-600   { border-color: var(--blue)          !important; }
+[data-pm-theme="dark"] .hover\:bg-blue-100:hover { background-color: var(--blue-dim) !important; }
+
+/* アンバー */
+[data-pm-theme="dark"] .bg-amber-50       { background-color: var(--amber-dim) !important; }
+[data-pm-theme="dark"] .text-amber-600    { color: var(--amber)                !important; }
+[data-pm-theme="dark"] .border-amber-200  { border-color: var(--amber-dim)     !important; }
+
+/* グリーン */
+[data-pm-theme="dark"] .bg-green-50       { background-color: var(--green-dim) !important; }
+[data-pm-theme="dark"] .text-green-600    { color: var(--green)                !important; }
+[data-pm-theme="dark"] .bg-green-500      { background-color: var(--green)     !important; }
+
+/* レッド */
+[data-pm-theme="dark"] .bg-red-50         { background-color: var(--red-dim)   !important; }
+[data-pm-theme="dark"] .text-red-600      { color: var(--red)                  !important; }
+[data-pm-theme="dark"] .border-red-200    { border-color: var(--red-dim)       !important; }
+
+/* バイオレット（バッジ等） */
+[data-pm-theme="dark"] .bg-violet-50      { background-color: var(--purple-dim) !important; }
+[data-pm-theme="dark"] .text-violet-600   { color: var(--purple)               !important; }
+
+/* ティール */
+[data-pm-theme="dark"] .bg-teal-50        { background-color: var(--teal-dim)  !important; }
+[data-pm-theme="dark"] .text-teal-600     { color: var(--teal)                 !important; }
+
+/* select / input 要素 */
+[data-pm-theme="dark"] select,
+[data-pm-theme="dark"] input,
+[data-pm-theme="dark"] textarea {
+  background-color: var(--bg2)         !important;
+  color:            var(--text-primary) !important;
+  border-color:     var(--border)       !important;
+}
+[data-pm-theme="dark"] option {
+  background-color: var(--bg2);
+  color:            var(--text-primary);
+}
