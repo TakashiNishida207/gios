@@ -168,13 +168,13 @@ export default function PowerMeetApp() {
     autoCheckResult?.readyForAuto === true
 
   return (
-    <div className="pm-root flex flex-col h-full bg-gray-50 overflow-hidden" data-pm-theme={theme}>
+    <div className="pm-root flex flex-col h-full w-full bg-gray-50 overflow-hidden" data-pm-theme={theme}>
 
       {/* コントロールバー: フェーズバー(左) + UCセレクター・ロール・権限(右) */}
-      <div className="bg-white border-b border-gray-200 shrink-0 px-3 py-1.5 flex items-center gap-2">
+      <div className="bg-white border-b border-gray-200 shrink-0 px-3 py-1.5 flex flex-nowrap items-center gap-2 min-w-0 w-full">
 
         {/* フェーズバー (flex-1 で残りを埋める) */}
-        <div className="flex items-center gap-0 overflow-x-auto scrollbar-none select-none flex-1 min-w-0">
+        <div className="flex flex-nowrap items-center gap-0 overflow-x-auto scrollbar-none select-none flex-1 min-w-0">
           {PHASE_ORDER.map((phase, idx) => {
             const phaseIdx   = PHASE_ORDER.indexOf(phase)
             const currentIdx = PHASE_ORDER.indexOf(currentPhase)
@@ -184,18 +184,18 @@ export default function PowerMeetApp() {
             return (
               <Fragment key={phase}>
                 {idx > 0 && (
-                  <span className="text-gray-200 text-[10px] px-0.5 shrink-0 leading-none">›</span>
+                  <span className="text-gray-200 text-[10px] px-0.5 shrink-0 leading-none whitespace-nowrap">›</span>
                 )}
                 {isCurrent ? (
                   <button
                     onClick={() => { setShowPhaseNav(true); setAutoToastDismissed(false) }}
-                    className="text-[11px] font-semibold bg-blue-50 text-blue-600 px-2 py-0.5 rounded hover:bg-blue-100 transition-colors shrink-0 leading-tight"
+                    className="text-[11px] font-semibold bg-blue-50 text-blue-600 px-2 py-0.5 rounded hover:bg-blue-100 transition-colors shrink-0 leading-tight whitespace-nowrap"
                     title={lang === 'ja' ? 'フェーズナビゲータを開く' : 'Open Phase Navigator'}
                   >
                     {phaseLabel}
                   </button>
                 ) : (
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded shrink-0 leading-tight ${isPast ? 'text-gray-400' : 'text-gray-300'}`}>
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded shrink-0 leading-tight whitespace-nowrap ${isPast ? 'text-gray-400' : 'text-gray-300'}`}>
                     {phaseLabel}
                   </span>
                 )}
@@ -205,9 +205,9 @@ export default function PowerMeetApp() {
         </div>
 
         {/* 右端: ロール + UCセレクター + 権限ボタン */}
-        <span className="text-xs text-gray-500 shrink-0">{currentRole.name}</span>
+        <span className="text-xs text-gray-500 shrink-0 whitespace-nowrap">{currentRole.name}</span>
 
-        {/* ① UCセレクター（右上に復活） */}
+        {/* ① UCセレクター */}
         <select
           value={activeBundleId}
           onChange={e => {
@@ -216,7 +216,7 @@ export default function PowerMeetApp() {
             setAutoToastDismissed(false)
             setShowPhaseNav(false)
           }}
-          className="text-xs border border-gray-200 rounded px-2 py-1 text-gray-600 bg-white hover:bg-gray-50 cursor-pointer shrink-0 max-w-[200px]"
+          className="text-xs border border-gray-200 rounded px-2 py-1 text-gray-600 bg-white hover:bg-gray-50 cursor-pointer shrink-0 max-w-[220px]"
           title="ミーティングを切り替え"
         >
           {(Object.entries(BUNDLES) as [BundleId, { label: string }][]).map(([id, b]) => (
@@ -226,7 +226,7 @@ export default function PowerMeetApp() {
 
         <button
           onClick={() => setShowPermissions(true)}
-          className="text-xs px-2 py-1 rounded border border-gray-200 text-gray-500 hover:bg-gray-50 shrink-0"
+          className="text-xs px-2 py-1 rounded border border-gray-200 text-gray-500 hover:bg-gray-50 shrink-0 whitespace-nowrap"
           title="権限マトリクスを表示"
         >
           🔐 権限
@@ -263,7 +263,7 @@ export default function PowerMeetApp() {
       )}
 
       {/* タブナビゲーション */}
-      <nav className="bg-white border-b border-gray-200 shrink-0 px-4 flex gap-1">
+      <nav className="bg-white border-b border-gray-200 shrink-0 px-4 flex flex-nowrap gap-1 overflow-x-auto scrollbar-none w-full">
         {TABS.map(tab => {
           const isMain = mainTabs.includes(tab.id)
           const tabLabel = lang === 'ja' ? tab.ja : tab.en
