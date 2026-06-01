@@ -322,7 +322,7 @@ export default function PowerMeetApp() {
       <AttendeePanel />
 
       {/* コンテンツ */}
-      <main className="flex-1 overflow-hidden">
+      <main style={{ flex: 1, overflow: 'hidden', minHeight: 0 }}>
         {activeTab === 'canvas' && (
           <DiscussionCanvas
             agendaItems={agendaItems}
