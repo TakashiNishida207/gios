@@ -56,8 +56,15 @@ html, body { height: 100%; background: var(--bg); color: var(--text-primary); fo
    GIOS の CSS 変数に差し替える
    ============================================================ */
 [data-pm-theme="dark"] {
+  --pm-bg: var(--bg);
+  --pm-ctrl-bg: var(--bg2);
   background-color: var(--bg);
   color: var(--text-primary);
+}
+[data-pm-theme="light"],
+:not([data-pm-theme]) {
+  --pm-bg: #f9fafb;
+  --pm-ctrl-bg: #ffffff;
 }
 /* 背景 */
 [data-pm-theme="dark"] .bg-white          { background-color: var(--bg2) !important; }

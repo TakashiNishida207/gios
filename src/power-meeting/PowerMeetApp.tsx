@@ -168,7 +168,15 @@ export default function PowerMeetApp() {
     autoCheckResult?.readyForAuto === true
 
   return (
-    <div className="pm-root flex flex-col w-full bg-gray-50 overflow-hidden" style={{ flex: 1, minHeight: 0 }} data-pm-theme={theme}>
+    <div
+      className="pm-root"
+      style={{
+        display: 'flex', flexDirection: 'column', justifyContent: 'flex-start',
+        flex: 1, minHeight: 0, width: '100%', overflow: 'hidden',
+        background: 'var(--pm-bg, #f9fafb)',
+      }}
+      data-pm-theme={theme}
+    >
 
       {/* コントロールバー: フェーズバー(左) + UCセレクター・ロール・権限(右) */}
       <div style={{
