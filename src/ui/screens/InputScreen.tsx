@@ -1,12 +1,12 @@
 // src/ui/screens/InputScreen.tsx
 // Input Screen — 現実世界の事実（顧客・実験・会議）を入力する
 // EN: Input | JP: インプット
-// 因果ループ: このフェーズのデータが Notion → GIOS 正同期の起点となる
+// 因果ループ: このフェーズのデータが Notion → GDIOS 正同期の起点となる
 
 "use client";
 
-import { useState } from "react";
-import { useGIOSStore } from "@/store";
+import { useState, useEffect, useRef } from "react";
+import { useGDIOSStore } from "@/store";
 import { usePreferences } from "@/ui/preferences";
 
 
@@ -70,8 +70,8 @@ const inputStyle: React.CSSProperties = {
 };
 
 export default function InputScreen() {
-  const setFlow = useGIOSStore((s) => s.setFlow);
-  const input   = useGIOSStore((s) => s.flow.Input);
+  const setFlow = useGDIOSStore((s) => s.setFlow);
+  const input   = useGDIOSStore((s) => s.flow.Input);
   const { lang } = usePreferences();
 
   const [form, setForm] = useState<Record<string, string>>(
@@ -80,6 +80,18 @@ export default function InputScreen() {
   );
   const [saved, setSaved]       = useState(false);
   const [focusedField, setFocus] = useState<string | null>(null);
+
+  // Notion同期・シナリオ切り替え時にストアの変更をフォームへ反映する
+  // useRef で前回の input 参照を保持し、外部からの変更のみ適用する
+  const prevInputRef = useRef(input);
+  useEffect(() => {
+    if (input !== prevInputRef.current) {
+      prevInputRef.current = input;
+      setForm(
+        Object.fromEntries(ALL_FIELDS.map((f) => [f.canonical, String(input[f.canonical] ?? "")]))
+      );
+    }
+  }, [input]);
 
   const handleChange = (canonical: string, value: string) => {
     setForm((prev) => ({ ...prev, [canonical]: value }));
