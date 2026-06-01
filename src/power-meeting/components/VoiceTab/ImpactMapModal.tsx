@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useImpactStore } from '../../stores/impactStore'
 import { useGrowthStore } from '../../stores/growthStore'
 import { useDecisionStore } from '../../stores/decisionStore'
@@ -74,6 +74,7 @@ export function ImpactMapModal({ voiceId, voiceText, onClose }: Props) {
 
   const [loading, setLoading] = useState(false)
   const [error, setError]     = useState<string | null>(null)
+  const autoRan = useRef(false)   // 自動実行を1回のみに制限
 
   const allIntelligence = getByVoiceId(voiceId)
 
@@ -118,6 +119,15 @@ export function ImpactMapModal({ voiceId, voiceText, onClose }: Props) {
       setLoading(false)
     }
   }
+
+  // モーダルを開いた時、分析データがなければ自動実行（1回のみ）
+  useEffect(() => {
+    if (!autoRan.current && allIntelligence.length === 0) {
+      autoRan.current = true
+      handleAnalyze()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div
