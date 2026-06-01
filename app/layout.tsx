@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}>
             <Topbar />
             <Sidebar />
-            <main style={{ overflow: "hidden", background: "var(--bg)" }}>{children}</main>
+            <main style={{ overflow: "hidden", display: "flex", flexDirection: "column", minHeight: 0, background: "var(--bg)" }}>{children}</main>
           </div>
         </PreferencesProvider>
         </AuthProvider>

@@ -8,7 +8,7 @@ import PowerMeetApp from '@/power-meeting/PowerMeetApp'
 
 export default function PowerMeetingScreen() {
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0, overflow: 'hidden' }}>
       <PowerMeetApp />
     </div>
   )
