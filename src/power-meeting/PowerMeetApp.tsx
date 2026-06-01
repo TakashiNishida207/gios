@@ -91,6 +91,22 @@ export default function PowerMeetApp() {
   // GDIOS 連携用: 現在のストア状態を読む
   const gdiosFlow         = useGDIOSStore((s) => s.flow)
   const gdiosIntelligence = useGDIOSStore((s) => s.intelligence)
+  // Notion同期済みの場合は自動で GDIOS連携モードを選択
+  const notionPageIds = useGDIOSStore((s) => s.__notionPageIds__)
+
+  useEffect(() => {
+    // Notion→GDIOS 同期が行われていれば（__notionPageIds__ に値がある）、
+    // または flow.Action / flow.Insight に実データがあれば GDIOS連携を自動選択する
+    const hasRealData =
+      (notionPageIds && notionPageIds.length > 0) ||
+      Object.keys(gdiosFlow.Action).length > 0  ||
+      Object.keys(gdiosFlow.Insight).length > 0
+    if (hasRealData) {
+      setActiveBundleId('gdios-live')
+    }
+  // マウント時のみ実行（ユーザーが手動切り替えした後は上書きしない）
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const { setItems: setVoiceItems }   = useVoiceStore()
   const { setItems: setAgendaItems, setRoles, setPhase } = useAgendaStore()
