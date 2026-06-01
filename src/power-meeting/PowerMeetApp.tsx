@@ -302,24 +302,30 @@ export default function PowerMeetApp() {
         overflowX: 'auto', overflowY: 'hidden',
       }}>
         {TABS.map(tab => {
-          const isMain = mainTabs.includes(tab.id)
-          const tabLabel = lang === 'ja' ? tab.ja : tab.en
+          const isMain    = mainTabs.includes(tab.id)
+          const tabLabel  = lang === 'ja' ? tab.ja : tab.en
+          const isActive  = activeTab === tab.id
           return (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`relative text-sm px-4 py-2 border-b-2 transition-colors whitespace-nowrap ${
-                activeTab === tab.id
-                  ? 'border-blue-600 text-blue-600 font-medium'
-                  : 'border-transparent text-gray-500 hover:text-gray-700'
-              }`}
+              style={{
+                position: 'relative', fontSize: 13, padding: '8px 16px',
+                borderBottom: isActive ? '2px solid #2563eb' : '2px solid transparent',
+                color: isActive ? '#2563eb' : '#6b7280',
+                fontWeight: isActive ? 500 : 400,
+                background: 'none', border: 'none',
+                borderBottom: isActive ? '2px solid #2563eb' : '2px solid transparent',
+                cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0,
+                transition: 'color 0.15s, border-color 0.15s',
+              }}
             >
               {tabLabel}
               {isMain && (
-                <span
-                  className="absolute top-1.5 right-1 w-1.5 h-1.5 rounded-full bg-green-500"
-                  title={`${lang === 'ja' ? PHASE_LABELS[currentPhase] : PHASE_LABELS_EN[currentPhase]} のフォーカスタブ`}
-                />
+                <span style={{
+                  position: 'absolute', top: 6, right: 4,
+                  width: 6, height: 6, borderRadius: '50%', background: '#22c55e',
+                }} />
               )}
             </button>
           )

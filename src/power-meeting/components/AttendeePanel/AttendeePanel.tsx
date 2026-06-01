@@ -31,83 +31,89 @@ export function AttendeePanel() {
   const present = getPresentCount()
   const hasAbsent = attendees.some(a => a.status === 'absent')
 
+  const DOT_COLOR: Record<AttendeeStatus, string> = {
+    present: '#22c55e', remote: '#3b82f6', absent: '#f87171',
+  }
+
   return (
-    <div className="bg-white border-b border-gray-200 shrink-0">
+    <div style={{ background: 'var(--pm-ctrl-bg, #fff)', borderBottom: '1px solid #e5e7eb', flexShrink: 0 }}>
       {/* 折り畳みヘッダー */}
       <button
         onClick={() => setExpanded(v => !v)}
-        className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-50 transition-colors text-left"
+        style={{
+          width: '100%', display: 'flex', alignItems: 'center', gap: 8,
+          padding: '6px 16px', background: 'none', border: 'none',
+          cursor: 'pointer', textAlign: 'left',
+        }}
       >
-        <span className="text-sm font-medium text-gray-700">👥 参加者管理</span>
-        {/* 出席サマリーバッジ */}
-        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-          hasAbsent ? 'bg-amber-100 text-amber-700' : 'bg-green-100 text-green-700'
-        }`}>
+        <span style={{ fontSize: 13, fontWeight: 500 }}>👥 参加者管理</span>
+        <span style={{
+          fontSize: 11, padding: '2px 8px', borderRadius: 9999, fontWeight: 500,
+          background: hasAbsent ? '#fef3c7' : '#dcfce7',
+          color: hasAbsent ? '#92400e' : '#166534',
+        }}>
           {present}/{total}名出席中
         </span>
-        {/* 各ロールのドットインジケータ (collapsed 時のみ) */}
         {!expanded && (
-          <div className="flex gap-1 ml-1">
+          <div style={{ display: 'flex', gap: 4, marginLeft: 4 }}>
             {attendees.map(a => (
               <span
                 key={a.roleId}
                 title={`${a.name}: ${STATUS_CONFIG[a.status].label}`}
-                className={`w-2 h-2 rounded-full ${STATUS_CONFIG[a.status].dot}`}
+                style={{ width: 8, height: 8, borderRadius: '50%', background: DOT_COLOR[a.status], display: 'inline-block' }}
               />
             ))}
           </div>
         )}
-        <span className="ml-auto text-gray-400 text-xs">{expanded ? '▲ 閉じる' : '▼ 開く'}</span>
+        <span style={{ marginLeft: 'auto', color: '#9ca3af', fontSize: 11 }}>{expanded ? '▲ 閉じる' : '▼ 開く'}</span>
       </button>
 
       {/* 展開パネル */}
       {expanded && (
-        <div className="px-4 pb-3 space-y-1">
+        <div style={{ padding: '0 16px 12px' }}>
           {/* テーブルヘッダー */}
-          <div className="grid grid-cols-[1fr_auto_auto_auto] gap-x-3 items-center text-xs text-gray-400 mb-1 px-1">
-            <span>名前</span>
-            <span>ステータス</span>
-            <span className="text-right">基本W</span>
-            <span className="text-right">実効W</span>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto auto auto', gap: '0 12px', alignItems: 'center', fontSize: 11, color: '#9ca3af', marginBottom: 4, padding: '0 4px' }}>
+            <span>名前</span><span>ステータス</span><span style={{ textAlign: 'right' }}>基本W</span><span style={{ textAlign: 'right' }}>実効W</span>
           </div>
 
           {attendees.map(a => {
             const effectivePct = Math.round(a.effectiveWeight * 100)
             const basePct      = Math.round(a.baseWeight * 100)
+            const barColor     = a.status === 'absent' ? '#d1d5db' : a.status === 'remote' ? '#60a5fa' : '#22c55e'
 
             return (
               <div
                 key={a.roleId}
-                className={`grid grid-cols-[1fr_auto_auto_auto] gap-x-3 items-center rounded-lg px-2 py-1.5 ${
-                  a.status === 'absent' ? 'opacity-50 bg-gray-50' : 'bg-white'
-                }`}
+                style={{
+                  display: 'grid', gridTemplateColumns: '1fr auto auto auto',
+                  gap: '0 12px', alignItems: 'center',
+                  borderRadius: 8, padding: '6px 8px', marginBottom: 2,
+                  opacity: a.status === 'absent' ? 0.5 : 1,
+                  background: a.status === 'absent' ? 'rgba(0,0,0,0.03)' : 'transparent',
+                }}
               >
                 {/* 名前 + ウェイトバー */}
-                <div className="min-w-0">
-                  <span className="text-xs font-medium text-gray-800">{a.name}</span>
-                  {/* 実効ウェイトバー */}
-                  <div className="mt-0.5 h-1 w-full bg-gray-100 rounded-full overflow-hidden">
-                    <div
-                      className={`h-full rounded-full transition-all duration-300 ${
-                        a.status === 'absent' ? 'bg-gray-300' :
-                        a.status === 'remote' ? 'bg-blue-400' : 'bg-green-500'
-                      }`}
-                      style={{ width: `${effectivePct}%` }}
-                    />
+                <div style={{ minWidth: 0 }}>
+                  <span style={{ fontSize: 12, fontWeight: 500 }}>{a.name}</span>
+                  <div style={{ marginTop: 2, height: 4, background: '#e5e7eb', borderRadius: 2, overflow: 'hidden' }}>
+                    <div style={{ height: '100%', borderRadius: 2, background: barColor, width: `${effectivePct}%`, transition: 'width 0.3s' }} />
                   </div>
                 </div>
 
                 {/* ステータス切り替えボタン群 */}
-                <div className="flex gap-0.5">
+                <div style={{ display: 'flex', gap: 2 }}>
                   {STATUS_ORDER.map(s => (
                     <button
                       key={s}
                       onClick={() => setStatus(a.roleId, s)}
-                      className={`text-xs px-1.5 py-0.5 rounded border font-medium transition-colors ${
-                        a.status === s
-                          ? STATUS_CONFIG[s].color
-                          : 'border-gray-200 text-gray-400 hover:bg-gray-50'
-                      }`}
+                      style={{
+                        fontSize: 10, padding: '1px 5px', borderRadius: 4, fontWeight: 500,
+                        border: '1px solid',
+                        background: a.status === s ? (s === 'present' ? '#dcfce7' : s === 'remote' ? '#dbeafe' : '#fee2e2') : 'transparent',
+                        color:      a.status === s ? (s === 'present' ? '#166534' : s === 'remote' ? '#1d4ed8' : '#991b1b') : '#9ca3af',
+                        borderColor: a.status === s ? (s === 'present' ? '#86efac' : s === 'remote' ? '#93c5fd' : '#fca5a5') : '#e5e7eb',
+                        cursor: 'pointer',
+                      }}
                       title={STATUS_CONFIG[s].label}
                     >
                       {STATUS_CONFIG[s].short}
@@ -115,40 +121,27 @@ export function AttendeePanel() {
                   ))}
                 </div>
 
-                {/* 基本ウェイト */}
-                <span className="text-xs text-gray-400 text-right w-8">{basePct}%</span>
-
-                {/* 実効ウェイト (変化があれば強調) */}
-                <span className={`text-xs font-medium text-right w-8 ${
-                  a.status === 'absent'
-                    ? 'text-red-400'
-                    : effectivePct !== basePct
-                      ? 'text-amber-600'
-                      : 'text-green-700'
-                }`}>
+                <span style={{ fontSize: 11, color: '#9ca3af', textAlign: 'right', width: 32 }}>{basePct}%</span>
+                <span style={{
+                  fontSize: 11, fontWeight: 500, textAlign: 'right', width: 32,
+                  color: a.status === 'absent' ? '#f87171' : effectivePct !== basePct ? '#d97706' : '#15803d',
+                }}>
                   {effectivePct}%
                 </span>
               </div>
             )
           })}
 
-          {/* 欠席者がいるときの注記 */}
           {hasAbsent && (
-            <p className="text-xs text-amber-600 bg-amber-50 rounded px-2 py-1 mt-1">
-              ⚠️ 欠席者を除いた出席者間でウェイトが自動再按分されています。コンセンサス計算に反映済みです。
+            <p style={{ fontSize: 11, color: '#92400e', background: '#fef3c7', borderRadius: 4, padding: '4px 8px', marginTop: 4 }}>
+              ⚠️ 欠席者を除いた出席者間でウェイトが自動再按分されています。
             </p>
           )}
-
-          {/* 全員出席ボタン */}
           {hasAbsent && (
-            <div className="flex justify-end mt-1">
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 4 }}>
               <button
-                onClick={() => {
-                  attendees.forEach(a => {
-                    if (a.status === 'absent') setStatus(a.roleId, 'present')
-                  })
-                }}
-                className="text-xs px-2 py-1 rounded border border-green-300 bg-green-50 text-green-700 hover:bg-green-100"
+                onClick={() => attendees.forEach(a => { if (a.status === 'absent') setStatus(a.roleId, 'present') })}
+                style={{ fontSize: 11, padding: '3px 8px', borderRadius: 4, border: '1px solid #86efac', background: '#dcfce7', color: '#166534', cursor: 'pointer' }}
               >
                 全員出席に戻す
               </button>
