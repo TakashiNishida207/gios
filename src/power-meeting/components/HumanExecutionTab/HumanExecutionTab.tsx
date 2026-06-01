@@ -142,16 +142,38 @@ export function HumanExecutionTab() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 pl-7">
+              <div className="flex items-center gap-3 pl-7 flex-wrap">
                 <span className="text-[10px] text-gray-400">👤 {task.assignee}（{task.role}）</span>
-                {task.dueDate && <span className="text-[10px] text-gray-400">📅 {task.dueDate}</span>}
-                <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium ml-auto ${
-                  task.status === 'done'        ? 'bg-green-50 text-green-600'   :
-                  task.status === 'in_progress' ? 'bg-orange-50 text-orange-600' :
-                  'bg-gray-50 text-gray-400'
-                }`}>
-                  {STATUS_LABELS[task.status]}
-                </span>
+                {task.dueDate && (
+                  <span className={`text-[10px] ${
+                    task.status !== 'done' && task.dueDate < new Date().toISOString().slice(0, 10)
+                      ? 'text-red-500 font-medium' : 'text-gray-400'
+                  }`}>
+                    📅 期限: {task.dueDate}
+                  </span>
+                )}
+                {task.completedAt && (
+                  <span className="text-[10px] text-green-600">
+                    ✓ 完了: {new Date(task.completedAt).toLocaleDateString('ja-JP', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                  </span>
+                )}
+                <div className="ml-auto flex items-center gap-1.5">
+                  {task.status !== 'done' && (
+                    <button
+                      onClick={() => updateHumanTaskStatus(task.id, 'done')}
+                      className="text-[10px] px-2 py-0.5 rounded bg-green-100 text-green-700 border border-green-200 hover:bg-green-200 font-medium"
+                    >
+                      ✓ 完了にする
+                    </button>
+                  )}
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${
+                    task.status === 'done'        ? 'bg-green-50 text-green-600'   :
+                    task.status === 'in_progress' ? 'bg-orange-50 text-orange-600' :
+                    'bg-gray-50 text-gray-400'
+                  }`}>
+                    {STATUS_LABELS[task.status]}
+                  </span>
+                </div>
               </div>
             </div>
           ))}

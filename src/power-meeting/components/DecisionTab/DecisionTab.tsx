@@ -29,9 +29,27 @@ function StarRating({ score, max = 5 }: { score: number; max?: number }) {
 
 function DecisionCard({ item }: { item: DecisionItem }) {
   const [expanded, setExpanded] = useState(false)
+  const [showAddForm, setShowAddForm] = useState(false)
+  const [newAltLabel, setNewAltLabel] = useState('')
   const { getByTarget } = useImpactStore()
+  const { addAlternative } = useDecisionStore()
   const impacts = getByTarget('decision', item.id)
   const statusCfg = STATUS_CONFIG[item.status]
+
+  const handleAddAlternative = () => {
+    if (!newAltLabel.trim()) return
+    const newAlt: import('../../types/decision').Alternative = {
+      id:          `alt-${Date.now()}`,
+      label:       newAltLabel.trim(),
+      recommended: false,
+      impactScore: 3,
+      riskScore:   3,
+      description: newAltLabel.trim(),
+    }
+    addAlternative(item.id, newAlt)
+    setNewAltLabel('')
+    setShowAddForm(false)
+  }
 
   return (
     <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
@@ -119,11 +137,41 @@ function DecisionCard({ item }: { item: DecisionItem }) {
           >
             {expanded ? '収める' : '詳細'}
           </button>
-          <button className="text-xs px-2 py-1 rounded border border-indigo-200 bg-indigo-50 text-indigo-600 hover:bg-indigo-100">
-            + 選択肢を追加
+          <button
+            onClick={() => setShowAddForm(v => !v)}
+            className="text-xs px-2 py-1 rounded border border-indigo-200 bg-indigo-50 text-indigo-600 hover:bg-indigo-100"
+          >
+            {showAddForm ? 'キャンセル' : '+ 選択肢を追加'}
           </button>
         </div>
       </div>
+
+      {/* 選択肢追加フォーム */}
+      {showAddForm && (
+        <div className="p-3 border-t border-indigo-100 bg-indigo-50/40 space-y-2">
+          <p className="text-xs font-medium text-indigo-700">新しい選択肢を追加</p>
+          <input
+            type="text"
+            value={newAltLabel}
+            onChange={e => setNewAltLabel(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && handleAddAlternative()}
+            placeholder="選択肢のラベルを入力（例: C: 段階的対応）"
+            className="w-full text-xs px-3 py-2 border border-indigo-200 rounded-lg bg-white focus:outline-none focus:border-indigo-400"
+            autoFocus
+          />
+          <div className="flex gap-1 justify-end">
+            <button
+              onClick={() => { setShowAddForm(false); setNewAltLabel('') }}
+              className="text-xs px-3 py-1.5 border border-gray-200 rounded text-gray-500 hover:bg-white"
+            >キャンセル</button>
+            <button
+              onClick={handleAddAlternative}
+              disabled={!newAltLabel.trim()}
+              className="text-xs px-3 py-1.5 bg-indigo-600 text-white rounded hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed"
+            >追加</button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

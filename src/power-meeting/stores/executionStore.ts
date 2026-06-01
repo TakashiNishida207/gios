@@ -18,6 +18,7 @@ export interface HumanTask {
   status: HumanTaskStatus
   priority: HumanTaskPriority
   category: HumanTaskCategory
+  completedAt?: string  // 完了日時（ISO string）
 }
 
 export type AITaskStatus = 'ready' | 'running' | 'done' | 'error'
@@ -51,7 +52,11 @@ export const useExecutionStore = create<ExecutionStore>((set) => ({
 
   updateHumanTaskStatus: (id, status) =>
     set((s) => ({
-      humanTasks: s.humanTasks.map((t) => t.id === id ? { ...t, status } : t),
+      humanTasks: s.humanTasks.map((t) =>
+        t.id === id
+          ? { ...t, status, completedAt: status === 'done' ? new Date().toISOString() : undefined }
+          : t
+      ),
     })),
 
   updateAITaskStatus: (id, status, result) =>

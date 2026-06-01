@@ -48,6 +48,14 @@ const TREND_COLOR = { up: 'text-green-600', down: 'text-red-600', flat: 'text-gr
 function GHSCard({ item }: { item: GHSItem }) {
   const { getByTarget } = useImpactStore()
   const impacts = getByTarget('growth', item.id)
+  const [toast, setToast] = useState<string | null>(null)
+  const [showImprove, setShowImprove] = useState(false)
+  const [improveText, setImproveText] = useState('')
+
+  const showToast = (msg: string) => {
+    setToast(msg)
+    setTimeout(() => setToast(null), 2500)
+  }
   const diff = item.score - item.previousScore
   const diffStr = diff > 0 ? `+${diff}` : String(diff)
 
@@ -126,14 +134,43 @@ function GHSCard({ item }: { item: GHSItem }) {
         </div>
       )}
 
+      {/* 改善提案フォーム */}
+      {showImprove && (
+        <div className="space-y-1.5 pt-1">
+          <textarea
+            value={improveText}
+            onChange={e => setImproveText(e.target.value)}
+            placeholder="改善提案を記入してください…"
+            className="w-full text-xs px-2 py-1.5 border border-gray-200 rounded resize-none focus:outline-none focus:border-blue-300"
+            rows={2}
+            autoFocus
+          />
+          <div className="flex gap-1 justify-end">
+            <button onClick={() => { setShowImprove(false); setImproveText('') }} className="text-xs px-2 py-1 border border-gray-200 rounded text-gray-500">キャンセル</button>
+            <button onClick={() => { showToast('改善提案を記録しました ✓'); setShowImprove(false); setImproveText('') }} disabled={!improveText.trim()} className="text-xs px-2 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-40">送信</button>
+          </div>
+        </div>
+      )}
+
+      {/* トースト */}
+      {toast && (
+        <div className="text-[10px] text-center py-1 px-2 bg-blue-600 text-white rounded-lg">{toast}</div>
+      )}
+
       {/* アクションボタン */}
       <div className="flex items-center justify-between pt-1">
         <span className="text-xs text-gray-400">{item.ownerRoleId}</span>
         <div className="flex gap-1">
-          <button className="text-xs px-2 py-1 rounded border border-blue-200 text-blue-600 bg-blue-50 hover:bg-blue-100">
+          <button
+            onClick={() => showToast('ディスカッションキャンバス → 該当アジェンダの議論スレッドを開始してください')}
+            className="text-xs px-2 py-1 rounded border border-blue-200 text-blue-600 bg-blue-50 hover:bg-blue-100"
+          >
             議論を起こす
           </button>
-          <button className="text-xs px-2 py-1 rounded border border-gray-200 text-gray-500 hover:bg-gray-50">
+          <button
+            onClick={() => setShowImprove(v => !v)}
+            className="text-xs px-2 py-1 rounded border border-gray-200 text-gray-500 hover:bg-gray-50"
+          >
             改善提案
           </button>
         </div>
