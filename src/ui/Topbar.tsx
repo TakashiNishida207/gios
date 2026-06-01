@@ -1,5 +1,5 @@
 // src/ui/Topbar.tsx
-// GIOS Topbar — brand, breadcrumb, flow phase badge, clock, theme + lang toggles
+// GDIOS Topbar — brand, breadcrumb, flow phase badge, clock, theme + lang toggles
 
 "use client";
 import { usePathname, useRouter } from "next/navigation";
@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { usePreferences } from "./preferences";
 import { getSupabaseBrowser } from "@/lib/supabase-browser";
 import { useAuthStore } from "@/store/auth";
+import ScenarioSelector from "./ScenarioSelector";
 
 const PHASE_COLORS: Record<string, { color: string; bg: string; border: string; label: string }> = {
   "/":              { color: "var(--accent)",  bg: "var(--accent-dim)",  border: "rgba(200,184,154,0.2)",  label: "OVERVIEW"       },
@@ -98,8 +99,8 @@ export default function Topbar() {
       {/* Left: brand + breadcrumb */}
       <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
         <span style={{ fontFamily: "var(--mono)", fontSize: 11, fontWeight: 500, letterSpacing: "0.08em", color: "var(--accent)" }}>
-          GIOS
-        </span>
+          GDIOS
+</span>
         <div style={{ width: 1, height: 14, background: "var(--border)" }} />
         <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: "var(--mono)", fontSize: 10, color: "var(--text-tertiary)" }}>
           {segments.map((s, i) => (
@@ -123,6 +124,11 @@ export default function Topbar() {
           <div style={{ width: 5, height: 5, borderRadius: "50%", background: phase.color, animation: "pulse 2s infinite" }} />
           {phase.label}
         </div>
+
+        <div style={{ width: 1, height: 14, background: "var(--border)" }} />
+
+        {/* Scenario selector */}
+        <ScenarioSelector />
 
         <div style={{ width: 1, height: 14, background: "var(--border)" }} />
 

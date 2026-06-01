@@ -1,5 +1,5 @@
 // app/layout.tsx
-// GIOS Root Layout — OS grid: 200px sidebar | main, 44px topbar spans full width
+// GDIOS Root Layout — OS grid: 200px sidebar | main, 44px topbar spans full width
 
 import type { Metadata } from "next";
 import Topbar from "@/ui/Topbar";
@@ -9,7 +9,7 @@ import AuthProvider from "@/ui/AuthProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "GIOS — Growth Intelligence OS",
+  title: "GDIOS — Growth Intelligence OS",
   description: "Business-first Growth Intelligence OS",
 };
 

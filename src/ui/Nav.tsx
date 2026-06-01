@@ -1,5 +1,5 @@
 // src/ui/Nav.tsx
-// GIOS グローバルナビゲーション — 因果ループの順序で画面を配置する
+// GDIOS グローバルナビゲーション — 因果ループの順序で画面を配置する
 // EN/JP 切替対応
 
 "use client";
@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
 const NAV_ITEMS = [
   { href: "/",              en: "Dashboard",     ja: "ダッシュボード"    },
   { href: "/input",         en: "Input",         ja: "インプット"        },
-  { href: "/insight",       en: "Insight",       ja: "洞察"              },
+  { href: "/insight",       en: "Insight",       ja: "インサイト"        },
   { href: "/action",        en: "Action",        ja: "アクション"        },
   { href: "/power-meeting", en: "Power Meeting", ja: "パワーミーティング" },
   { href: "/learning",      en: "Learning",      ja: "学習"              },
@@ -24,7 +24,7 @@ export default function Nav({ lang = "ja" }: Props) {
   return (
     <nav className="border-b border-gray-100 bg-white px-8 py-3 flex items-center gap-6">
       <span className="text-xs font-mono text-gray-300 uppercase tracking-widest mr-2">
-        GIOS
+        GDIOS
       </span>
       {NAV_ITEMS.map(({ href, en, ja }) => {
         const active = pathname === href;

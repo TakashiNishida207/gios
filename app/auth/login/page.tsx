@@ -1,5 +1,5 @@
 // app/auth/login/page.tsx
-// GIOS ログインページ — メール/パスワード認証
+// GDIOS ログインページ — メール/パスワード認証
 // Quiet × Clean × Executive Calm
 
 "use client";
@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { getSupabaseBrowser } from "@/lib/supabase-browser";
 
 const L = {
-  title:       { en: "GIOS",                            ja: "GIOS"                             },
+  title:       { en: "GDIOS",                           ja: "GDIOS"                            },
   subtitle:    { en: "Growth Intelligence OS",           ja: "Growth Intelligence OS"           },
   email:       { en: "Email",                            ja: "メールアドレス"                   },
   password:    { en: "Password",                         ja: "パスワード"                       },
