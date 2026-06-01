@@ -1,8 +1,8 @@
 // src/store/updateFlow.ts
 // Flow 更新関数 — store.flow の特定フェーズを不変更新する
-// 因果ループ: FlowEngine → GIOSAdapter → ここ → Zustand set()
+// 因果ループ: FlowEngine → GDIOSAdapter → ここ → Zustand set()
 
-import type { FlowState, GIOSStore } from "./store";
+import type { FlowState, GDIOSStore } from "./store";
 import type { FlowPhase } from "../dictionary/types";
 
 /**
@@ -11,10 +11,10 @@ import type { FlowPhase } from "../dictionary/types";
  * 因果ループの順序を壊さないよう、他フェーズには触れない。
  */
 export function updateFlow(
-  state: GIOSStore,
+  state: GDIOSStore,
   phase: FlowPhase,
   data: Record<string, unknown>
-): Pick<GIOSStore, "flow"> {
+): Pick<GDIOSStore, "flow"> {
   return {
     flow: {
       ...state.flow,
@@ -31,9 +31,9 @@ export function updateFlow(
  * FlowEngine.applyCausalFlow() の出力を直接受け取る際に使用する。
  */
 export function updateFlowAll(
-  state: GIOSStore,
+  state: GDIOSStore,
   updates: Partial<FlowState>
-): Pick<GIOSStore, "flow"> {
+): Pick<GDIOSStore, "flow"> {
   const next = { ...state.flow };
 
   for (const phase of Object.keys(updates) as FlowPhase[]) {

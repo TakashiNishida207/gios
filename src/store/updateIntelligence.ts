@@ -1,8 +1,8 @@
 // src/store/updateIntelligence.ts
 // Intelligence 更新関数 — store.intelligence の特定バケットを不変更新する
-// 因果ループ: IntelligenceMapper / IntelligenceEngine → GIOSAdapter → ここ → Zustand set()
+// 因果ループ: IntelligenceMapper / IntelligenceEngine → GDIOSAdapter → ここ → Zustand set()
 
-import type { IntelligenceState, GIOSStore } from "./store";
+import type { IntelligenceState, GDIOSStore } from "./store";
 import type { IntelligenceType } from "../dictionary/types";
 
 /**
@@ -10,10 +10,10 @@ import type { IntelligenceType } from "../dictionary/types";
  * 担当外のバケットには触れない。
  */
 export function updateIntelligence(
-  state: GIOSStore,
+  state: GDIOSStore,
   intel: keyof IntelligenceState,
   data: Record<string, unknown>
-): Pick<GIOSStore, "intelligence"> {
+): Pick<GDIOSStore, "intelligence"> {
   return {
     intelligence: {
       ...state.intelligence,
@@ -30,9 +30,9 @@ export function updateIntelligence(
  * IntelligenceMapper の IntelligenceBundle を直接受け取る際に使用する。
  */
 export function updateIntelligenceAll(
-  state: GIOSStore,
+  state: GDIOSStore,
   updates: Partial<Record<IntelligenceType, Record<string, unknown>>>
-): Pick<GIOSStore, "intelligence"> {
+): Pick<GDIOSStore, "intelligence"> {
   const next = { ...state.intelligence };
 
   for (const key of Object.keys(updates) as IntelligenceType[]) {
