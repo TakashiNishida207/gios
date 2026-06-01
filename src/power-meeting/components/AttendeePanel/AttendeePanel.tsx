@@ -36,7 +36,7 @@ export function AttendeePanel() {
   }
 
   return (
-    <div style={{ background: 'var(--pm-ctrl-bg, #fff)', borderBottom: '1px solid #e5e7eb', flexShrink: 0 }}>
+    <div style={{ background: 'var(--pm-ctrl-bg, #fff)', borderBottom: '1px solid var(--pm-border, #e5e7eb)', flexShrink: 0 }}>
       {/* 折り畳みヘッダー */}
       <button
         onClick={() => setExpanded(v => !v)}

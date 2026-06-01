@@ -182,7 +182,7 @@ export default function PowerMeetApp() {
       <div style={{
         display: 'flex', flexDirection: 'row', flexWrap: 'nowrap',
         alignItems: 'center', gap: 8, padding: '6px 12px',
-        background: 'var(--pm-ctrl-bg, #fff)', borderBottom: '1px solid #e5e7eb',
+        background: 'var(--pm-ctrl-bg, #fff)', borderBottom: '1px solid var(--pm-border, #e5e7eb)',
         flexShrink: 0, width: '100%', minWidth: 0, overflow: 'hidden',
       }}>
 
@@ -298,7 +298,7 @@ export default function PowerMeetApp() {
       <nav style={{
         display: 'flex', flexDirection: 'row', flexWrap: 'nowrap',
         gap: 4, padding: '0 16px', flexShrink: 0, width: '100%',
-        background: 'var(--pm-ctrl-bg, #fff)', borderBottom: '1px solid #e5e7eb',
+        background: 'var(--pm-ctrl-bg, #fff)', borderBottom: '1px solid var(--pm-border, #e5e7eb)',
         overflowX: 'auto', overflowY: 'hidden',
       }}>
         {TABS.map(tab => {

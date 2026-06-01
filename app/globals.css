@@ -56,15 +56,26 @@ html, body { height: 100%; background: var(--bg); color: var(--text-primary); fo
    GIOS の CSS 変数に差し替える
    ============================================================ */
 [data-pm-theme="dark"] {
-  --pm-bg: var(--bg);
-  --pm-ctrl-bg: var(--bg2);
-  background-color: var(--bg);
+  /* チャコールグレー — 真っ黒でなく、ライトモードの白と差別化した温かみのあるダーク */
+  --pm-bg:       #111110;   /* コンテンツ背景 */
+  --pm-ctrl-bg:  #1e1e1d;   /* フェーズバー/タブ/参加者管理 */
+  --pm-modal-bg: #252526;   /* フェーズナビゲータ等のモーダル */
+  --pm-border:   rgba(255,255,255,0.08);
+  background-color: var(--pm-bg);
   color: var(--text-primary);
 }
-[data-pm-theme="light"],
-:not([data-pm-theme]) {
-  --pm-bg: #f9fafb;
-  --pm-ctrl-bg: #ffffff;
+[data-pm-theme="light"] {
+  --pm-bg:       #f9fafb;
+  --pm-ctrl-bg:  #ffffff;
+  --pm-modal-bg: #ffffff;
+  --pm-border:   #e5e7eb;
+}
+:root {
+  /* デフォルト値（data-pm-theme 未設定時） */
+  --pm-bg:       #f9fafb;
+  --pm-ctrl-bg:  #ffffff;
+  --pm-modal-bg: #ffffff;
+  --pm-border:   #e5e7eb;
 }
 /* 背景 */
 [data-pm-theme="dark"] .bg-white          { background-color: var(--bg2) !important; }
