@@ -5,7 +5,7 @@
 "use client";
 
 import { useState } from "react";
-import { useGIOSStore } from "@/store";
+import { useGDIOSStore } from "@/store";
 import { usePreferences } from "@/ui/preferences";
 import type { FlowPhase } from "@/dictionary/types";
 
@@ -18,7 +18,7 @@ const FLOW_PHASES: {
 }[] = [
   { phase: "Input",      en: "Input",      ja: "インプット",     color: "var(--teal)",   dim: "var(--teal-dim)"   },
   { phase: "Processing", en: "Processing", ja: "処理",           color: "var(--amber)",  dim: "var(--amber-dim)"  },
-  { phase: "Insight",    en: "Insight",    ja: "洞察",           color: "var(--purple)", dim: "var(--purple-dim)" },
+  { phase: "Insight",    en: "Insight",    ja: "インサイト",     color: "var(--purple)", dim: "var(--purple-dim)" },
   { phase: "Action",     en: "Action",     ja: "アクション",     color: "var(--accent)", dim: "var(--accent-dim)" },
   { phase: "Feedback",   en: "Feedback",   ja: "フィードバック", color: "var(--red)",    dim: "var(--red-dim)"    },
   { phase: "Learning",   en: "Learning",   ja: "学習",           color: "var(--green)",  dim: "var(--green-dim)"  },
@@ -29,9 +29,9 @@ type SyncStatus = { ok: boolean; message: string } | null;
 
 
 export default function Dashboard() {
-  const flow    = useGIOSStore((s) => s.flow);
-  const setFlow = useGIOSStore((s) => s.setFlow);
-  const diff    = useGIOSStore((s) => s.__diff__);
+  const flow    = useGDIOSStore((s) => s.flow);
+  const setFlow = useGDIOSStore((s) => s.setFlow);
+  const diff    = useGDIOSStore((s) => s.__diff__);
   const { lang } = usePreferences();
 
   const [syncing, setSyncing] = useState(false);
@@ -101,7 +101,7 @@ export default function Dashboard() {
                 marginBottom: 6,
               }}
             >
-              GIOS
+              GDIOS
             </p>
             <h1
               style={{
@@ -151,7 +151,7 @@ export default function Dashboard() {
                 transition: "opacity 0.15s",
               }}
             >
-              {syncing ? "…" : "Notion → GIOS"}
+              {syncing ? "…" : "Notion → GDIOS"}
             </button>
             <button
               onClick={() => handleSync("backward")}
@@ -169,7 +169,7 @@ export default function Dashboard() {
                 transition: "opacity 0.15s",
               }}
             >
-              {syncing ? "…" : "GIOS → Notion"}
+              {syncing ? "…" : "GDIOS → Notion"}
             </button>
             <button
               onClick={() => handleSync("full")}

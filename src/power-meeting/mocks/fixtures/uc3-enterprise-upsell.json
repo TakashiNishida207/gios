@@ -1,0 +1,365 @@
+{
+  "bundleId": "bundle-uc3",
+  "name": "エンタープライズ顧客アップセル戦略 - ACME Corp",
+  "phase": "PLANNING",
+  "roles": [
+    { "id": "role-ceo",       "name": "CEO",              "weight": 0.30 },
+    { "id": "role-csm",       "name": "CS Manager",       "weight": 0.25 },
+    { "id": "role-ae",        "name": "Account Executive", "weight": 0.25 },
+    { "id": "role-marketing", "name": "Product Marketing", "weight": 0.20 }
+  ],
+  "agendaItems": [
+    {
+      "id": "agenda-uc3-001",
+      "title": "ACMEアップセル機会の現状把握（ARR $240K→$420K）",
+      "ownerRoleId": "role-ae",
+      "timeBudgetMin": 20,
+      "status": "aligned",
+      "discussionLog": [
+        {
+          "id": "disc-uc3-001-a",
+          "speaker": "Account Executive",
+          "roleId": "role-ae",
+          "ts": "2026-04-28T14:05:00Z",
+          "text": "ACMEの四半期レビューでSSO問題が解決後、高橋CTOから全社展開の意向が示されました。現在50ユーザーが200以上に拡大予定。Gongコールで確認した主要ニーズはSSO+SCIM、ダッシュボードのカスタマイズ、優先サポートです。",
+          "phase": "PHASE1"
+        },
+        {
+          "id": "disc-uc3-001-b",
+          "speaker": "CS Manager",
+          "roleId": "role-csm",
+          "ts": "2026-04-28T14:07:00Z",
+          "text": "直近6ヶ月のNPSは障害前の水準に回復しています。eNPS 62、製品満足度4.3/5。ヘルススコアは78で上昇トレンド。解約リスクは低く、拡張への準備は整っています。",
+          "phase": "PHASE1"
+        },
+        {
+          "id": "disc-uc3-001-c",
+          "speaker": "CEO",
+          "roleId": "role-ceo",
+          "ts": "2026-04-28T14:09:00Z",
+          "text": "ARR $180K拡張は今Qの最重要目標だ。高橋CTOとの次の打ち合わせはいつだ？",
+          "phase": "PHASE1"
+        },
+        {
+          "id": "disc-uc3-001-d",
+          "speaker": "Account Executive",
+          "roleId": "role-ae",
+          "ts": "2026-04-28T14:10:00Z",
+          "text": "2週間後に提案ミーティングを設定しています。それまでに提案書・ROI計算・競合Battle Cardを準備します。",
+          "phase": "PHASE1"
+        }
+      ],
+      "reactions": [
+        { "id": "react-uc3-001", "emoji": "🚀", "roleId": "role-ceo",       "ts": "2026-04-28T14:10:00Z" },
+        { "id": "react-uc3-002", "emoji": "📈", "roleId": "role-marketing", "ts": "2026-04-28T14:10:00Z" }
+      ],
+      "positions": [
+        { "roleId": "role-ceo",       "stance": "agree",   "weightContribution": 0.30, "ts": "2026-04-28T14:11:00Z", "note": "最重要アカウント" },
+        { "roleId": "role-csm",       "stance": "agree",   "weightContribution": 0.25, "ts": "2026-04-28T14:11:00Z" },
+        { "roleId": "role-ae",        "stance": "agree",   "weightContribution": 0.25, "ts": "2026-04-28T14:11:00Z" },
+        { "roleId": "role-marketing", "stance": "agree",   "weightContribution": 0.20, "ts": "2026-04-28T14:11:00Z" }
+      ],
+      "parked": false,
+      "linkedVoiceIds": ["gong-call-uc3-001", "sf-opp-uc3-001", "hs-engagement-uc3-001"],
+      "linkedDecisionIds": []
+    },
+    {
+      "id": "agenda-uc3-002",
+      "title": "拡張提案アプローチの選択（全社一括 vs 段階的 vs パイロット）",
+      "ownerRoleId": "role-ae",
+      "timeBudgetMin": 25,
+      "status": "converging",
+      "discussionLog": [
+        {
+          "id": "disc-uc3-002-a",
+          "speaker": "Account Executive",
+          "roleId": "role-ae",
+          "ts": "2026-04-28T14:15:00Z",
+          "text": "3つのアプローチを検討しました。A: 全社一括Enterprise移行（ARR +$180K一括）、B: 部署ごとの段階的拡張（Q2+Q3で$90K×2）、C: 30日パイロット先行（無償で確信度を上げてから一括）。",
+          "phase": "PHASE2"
+        },
+        {
+          "id": "disc-uc3-002-b",
+          "speaker": "Product Marketing",
+          "roleId": "role-marketing",
+          "ts": "2026-04-28T14:17:00Z",
+          "text": "高橋CTOはスピード重視の発言が多い。Gongコールの分析でも「一気にやりたい」「承認フローを省きたい」という表現が複数回出ています。全社一括が響く可能性が高い。",
+          "phase": "PHASE2"
+        },
+        {
+          "id": "disc-uc3-002-c",
+          "speaker": "CS Manager",
+          "roleId": "role-csm",
+          "ts": "2026-04-28T14:19:00Z",
+          "text": "一方で社内承認フローの懸念もある。CFO承認が必要な$100K以上の案件は稟議に2〜3週かかるとのこと。パイロット先行で内部採用を先に作る戦略も有効では。",
+          "phase": "PHASE2"
+        },
+        {
+          "id": "disc-uc3-002-d",
+          "speaker": "CEO",
+          "roleId": "role-ceo",
+          "ts": "2026-04-28T14:21:00Z",
+          "text": "ROIを明確に示せれば稟議は通る。AI ROI試算とTCO比較を準備してCTO→CFOのラインに訴求しよう。全社一括Aで行く。",
+          "phase": "PHASE2"
+        }
+      ],
+      "reactions": [
+        { "id": "react-uc3-003", "emoji": "💡", "roleId": "role-csm",       "ts": "2026-04-28T14:19:00Z" },
+        { "id": "react-uc3-004", "emoji": "👍", "roleId": "role-marketing", "ts": "2026-04-28T14:21:00Z" }
+      ],
+      "positions": [
+        { "roleId": "role-ceo",       "stance": "agree",    "weightContribution": 0.30, "ts": "2026-04-28T14:22:00Z", "note": "Aで行く" },
+        { "roleId": "role-ae",        "stance": "agree",    "weightContribution": 0.25, "ts": "2026-04-28T14:22:00Z" },
+        { "roleId": "role-marketing", "stance": "agree",    "weightContribution": 0.20, "ts": "2026-04-28T14:22:00Z" },
+        { "roleId": "role-csm",       "stance": "neutral",  "weightContribution": 0.25, "ts": "2026-04-28T14:22:00Z", "note": "稟議フロー懸念あり" }
+      ],
+      "parked": false,
+      "linkedVoiceIds": ["gong-call-uc3-001", "nps-survey-uc3-001"],
+      "linkedDecisionIds": ["dec-uc3-approach"]
+    },
+    {
+      "id": "agenda-uc3-003",
+      "title": "実行プランと担当確定（提案書・ROI・Battle Card）",
+      "ownerRoleId": "role-csm",
+      "timeBudgetMin": 20,
+      "status": "in_discussion",
+      "discussionLog": [
+        {
+          "id": "disc-uc3-003-a",
+          "speaker": "CS Manager",
+          "roleId": "role-csm",
+          "ts": "2026-04-28T14:25:00Z",
+          "text": "実行タスクを整理します。AEが提案書作成（2日）、CEO+AEで価格交渉枠確定（4h）、私がCTO向けミーティング設定（1h）。AIに依頼するのはROI試算と競合Battle Card生成です。",
+          "phase": "PLANNING"
+        },
+        {
+          "id": "disc-uc3-003-b",
+          "speaker": "Account Executive",
+          "roleId": "role-ae",
+          "ts": "2026-04-28T14:27:00Z",
+          "text": "提案書は既存テンプレートをベースに。ACME固有のKPIとROI数値はAIで試算してもらいます。3年TCO比較で現状コストの35%削減を示せる見込みです。",
+          "phase": "PLANNING"
+        }
+      ],
+      "reactions": [],
+      "positions": [],
+      "parked": false,
+      "linkedVoiceIds": ["sf-opp-uc3-001"],
+      "linkedDecisionIds": ["dec-uc3-execution"]
+    }
+  ],
+  "voices": [
+    {
+      "id": "gong-call-uc3-001",
+      "source": "gong",
+      "speaker": { "name": "高橋 健一", "role": "CTO", "company": "ACME Corp" },
+      "handler": { "name": "田中 誠", "role": "Account Executive", "organization": "Sophia Project" },
+      "ts": "2026-04-21T10:00:00Z",
+      "text": "SSO問題が解決すれば、全社展開を検討したい。今は50名だが来期には200名以上になる。一括でやりたい。承認フローは私が通す。TCOの数値を出してくれれば上を説得できる。",
+      "textSummary": "全社展開（50→200名）の意向。TCO比較で役員説得できる。一括移行を希望。",
+      "sentiment": "positive",
+      "metadata": {
+        "gong": {
+          "callId": "gong-acme-q2-review",
+          "callTitle": "ACME Q2レビュー + 更新戦略",
+          "startTs": "2026-04-21T10:00:00Z",
+          "durationSec": 2700,
+          "speakerSide": "customer"
+        }
+      }
+    },
+    {
+      "id": "sf-opp-uc3-001",
+      "source": "salesforce",
+      "speaker": { "name": "田中 誠", "role": "Account Executive", "company": "Sophia Project" },
+      "handler": { "name": "田中 誠", "role": "Account Executive", "organization": "Sophia Project" },
+      "ts": "2026-04-22T09:00:00Z",
+      "text": "ACME Enterprise拡張商談。現契約 $240K→$420K（+$180K）。ユーザー200名+Enterpriseプラン。SSO+SCIM、優先サポート付。Stage: Proposal/Quote。競合: Competitor X が低価格で当たってきている。",
+      "sentiment": "positive",
+      "metadata": {
+        "salesforce": {
+          "recordType": "Opportunity",
+          "recordId": "006Hs00002UPSELL1",
+          "stage": "Proposal/Quote",
+          "arr": 420000,
+          "ownerName": "田中 誠"
+        }
+      }
+    },
+    {
+      "id": "hs-engagement-uc3-001",
+      "source": "hubspot",
+      "speaker": { "name": "高橋 健一", "role": "CTO", "company": "ACME Corp" },
+      "handler": { "name": "田中 誠", "role": "Account Executive", "organization": "Sophia Project" },
+      "ts": "2026-04-23T08:30:00Z",
+      "text": "製品ページ「Enterprise機能一覧」を3回閲覧。料金ページも2回訪問。Upsell比較ページで18分滞在。エンゲージメントスコア: 87（高関心）。",
+      "sentiment": "positive",
+      "metadata": {
+        "hubspot": {
+          "recordType": "Contact",
+          "recordId": "hs-contact-acme-takahashi",
+          "pipeline": "Enterprise Sales",
+          "dealStage": "Proposal/Quote"
+        }
+      }
+    },
+    {
+      "id": "nps-survey-uc3-001",
+      "source": "email",
+      "speaker": { "name": "高橋 健一", "role": "CTO", "company": "ACME Corp" },
+      "ts": "2026-04-25T12:00:00Z",
+      "text": "NPS回答: スコア9（推薦者）。コメント:「SSO問題の対応は迅速で助かった。チームも増えるので引き続き使いたい。プレミアム機能があればもっと良い。」",
+      "sentiment": "advocacy",
+      "metadata": {
+        "email": {
+          "messageId": "nps-acme-2026q2",
+          "subject": "製品満足度アンケート回答",
+          "threadCount": 1
+        }
+      }
+    }
+  ],
+  "ghsItems": [
+    {
+      "id": "ghs-uc3-001",
+      "category": "expansion",
+      "scope": "agenda",
+      "agendaId": "agenda-uc3-001",
+      "title": "ACME アップセル機会スコア",
+      "score": 78,
+      "trend": "up",
+      "previousScore": 55,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-ae"
+    },
+    {
+      "id": "ghs-uc3-002",
+      "category": "retention",
+      "scope": "agenda",
+      "agendaId": "agenda-uc3-002",
+      "title": "提案アプローチ合意度",
+      "score": 85,
+      "trend": "up",
+      "previousScore": 60,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-ae"
+    },
+    {
+      "id": "ghs-uc3-003",
+      "category": "expansion",
+      "scope": "agenda",
+      "agendaId": "agenda-uc3-003",
+      "title": "実行プラン確立スコア",
+      "score": 55,
+      "trend": "up",
+      "previousScore": 30,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-csm"
+    },
+    {
+      "id": "ghs-uc3-004",
+      "category": "expansion",
+      "scope": "meeting",
+      "title": "全社向け健全性スコア（上昇トレンド）",
+      "score": 78,
+      "trend": "up",
+      "previousScore": 65,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-ceo"
+    }
+  ],
+  "decisionItems": [
+    {
+      "id": "dec-uc3-approach",
+      "type": "strategic",
+      "title": "ACMEアップセル提案アプローチ",
+      "agendaId": "agenda-uc3-002",
+      "alternatives": [
+        {
+          "id": "alt-uc3-001",
+          "label": "A: 全社一括 Enterprise移行（ARR +$180K）",
+          "recommended": true,
+          "impactScore": 5,
+          "riskScore": 3,
+          "eta": "2026-05-20",
+          "description": "200ユーザー+Enterprise機能で一括契約。ROI・TCO比較でCFO稟議を通す。Q2クローズ目標。"
+        },
+        {
+          "id": "alt-uc3-002",
+          "label": "B: 段階的拡張（部署単位 Q2+Q3で$90K×2）",
+          "recommended": false,
+          "impactScore": 3,
+          "riskScore": 2,
+          "eta": "2026-07-01",
+          "description": "承認フローのリスクを下げつつ段階拡張。Q3完了でARR同額だが機会損失リスクあり。"
+        },
+        {
+          "id": "alt-uc3-003",
+          "label": "C: 30日パイロット先行（無償）→一括",
+          "recommended": false,
+          "impactScore": 4,
+          "riskScore": 1,
+          "eta": "2026-06-15",
+          "description": "Enterprise機能を30日無償トライアル。社内采用を確認後に一括移行。クローズまでの期間が伸びる。"
+        }
+      ],
+      "voiceImpactIds": [],
+      "status": "decided",
+      "votingResult": { "agree": 3, "neutral": 1, "disagree": 0, "weightedScore": 0.85 }
+    },
+    {
+      "id": "dec-uc3-execution",
+      "type": "operational",
+      "title": "実行タスク優先順位",
+      "agendaId": "agenda-uc3-003",
+      "alternatives": [
+        {
+          "id": "alt-uc3-004",
+          "label": "A: 提案書優先 → ROI試算 → Battle Card の順",
+          "recommended": true,
+          "impactScore": 5,
+          "riskScore": 1,
+          "eta": "2026-05-10",
+          "description": "CTOミーティングに向けて提案書を最優先。ROI・Battle CardはAIが並行生成。"
+        },
+        {
+          "id": "alt-uc3-005",
+          "label": "B: ROI試算先行 → 提案書に組込み",
+          "recommended": false,
+          "impactScore": 4,
+          "riskScore": 2,
+          "eta": "2026-05-12",
+          "description": "ROI数値が決まってから提案書を作る。2日遅延するが数値の整合性が取れる。"
+        }
+      ],
+      "voiceImpactIds": [],
+      "status": "evaluating",
+      "votingResult": { "agree": 2, "neutral": 2, "disagree": 0, "weightedScore": 0.70 }
+    }
+  ],
+  "storyItems": [
+    {
+      "id": "story-uc3-001",
+      "audience": "customer",
+      "title": "ACME Corp 様向け Enterprise 移行提案書",
+      "narrative": "ACME Corp 様の事業成長と全社展開ニーズに応えるため、Enterprise プランへの移行をご提案いたします。50名から200名へのユーザー拡張、SSO+SCIM統合、専任CSMアサインにより、3年間のTCOを現状比35%削減できる見込みです。",
+      "channel": "Proposal Doc / Meeting",
+      "linkedVoiceIds": ["gong-call-uc3-001", "nps-survey-uc3-001"],
+      "voiceImpactIds": [],
+      "intelligence": {
+        "toneRecommendation": "技術的ROI + ビジネス価値の両面訴求。CTO向け技術、CFO向け財務の2層構成",
+        "riskWarning": "競合比較は必ず Battle Card で事前準備。価格は範囲で示し、交渉余地を残す",
+        "confidence": 0.88,
+        "generatedAt": "2026-04-28T14:30:00Z"
+      },
+      "status": "review",
+      "ownerRoleId": "role-ae",
+      "agendaId": "agenda-uc3-003"
+    }
+  ],
+  "voiceImpactIntelligence": []
+}

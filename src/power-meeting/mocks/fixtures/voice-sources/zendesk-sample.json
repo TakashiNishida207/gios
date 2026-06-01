@@ -1,0 +1,35 @@
+[
+  {
+    "id": "zd-ticket-001",
+    "source": "zendesk",
+    "speaker": { "name": "田中 剛", "role": "IT Admin", "company": "ACME Corp" },
+    "ts": "2026-04-20T09:30:00Z",
+    "text": "SAML SSO設定後、特定のユーザーグループがログインできない問題が発生しています。Active Directoryのグループポリシーとの競合が疑われます。",
+    "sentiment": "negative",
+    "metadata": {
+      "zendesk": { "ticketId": "ZD-10042", "priority": "high", "status": "open" }
+    }
+  },
+  {
+    "id": "zd-ticket-002",
+    "source": "zendesk",
+    "speaker": { "name": "木田 優子", "role": "Operations", "company": "GlobalTech" },
+    "ts": "2026-04-19T13:00:00Z",
+    "text": "月次レポートのPDFエクスポートで、グラフが正しくレンダリングされない問題。Chromeでは正常だがSafariで崩れる。",
+    "sentiment": "negative",
+    "metadata": {
+      "zendesk": { "ticketId": "ZD-10038", "priority": "normal", "status": "pending" }
+    }
+  },
+  {
+    "id": "zd-ticket-003",
+    "source": "zendesk",
+    "speaker": { "name": "石川 博", "role": "End User", "company": "MidCo" },
+    "ts": "2026-04-18T10:00:00Z",
+    "text": "通知設定を変更しようとしても保存されない。ページリロードすると元に戻ってしまう。",
+    "sentiment": "negative",
+    "metadata": {
+      "zendesk": { "ticketId": "ZD-10031", "priority": "low", "status": "solved" }
+    }
+  }
+]

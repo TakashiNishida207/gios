@@ -1,0 +1,35 @@
+[
+  {
+    "id": "slack-msg-001",
+    "source": "slack",
+    "speaker": { "name": "山田 CS Lead", "role": "Customer Success Lead" },
+    "ts": "2026-04-22T10:15:00Z",
+    "text": "#customer-escalation ACME社のSSO問題、Tier2エスカレーション完了。エンジニアが直接対応中。ETA 4時間。",
+    "sentiment": "neutral",
+    "metadata": {
+      "slack": { "channel": "#customer-escalation", "threadTs": "1745316900.001", "permalink": "https://sophia-proj.slack.com/archives/C01234/p1745316900001" }
+    }
+  },
+  {
+    "id": "slack-msg-002",
+    "source": "slack",
+    "speaker": { "name": "PM 木村", "role": "Product Manager" },
+    "ts": "2026-04-21T16:00:00Z",
+    "text": "#product-feedback ダッシュボードカスタマイズの要望、今週3件新規入電。Q2優先度を上げることを提案したい。",
+    "sentiment": "neutral",
+    "metadata": {
+      "slack": { "channel": "#product-feedback", "threadTs": "1745244000.002" }
+    }
+  },
+  {
+    "id": "slack-msg-003",
+    "source": "slack",
+    "speaker": { "name": "CEO 中島", "role": "CEO" },
+    "ts": "2026-04-20T09:00:00Z",
+    "text": "#all-hands 今週のチャーンリスク最新状況：ACME社は技術問題解決次第で継続確率80%。BetaCorp社は新担当者との関係構築が鍵。",
+    "sentiment": "neutral",
+    "metadata": {
+      "slack": { "channel": "#all-hands" }
+    }
+  }
+]

@@ -7,15 +7,29 @@ import type {
   PageObjectResponse,
   UpdatePageParameters,
 } from "@notionhq/client/build/src/api-endpoints";
+import dataDictionary from "../../dictionary/data_dictionary.json";
 
 type NotionProperties = NonNullable<UpdatePageParameters["properties"]>;
+
+// Notion フィールド名 → データ型 のルックアップテーブル（辞書から生成）
+const NOTION_FIELD_TYPE: Record<string, string> = {};
+{
+  const entries = Array.isArray(dataDictionary)
+    ? dataDictionary
+    : Object.values(dataDictionary);
+  for (const entry of entries as { notionField?: string; type?: string }[]) {
+    if (entry.notionField && entry.type) {
+      NOTION_FIELD_TYPE[entry.notionField] = entry.type;
+    }
+  }
+}
 
 export class NotionAdapter {
   private client: Client;
   private databaseId: string;
 
   constructor(apiKey: string, databaseId: string) {
-    this.client = new Client({ auth: apiKey });
+    this.client = new Client({ auth: apiKey, timeoutMs: 15000 });
     this.databaseId = databaseId;
   }
 
@@ -42,7 +56,7 @@ export class NotionAdapter {
   }
 
   /**
-   * GIOS → Notion 逆同期: Notion ページのプロパティを更新する。
+   * GDIOS → Notion 逆同期: Notion ページのプロパティを更新する。
    * records に `__notionPageId__` が必要。Sync Layer 外からは呼び出さない。
    */
   async update(records: Record<string, unknown>[]): Promise<void> {
@@ -100,12 +114,42 @@ export class NotionAdapter {
 
     for (const [field, value] of Object.entries(record)) {
       if (field === "__notionPageId__") continue;
-      if (value === null || value === undefined) continue;
+      if (value === null || value === undefined || value === "") continue;
 
-      // Insight / Action / Learning の値は rich_text として書き戻す
-      properties[field] = {
-        rich_text: [{ text: { content: String(value) } }],
-      };
+      const fieldType = NOTION_FIELD_TYPE[field] ?? "string";
+
+      if (fieldType === "number") {
+        // 数値型フィールド（Gap Level, Priority Score, Pain Severity, Opportunity Size など）
+        const num = typeof value === "number" ? value : parseFloat(String(value));
+        if (!isNaN(num)) {
+          properties[field] = { number: num };
+        }
+      } else if (fieldType === "date") {
+        // 日付型フィールド（期限 など）— YYYY-MM-DD 形式が必要
+        const dateStr = String(value).trim();
+        if (dateStr && /^\d{4}-\d{2}-\d{2}/.test(dateStr)) {
+          properties[field] = { date: { start: dateStr.slice(0, 10) } };
+        }
+        // 空や不正な日付はスキップ（Notion に不正値を送らない）
+      } else if (fieldType === "string[]") {
+        // 配列型フィールド（選択肢, アクションアイテム など）
+        const content = Array.isArray(value)
+          ? (value as string[]).join("\n")
+          : String(value);
+        if (content.trim()) {
+          properties[field] = {
+            rich_text: [{ text: { content: content.slice(0, 2000) } }],
+          };
+        }
+      } else {
+        // string（デフォルト）— rich_text として書き戻す
+        const content = String(value).slice(0, 2000); // Notion 上限
+        if (content.trim()) {
+          properties[field] = {
+            rich_text: [{ text: { content } }],
+          };
+        }
+      }
     }
     return properties;
   }

@@ -1,0 +1,136 @@
+[
+  {
+    "id": "hs-deal-001",
+    "source": "hubspot",
+    "speaker": { "name": "木村 亮", "role": "Sales Rep", "company": "Sophia Project" },
+    "ts": "2026-04-20T10:00:00Z",
+    "text": "ACME社リニューアル商談。現在クロージング段階で進行中。年間更新ARR $240Kで、競合評価フェーズを通過した唯一のベンダー。",
+    "sentiment": "positive",
+    "metadata": {
+      "hubspot": {
+        "recordType": "Deal",
+        "recordId": "hs-deal-acme-renewal",
+        "pipeline": "Enterprise",
+        "dealStage": "Contract Sent"
+      }
+    }
+  },
+  {
+    "id": "hs-deal-002",
+    "source": "hubspot",
+    "speaker": { "name": "中村 真由美", "role": "Sales Rep", "company": "Sophia Project" },
+    "ts": "2026-04-19T14:00:00Z",
+    "text": "MidCo社の新規案件。マーケティングからのインバウンドリード。プロダクトツアーを経て、有料プラン検討フェーズへ。",
+    "sentiment": "positive",
+    "metadata": {
+      "hubspot": {
+        "recordType": "Deal",
+        "recordId": "hs-deal-midco-new",
+        "pipeline": "SMB",
+        "dealStage": "Demo Scheduled"
+      }
+    }
+  },
+  {
+    "id": "hs-deal-003",
+    "source": "hubspot",
+    "speaker": { "name": "木村 亮", "role": "Sales Rep", "company": "Sophia Project" },
+    "ts": "2026-04-18T09:00:00Z",
+    "text": "RetailChain社の多拠点展開案件。全国15拠点への展開を計画中。価格交渉はVPレベルで進行中。",
+    "sentiment": "neutral",
+    "metadata": {
+      "hubspot": {
+        "recordType": "Deal",
+        "recordId": "hs-deal-retail-chain",
+        "pipeline": "Enterprise",
+        "dealStage": "Negotiation"
+      }
+    }
+  },
+  {
+    "id": "hs-deal-004",
+    "source": "hubspot",
+    "speaker": { "name": "小林 直樹", "role": "SDR", "company": "Sophia Project" },
+    "ts": "2026-04-17T11:00:00Z",
+    "text": "TechStart社のPLG自然転換案件。フリープランで3ヶ月利用後、チームプランへのアップグレードを検討中。MAU 47名。",
+    "sentiment": "positive",
+    "metadata": {
+      "hubspot": {
+        "recordType": "Deal",
+        "recordId": "hs-deal-techstart-plg",
+        "pipeline": "PLG",
+        "dealStage": "Upgrade Discussion"
+      }
+    }
+  },
+  {
+    "id": "hs-contact-001",
+    "source": "hubspot",
+    "speaker": { "name": "高田 哲也", "role": "CTO", "company": "ACME Corp" },
+    "ts": "2026-04-15T16:00:00Z",
+    "text": "API統合の技術的な懸念を共有。セキュリティ監査レポートの提供を要請。SOC2 Type IIの証明書が必要とのこと。",
+    "sentiment": "neutral",
+    "metadata": {
+      "hubspot": {
+        "recordType": "Contact",
+        "recordId": "hs-contact-takada"
+      }
+    }
+  },
+  {
+    "id": "hs-contact-002",
+    "source": "hubspot",
+    "speaker": { "name": "松本 由美子", "role": "VP of Operations", "company": "MidCo" },
+    "ts": "2026-04-16T13:30:00Z",
+    "text": "他社ツールとの比較検討中。特にWorkflow automationと多言語対応が評価ポイント。Trialアカウントで試用したところ、UIが直感的で好印象。",
+    "sentiment": "positive",
+    "metadata": {
+      "hubspot": {
+        "recordType": "Contact",
+        "recordId": "hs-contact-matsumoto"
+      }
+    }
+  },
+  {
+    "id": "hs-contact-003",
+    "source": "hubspot",
+    "speaker": { "name": "大野 幸雄", "role": "IT Director", "company": "RetailChain" },
+    "ts": "2026-04-14T10:00:00Z",
+    "text": "オンプレミス版の提供可否を確認したい。セキュリティポリシー上、クラウドのみのSaaSは採用困難。ハイブリッド構成について相談したい。",
+    "sentiment": "neutral",
+    "metadata": {
+      "hubspot": {
+        "recordType": "Contact",
+        "recordId": "hs-contact-ohno"
+      }
+    }
+  },
+  {
+    "id": "hs-conversation-001",
+    "source": "hubspot",
+    "speaker": { "name": "西田 恵子", "role": "Support Engineer", "company": "Sophia Project" },
+    "ts": "2026-04-22T09:30:00Z",
+    "text": "チャット対応記録：顧客がダッシュボードのカスタマイズ方法について問い合わせ。ウィジェットの追加手順をガイドし、ヘルプドキュメントを共有。問題解決を確認。",
+    "sentiment": "positive",
+    "metadata": {
+      "hubspot": {
+        "recordType": "Conversation",
+        "recordId": "hs-conv-dashboard-help"
+      }
+    }
+  },
+  {
+    "id": "hs-conversation-002",
+    "source": "hubspot",
+    "speaker": { "name": "前田 浩二", "role": "Support Engineer", "company": "Sophia Project" },
+    "ts": "2026-04-21T14:00:00Z",
+    "text": "チャット対応記録：請求書の発行形式についての質問。PDF形式とCSV形式の両方が提供可能であることを説明。カスタム請求書テンプレートの設定方法も案内。",
+    "sentiment": "neutral",
+    "metadata": {
+      "hubspot": {
+        "recordType": "Conversation",
+        "recordId": "hs-conv-billing-format"
+      }
+    }
+  }
+]

@@ -2,16 +2,16 @@
 // サーバーサイドシングルトンストア — API ルートが参照する唯一の状態
 // Next.js のホットリロード対策として global に保持する
 
-import { createInitialStore, type GIOSStore } from "./store";
+import { createInitialStore, type GDIOSStore } from "./store";
 
 declare global {
   // eslint-disable-next-line no-var
-  var __giosStore: GIOSStore | undefined;
+  var __gdiosStore: GDIOSStore | undefined;
 }
 
-export function getServerStore(): GIOSStore {
-  if (!global.__giosStore) {
-    global.__giosStore = createInitialStore();
+export function getServerStore(): GDIOSStore {
+  if (!global.__gdiosStore) {
+    global.__gdiosStore = createInitialStore();
   }
-  return global.__giosStore;
+  return global.__gdiosStore;
 }

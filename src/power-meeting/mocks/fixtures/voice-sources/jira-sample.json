@@ -1,0 +1,35 @@
+[
+  {
+    "id": "jira-issue-001",
+    "source": "jira",
+    "speaker": { "name": "Engineering Team", "role": "Engineering" },
+    "ts": "2026-04-22T09:00:00Z",
+    "text": "[PM-2341] ダッシュボードカスタマイズ機能の実装。顧客要望上位5件のうち3件がこの機能に関連。ウィジェットのドラッグ&ドロップ配置とカラー設定に対応。",
+    "sentiment": "neutral",
+    "metadata": {
+      "jira": { "issueKey": "PM-2341", "type": "Story", "status": "In Progress" }
+    }
+  },
+  {
+    "id": "jira-issue-002",
+    "source": "jira",
+    "speaker": { "name": "Engineering Team", "role": "Engineering" },
+    "ts": "2026-04-21T14:00:00Z",
+    "text": "[PM-2298] Safari PDF出力バグの修正。Canvasレンダリングの互換性問題。対象ブラウザ：Safari 16+。影響ユーザー推定 12%。",
+    "sentiment": "negative",
+    "metadata": {
+      "jira": { "issueKey": "PM-2298", "type": "Bug", "status": "In Review" }
+    }
+  },
+  {
+    "id": "jira-issue-003",
+    "source": "jira",
+    "speaker": { "name": "Engineering Team", "role": "Engineering" },
+    "ts": "2026-04-20T11:00:00Z",
+    "text": "[PM-2315] Slack連携 v2.0 の実装。双方向通知、スレッド形式でのメンション対応、Slack Workflowとの連携。Q2目標機能。",
+    "sentiment": "positive",
+    "metadata": {
+      "jira": { "issueKey": "PM-2315", "type": "Epic", "status": "To Do" }
+    }
+  }
+]

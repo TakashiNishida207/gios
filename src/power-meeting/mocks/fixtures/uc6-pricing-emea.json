@@ -1,0 +1,361 @@
+{
+  "bundleId": "bundle-uc6",
+  "name": "Pricing改定 + EMEA追出 — B2B SaaS / スケールフェーズ",
+  "phase": "PLANNING",
+  "roles": [
+    { "id": "role-uc6-ceo", "name": "CEO",        "weight": 0.25 },
+    { "id": "role-uc6-cfo", "name": "CFO",        "weight": 0.30 },
+    { "id": "role-uc6-cro", "name": "CRO",        "weight": 0.30 },
+    { "id": "role-uc6-pvp", "name": "Product VP", "weight": 0.15 }
+  ],
+  "agendaItems": [
+    {
+      "id": "agenda-uc6-001",
+      "title": "NRR・Magic Number改善課題の現状分析",
+      "ownerRoleId": "role-uc6-cfo",
+      "timeBudgetMin": 20,
+      "status": "aligned",
+      "discussionLog": [
+        {
+          "id": "disc-uc6-001-a",
+          "speaker": "CFO",
+          "roleId": "role-uc6-cfo",
+          "ts": "2026-05-06T07:30:00Z",
+          "text": "LookerのKPIダッシュボードを共有します。NRRが4Q連続下降して今期110%、目標120%に対して10pt届いていない。Magic Numberも0.7で投資対効果が悪化。CACペイバック18ヶ月は目標12ヶ月を超過。主因はSMB比率の増加とPricingの硬直化です。",
+          "phase": "PHASE1"
+        },
+        {
+          "id": "disc-uc6-001-b",
+          "speaker": "CRO",
+          "roleId": "role-uc6-cro",
+          "ts": "2026-05-06T07:33:00Z",
+          "text": "Gongのレポートでは、エンタープライズ商談でのPricing交渉が増えています。競合他社が価値ベースPricingに移行する中、我々のシート数ベースモデルが説明しにくくなっている。失注理由に『他社の方が価値説明がわかりやすい』が前Q比3倍です。",
+          "phase": "PHASE1"
+        },
+        {
+          "id": "disc-uc6-001-c",
+          "speaker": "CEO",
+          "roleId": "role-uc6-ceo",
+          "ts": "2026-05-06T07:35:00Z",
+          "text": "米国一極集中リスクも見ておきたい。EMEAのパイプラインは小さいが手が届く範囲にある。Series Cのリソースを使って今期中に手を打つべきか。Pricing改定とEMEA追出を同時に進める選択肢を検討したい。",
+          "phase": "PHASE1"
+        }
+      ],
+      "reactions": [
+        { "id": "react-uc6-001", "emoji": "⚠️", "roleId": "role-uc6-cfo", "ts": "2026-05-06T07:35:00Z" }
+      ],
+      "positions": [
+        { "roleId": "role-uc6-ceo", "stance": "agree", "weightContribution": 0.25, "ts": "2026-05-06T07:36:00Z" },
+        { "roleId": "role-uc6-cfo", "stance": "agree", "weightContribution": 0.30, "ts": "2026-05-06T07:36:00Z" },
+        { "roleId": "role-uc6-cro", "stance": "agree", "weightContribution": 0.30, "ts": "2026-05-06T07:36:00Z" },
+        { "roleId": "role-uc6-pvp", "stance": "agree", "weightContribution": 0.15, "ts": "2026-05-06T07:36:00Z" }
+      ],
+      "parked": false,
+      "linkedVoiceIds": ["looker-uc6-001", "sf-uc6-001"],
+      "linkedDecisionIds": []
+    },
+    {
+      "id": "agenda-uc6-002",
+      "title": "Pricing競争力低下 — 価値ベース再設計方針",
+      "ownerRoleId": "role-uc6-cfo",
+      "timeBudgetMin": 25,
+      "status": "converging",
+      "discussionLog": [
+        {
+          "id": "disc-uc6-002-a",
+          "speaker": "CFO",
+          "roleId": "role-uc6-cfo",
+          "ts": "2026-05-06T07:52:00Z",
+          "text": "Value-based Pricingへの移行シナリオを試算しました。7セグメント×3プラン構成で、現ARRベースの客単価が平均22%向上する試算です。ただし既存顧客の移行設計が必要で、承認後3ヶ月の移行期間を想定。",
+          "phase": "PHASE2"
+        },
+        {
+          "id": "disc-uc6-002-b",
+          "speaker": "Product VP",
+          "roleId": "role-uc6-pvp",
+          "ts": "2026-05-06T07:55:00Z",
+          "text": "プロダクト側では利用量ベースのメタリングを実装済みです。Pricing v3の設計次第で技術的な制約はありません。Stripeでの実装工数は約3週間。既存APIの互換性も担保できます。",
+          "phase": "PHASE2"
+        },
+        {
+          "id": "disc-uc6-002-c",
+          "speaker": "CRO",
+          "roleId": "role-uc6-cro",
+          "ts": "2026-05-06T07:57:00Z",
+          "text": "Gongデータでは価格交渉で負けた案件の60%が『価値が不明瞭』という理由でした。価値ベースPricingへの移行は営業での説得力も上がる。勝率が最低5〜8pt改善すると見込んでいます。",
+          "phase": "PHASE2"
+        }
+      ],
+      "reactions": [
+        { "id": "react-uc6-002", "emoji": "⭐", "roleId": "role-uc6-ceo", "ts": "2026-05-06T07:57:00Z" }
+      ],
+      "positions": [
+        { "roleId": "role-uc6-ceo", "stance": "agree",   "weightContribution": 0.25, "ts": "2026-05-06T07:58:00Z", "note": "価値ベースへの移行に同意" },
+        { "roleId": "role-uc6-cfo", "stance": "agree",   "weightContribution": 0.30, "ts": "2026-05-06T07:58:00Z" },
+        { "roleId": "role-uc6-cro", "stance": "agree",   "weightContribution": 0.30, "ts": "2026-05-06T07:58:00Z" },
+        { "roleId": "role-uc6-pvp", "stance": "neutral", "weightContribution": 0.15, "ts": "2026-05-06T07:58:00Z", "note": "既存顧客への移行コミュニケーション設計が必要" }
+      ],
+      "parked": false,
+      "linkedVoiceIds": ["gong-uc6-001"],
+      "linkedDecisionIds": ["dec-uc6-strategy"]
+    },
+    {
+      "id": "agenda-uc6-003",
+      "title": "EMEA参入 + Partner Program立上げ実行計画",
+      "ownerRoleId": "role-uc6-ceo",
+      "timeBudgetMin": 30,
+      "status": "in_discussion",
+      "discussionLog": [
+        {
+          "id": "disc-uc6-003-a",
+          "speaker": "CEO",
+          "roleId": "role-uc6-ceo",
+          "ts": "2026-05-06T08:20:00Z",
+          "text": "EMEAはPartner Programを軸にしたい。直接雇用は時間がかかりすぎる。パートナー候補50社のスクリーニングが完了すれば、3社とのパートナー契約で今期中にパイプライン$2M相当は作れるはず。",
+          "phase": "PLANNING"
+        },
+        {
+          "id": "disc-uc6-003-b",
+          "speaker": "CFO",
+          "roleId": "role-uc6-cfo",
+          "ts": "2026-05-06T08:22:00Z",
+          "text": "EMEA参入のTAMは$180Mと試算しています。初期5ロールの採用コストとパートナーマージンを合わせても、ROIは24ヶ月以内に黒字化できます。Workdayの採用Reqを今週中に起票したい。",
+          "phase": "PLANNING"
+        },
+        {
+          "id": "disc-uc6-003-c",
+          "speaker": "CRO",
+          "roleId": "role-uc6-cro",
+          "ts": "2026-05-06T08:24:00Z",
+          "text": "Partner ProgramのリセラーマージンをPricing v3と連動させる必要があります。新Pricingでのマージン設計を今週中に固め、ContractWorksに3社分のパートナー契約ドラフトを起票する流れにしたい。",
+          "phase": "PLANNING"
+        }
+      ],
+      "reactions": [],
+      "positions": [
+        { "roleId": "role-uc6-ceo", "stance": "agree",   "weightContribution": 0.25, "ts": "2026-05-06T08:25:00Z" },
+        { "roleId": "role-uc6-cfo", "stance": "agree",   "weightContribution": 0.30, "ts": "2026-05-06T08:25:00Z" },
+        { "roleId": "role-uc6-cro", "stance": "agree",   "weightContribution": 0.30, "ts": "2026-05-06T08:25:00Z" },
+        { "roleId": "role-uc6-pvp", "stance": "neutral", "weightContribution": 0.15, "ts": "2026-05-06T08:25:00Z", "note": "EMEA向けローカライズ工数の見積が必要" }
+      ],
+      "parked": false,
+      "linkedVoiceIds": ["cs-uc6-001", "email-uc6-001"],
+      "linkedDecisionIds": ["dec-uc6-strategy", "dec-uc6-emea"]
+    }
+  ],
+  "voices": [
+    {
+      "id": "looker-uc6-001",
+      "source": "other",
+      "speaker": { "name": "Looker / SaaS Optics KPIレポート", "role": "Analytics Platform" },
+      "handler": { "name": "CFO", "role": "CFO", "organization": "Sophia Project" },
+      "ts": "2026-05-06T07:30:00Z",
+      "text": "【Looker KPIダッシュボード Q1 2026】NRR: 110%(目標120%, -10pt)。Magic Number: 0.7(目標1.0)。CACペイバック: 18ヶ月(目標12ヶ月)。MRR成長率: 8%(前Q 14%)。Expansion ARR: $420K(前Q $680K, -38%)。SMB比率がARRの52%に上昇(前Q 41%)。",
+      "sentiment": "concerned",
+      "tags": ["NRR", "KPI", "Magic Number", "CACペイバック"],
+      "metadata": {}
+    },
+    {
+      "id": "sf-uc6-001",
+      "source": "salesforce",
+      "speaker": { "name": "Salesforce Global Pipeline", "role": "CRM" },
+      "handler": { "name": "CRO", "role": "CRO", "organization": "Sophia Project" },
+      "ts": "2026-05-06T07:30:00Z",
+      "text": "【Salesforce Global Pipeline】ENT(ACV>$100K): Pipe $8.2M, 勝率34%。SMB(ACV<$30K): Pipe $3.1M, 勝率52%。EMEA Opportunity: $340K(全体の4%, 昨年比+120%)。失注理由1位『Pricing体系がわかりにくい』28%、2位『競合の価値訴求が上』22%。",
+      "sentiment": "neutral",
+      "tags": ["pipeline", "EMEA", "失注分析", "ENT"],
+      "metadata": {
+        "salesforce": { "recordType": "Report", "recordId": "report-uc6-001", "stage": "Pipeline", "arr": 8200000 }
+      }
+    },
+    {
+      "id": "gong-uc6-001",
+      "source": "gong",
+      "speaker": { "name": "Johnson, Mark", "role": "CFO", "company": "Global Logistics Corp (EMEA)" },
+      "handler": { "name": "CRO", "role": "CRO", "organization": "Sophia Project" },
+      "ts": "2026-05-06T07:30:00Z",
+      "text": "We need a usage-based model. With seat-based pricing, unused seats feel like waste. Your competitor offers consumption-based pricing that our CFO immediately understood. Honestly, we didn't lose on price — we lost on the clarity of value explanation.",
+      "sentiment": "negative",
+      "tags": ["Pricing", "EMEA", "失注", "価値訴求", "競合比較"],
+      "metadata": {
+        "gong": { "callId": "gong-uc6-001", "duration": 3600, "callType": "deal_lost", "recordingUrl": "https://gong.io/calls/uc6-001" }
+      }
+    },
+    {
+      "id": "cs-uc6-001",
+      "source": "other",
+      "speaker": { "name": "Customer Success Platform Expansion分析", "role": "CS Platform" },
+      "handler": { "name": "CRO", "role": "CRO", "organization": "Sophia Project" },
+      "ts": "2026-05-06T07:30:00Z",
+      "text": "【CS Platform Expansionサマリー】Expansionオポチュニティ特定済み23社($2.8M相当)。うちEMEA拠点のある大手5社から現地展開の問い合わせあり($1.2M相当)。主要顧客NPS+50が18社、Expansion準備スコア70以上が15社。EMEAオフィス設立への期待コメント多数。",
+      "sentiment": "positive",
+      "tags": ["Expansion", "EMEA", "NPS", "CS"],
+      "metadata": {}
+    },
+    {
+      "id": "email-uc6-001",
+      "source": "email",
+      "speaker": { "name": "Schmidt, Klaus", "role": "CTO", "company": "Munich Enterprise Solutions GmbH" },
+      "handler": { "name": "CEO", "role": "CEO", "organization": "Sophia Project" },
+      "ts": "2026-05-06T07:30:00Z",
+      "text": "We've been using your platform from our US entity for 18 months. Our Munich office has 200 employees who could benefit. We'd love to discuss European pricing and EU data residency options. Happy to be a reference customer for your EMEA launch.",
+      "sentiment": "advocacy",
+      "tags": ["EMEA", "EU", "データ居住", "リファレンス顧客"],
+      "metadata": {
+        "email": { "subject": "European Expansion Partnership Inquiry", "from": "k.schmidt@munich-enterprise.de" }
+      }
+    }
+  ],
+  "ghsItems": [
+    {
+      "id": "ghs-uc6-001",
+      "category": "expansion",
+      "scope": "agenda",
+      "agendaId": "agenda-uc6-001",
+      "title": "収益効率スコア(NRR / Magic Number)",
+      "score": 48,
+      "trend": "down",
+      "previousScore": 72,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-uc6-cfo"
+    },
+    {
+      "id": "ghs-uc6-002",
+      "category": "acquisition",
+      "scope": "agenda",
+      "agendaId": "agenda-uc6-002",
+      "title": "Pricing競争力スコア",
+      "score": 42,
+      "trend": "down",
+      "previousScore": 65,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-uc6-cfo"
+    },
+    {
+      "id": "ghs-uc6-003",
+      "category": "expansion",
+      "scope": "agenda",
+      "agendaId": "agenda-uc6-003",
+      "title": "EMEA拡張準備スコア",
+      "score": 58,
+      "trend": "up",
+      "previousScore": 20,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-uc6-ceo"
+    },
+    {
+      "id": "ghs-uc6-004",
+      "category": "expansion",
+      "scope": "meeting",
+      "title": "スケール戦略健全性スコア(全社)",
+      "score": 50,
+      "trend": "flat",
+      "previousScore": 52,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-uc6-ceo"
+    }
+  ],
+  "decisionItems": [
+    {
+      "id": "dec-uc6-strategy",
+      "type": "strategic",
+      "title": "Pricing改定 + EMEA参入 戦略選択",
+      "agendaId": "agenda-uc6-002",
+      "alternatives": [
+        {
+          "id": "alt-uc6-001",
+          "label": "A: 価値ベースPricing改定 + EMEA即時参入(推奨)",
+          "recommended": true,
+          "impactScore": 5,
+          "riskScore": 3,
+          "eta": "2026-08-06",
+          "description": "価値ベースPricing v3設計(CFO+PMM, 2ヶ月)。Stripe実装3週間。EMEA Partner Program(CRO, 1ヶ月)でパートナー3社と契約。EMEAパイプライン$2M創出を目標。"
+        },
+        {
+          "id": "alt-uc6-002",
+          "label": "B: パートナー先行強化のみ",
+          "recommended": false,
+          "impactScore": 3,
+          "riskScore": 2,
+          "eta": "2026-08-06",
+          "description": "Pricing改定は見送り、パートナーエコシステム構築に集中。EMEAと国内の両方でパートナー収益を先行させる。Pricing問題は未解決のまま残る。"
+        },
+        {
+          "id": "alt-uc6-003",
+          "label": "C: PLG導入優先",
+          "recommended": false,
+          "impactScore": 4,
+          "riskScore": 4,
+          "eta": "2026-11-06",
+          "description": "Product-Led Growthモデルへの転換。フリートライアル・セルフサーブ実装で獲得コスト削減。開発6ヶ月かかり、短期NRR改善には寄与しない。"
+        },
+        {
+          "id": "alt-uc6-004",
+          "label": "D: 段階的実行 (A→C 12ヶ月)",
+          "recommended": false,
+          "impactScore": 4,
+          "riskScore": 2,
+          "eta": "2027-05-06",
+          "description": "Q2: Pricing改定、Q3: EMEA参入、Q4: PLG導入の段階的実行。リスク分散できるが競合に先行される可能性あり。"
+        }
+      ],
+      "voiceImpactIds": [],
+      "status": "decided",
+      "votingResult": { "agree": 3, "neutral": 1, "disagree": 0, "weightedScore": 0.80 }
+    },
+    {
+      "id": "dec-uc6-emea",
+      "type": "operational",
+      "title": "EMEA参入モデル選択",
+      "agendaId": "agenda-uc6-003",
+      "alternatives": [
+        {
+          "id": "alt-uc6-005",
+          "label": "A: パートナー経由(MSP/Reseller 3社、推奨)",
+          "recommended": true,
+          "impactScore": 4,
+          "riskScore": 2,
+          "eta": "2026-08-06",
+          "description": "EMEA主要3カ国でのMSP/Resellerパートナー契約。初期5ロール採用と並行。パイプライン$2M創出、24ヶ月ROI黒字化を目標。"
+        },
+        {
+          "id": "alt-uc6-006",
+          "label": "B: EMEA直接販売(ロンドン事務所開設)",
+          "recommended": false,
+          "impactScore": 5,
+          "riskScore": 4,
+          "eta": "2027-02-06",
+          "description": "ロンドン拠点開設。AE 3名 + CS 2名の直接採用。コントロールは高いが初期投資$1.5M、立上げに12ヶ月かかる。"
+        }
+      ],
+      "voiceImpactIds": [],
+      "status": "evaluating",
+      "votingResult": { "agree": 3, "neutral": 1, "disagree": 0, "weightedScore": 0.80 }
+    }
+  ],
+  "storyItems": [
+    {
+      "id": "story-uc6-001",
+      "audience": "market",
+      "title": "Pricing改定 + EMEA参入 — Board向け実行計画書",
+      "narrative": "Series Cのリソースを活用し、(1)価値ベースPricing v3移行(Q2, CFO+PMM主導)と(2)EMEAパートナー経由参入(Q3, CRO主導)を並行実行。NRR目標120%、EMEA ARR $2M創出、Magic Number 1.0への改善を12ヶ月で達成する。AIによるPrice Elasticity分析(7セグメント)とPartner候補50社スクリーニング完了済み。",
+      "channel": "Notion / Looker / Stripe / ContractWorks",
+      "linkedVoiceIds": ["gong-uc6-001", "cs-uc6-001", "email-uc6-001"],
+      "voiceImpactIds": [],
+      "intelligence": {
+        "toneRecommendation": "Board向け。ROI試算と実行タイムラインを明確に。リスク項目も並記すること",
+        "riskWarning": "既存顧客へのPricing移行は法務確認 + 90日前通知が必要。EU GDPR対応・データ居住地要件に注意",
+        "confidence": 0.89,
+        "generatedAt": "2026-05-06T08:30:00Z"
+      },
+      "status": "approved",
+      "ownerRoleId": "role-uc6-cfo",
+      "agendaId": "agenda-uc6-003"
+    }
+  ],
+  "voiceImpactIntelligence": []
+}

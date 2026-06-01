@@ -1,23 +1,23 @@
 // src/ui/Sidebar.tsx
-// GIOS Sidebar — 因果ループの順序でナビゲーションを配置する
+// GDIOS Sidebar — 因果ループの順序でナビゲーションを配置する
 // Intelligence Flow mini-viz: 各フェーズの変数数をプログレスバーで表示
 
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useGIOSStore } from "@/store";
+import { useGDIOSStore } from "@/store";
 import { usePreferences } from "./preferences";
 
 const NAV = [
   { href: "/",              en: "Dashboard",     ja: "ダッシュボード", icon: "grid"     },
   { href: "/input",         en: "Input",         ja: "インプット",     icon: "input"    },
-  { href: "/insight",       en: "Insight",       ja: "洞察",           icon: "insight"  },
-  { href: "/action",        en: "Action",        ja: "アクション",     icon: "action"   },
-  { href: "/power-meeting", en: "Power Meeting", ja: "パワーMTG",      icon: "meeting"  },
-  { href: "/learning",      en: "Learning",      ja: "学習",           icon: "learning" },
-  { href: "/pmf",           en: "PMF Score",     ja: "PMFスコア",      icon: "pmf"      },
-  { href: "/chasm",         en: "Chasm Score",   ja: "Chasmスコア",    icon: "chasm"    },
-  { href: "/admin",         en: "Admin",         ja: "管理",           icon: "admin"    },
+  { href: "/insight",       en: "Insight",       ja: "インサイト",         icon: "insight"  },
+  { href: "/action",        en: "Action",        ja: "アクション",         icon: "action"   },
+  { href: "/power-meeting", en: "Power Meeting", ja: "パワーミーティング", icon: "meeting"  },
+  { href: "/learning",      en: "Learning",      ja: "学習",               icon: "learning" },
+  { href: "/pmf",           en: "PMF Score",     ja: "PMF達成スコア",      icon: "pmf"      },
+  { href: "/chasm",         en: "Chasm Score",   ja: "キャズム突破スコア", icon: "chasm"    },
+  { href: "/admin",         en: "Admin",         ja: "システム管理",   icon: "admin"    },
 ] as const;
 
 const PHASE_ACTIVE: Record<string, string> = {
@@ -45,12 +45,12 @@ const PHASE_ACTIVE_BG: Record<string, string> = {
 };
 
 const FLOW_PHASES = [
-  { key: "Input"      as const, color: "var(--teal)",   label: "Input"    },
-  { key: "Processing" as const, color: "var(--amber)",  label: "Process"  },
-  { key: "Insight"    as const, color: "var(--purple)", label: "Insight"  },
-  { key: "Action"     as const, color: "var(--accent)", label: "Action"   },
-  { key: "Feedback"   as const, color: "var(--red)",    label: "Feedback" },
-  { key: "Learning"   as const, color: "var(--green)",  label: "Learning" },
+  { key: "Input"      as const, color: "var(--teal)",   en: "Input",    ja: "インプット"       },
+  { key: "Processing" as const, color: "var(--amber)",  en: "Process",  ja: "処理"             },
+  { key: "Insight"    as const, color: "var(--purple)", en: "Insight",  ja: "インサイト"       },
+  { key: "Action"     as const, color: "var(--accent)", en: "Action",   ja: "アクション"       },
+  { key: "Feedback"   as const, color: "var(--red)",    en: "Feedback", ja: "フィードバック"   },
+  { key: "Learning"   as const, color: "var(--green)",  en: "Learning", ja: "学習"             },
 ];
 
 const ICONS: Record<string, React.ReactNode> = {
@@ -121,7 +121,7 @@ const ICONS: Record<string, React.ReactNode> = {
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const flow     = useGIOSStore((s) => s.flow);
+  const flow     = useGDIOSStore((s) => s.flow);
   const { lang } = usePreferences();
 
   const maxCount = Math.max(1, ...FLOW_PHASES.map((p) => Object.keys(flow[p.key]).length));
@@ -203,7 +203,7 @@ export default function Sidebar() {
           Flow
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-          {FLOW_PHASES.map(({ key, color, label }) => {
+          {FLOW_PHASES.map(({ key, color, en, ja }) => {
             const count = Object.keys(flow[key]).length;
             const pct = maxCount > 0 ? (count / maxCount) * 100 : 0;
             return (
@@ -217,7 +217,7 @@ export default function Sidebar() {
                     flexShrink: 0,
                   }}
                 >
-                  {label}
+                  {lang === "ja" ? ja : en}
                 </span>
                 <div
                   style={{

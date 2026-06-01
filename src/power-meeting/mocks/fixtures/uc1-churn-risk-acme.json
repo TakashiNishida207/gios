@@ -1,0 +1,487 @@
+{
+  "bundleId": "bundle-b-uc1",
+  "name": "チャーンリスク緊急対応 - ACME Corp",
+  "phase": "PHASE2",
+  "roles": [
+    { "id": "role-ceo", "name": "CEO", "weight": 0.3 },
+    { "id": "role-csm", "name": "CS Manager", "weight": 0.3 },
+    { "id": "role-pm", "name": "PM", "weight": 0.25 },
+    { "id": "role-eng", "name": "Engineering Lead", "weight": 0.15 }
+  ],
+  "agendaItems": [
+    {
+      "id": "agenda-001",
+      "title": "ACME解約リスクの現状把握",
+      "ownerRoleId": "role-csm",
+      "timeBudgetMin": 15,
+      "status": "converging",
+      "discussionLog": [
+        {
+          "id": "disc-001-a",
+          "speaker": "CS Manager",
+          "roleId": "role-csm",
+          "ts": "2026-04-28T10:05:00Z",
+          "text": "現在ACMEのNPSは-12まで下落。SSO障害が発端で、5名の主要ユーザーが利用停止中。",
+          "phase": "PHASE2"
+        },
+        {
+          "id": "disc-001-b",
+          "speaker": "CEO",
+          "roleId": "role-ceo",
+          "ts": "2026-04-28T10:07:00Z",
+          "text": "ARR $240Kだ。緊急対応モードで行く。他のリソースは一時的に後回しにしてでも解決する。",
+          "phase": "PHASE2"
+        }
+      ],
+      "reactions": [
+        { "id": "react-001", "emoji": "⚠️", "roleId": "role-pm", "ts": "2026-04-28T10:06:00Z" }
+      ],
+      "positions": [
+        { "roleId": "role-ceo", "stance": "agree", "weightContribution": 0.3, "note": "最優先で対応", "ts": "2026-04-28T10:08:00Z" },
+        { "roleId": "role-csm", "stance": "agree", "weightContribution": 0.3, "ts": "2026-04-28T10:08:00Z" }
+      ],
+      "parked": false,
+      "linkedVoiceIds": ["sf-case-001", "intercom-conv-001", "zd-ticket-001"],
+      "linkedDecisionIds": ["dec-churn-priority"],
+      "linkedInformationBlockIds": ["info-acme-nps", "info-acme-arr"]
+    },
+    {
+      "id": "agenda-002",
+      "title": "SSO障害の技術的根本原因と解決ETA",
+      "ownerRoleId": "role-eng",
+      "timeBudgetMin": 20,
+      "status": "aligned",
+      "discussionLog": [
+        {
+          "id": "disc-002-a",
+          "speaker": "Engineering Lead",
+          "roleId": "role-eng",
+          "ts": "2026-04-28T10:20:00Z",
+          "text": "SAMLのAttributeStatementsのフィールドマッピング定義が、ACME社のAzure AD設定と不一致になっていた。パッチはすでに開発完了、ステージング検証中。",
+          "phase": "PHASE2"
+        },
+        {
+          "id": "disc-002-b",
+          "speaker": "PM",
+          "roleId": "role-pm",
+          "ts": "2026-04-28T10:22:00Z",
+          "text": "ETAはいつですか？ACME社の高橋CTOに今日中に回答が必要です。",
+          "phase": "PHASE2"
+        },
+        {
+          "id": "disc-002-c",
+          "speaker": "Engineering Lead",
+          "roleId": "role-eng",
+          "ts": "2026-04-28T10:23:00Z",
+          "text": "本日18時にデプロイ予定。その後ACMEの環境で検証を行い、21時には完全解決の見込み。",
+          "phase": "PHASE2"
+        }
+      ],
+      "reactions": [
+        { "id": "react-002", "emoji": "👍", "roleId": "role-ceo", "ts": "2026-04-28T10:24:00Z" },
+        { "id": "react-003", "emoji": "👍", "roleId": "role-csm", "ts": "2026-04-28T10:24:00Z" }
+      ],
+      "positions": [
+        { "roleId": "role-eng", "stance": "agree", "weightContribution": 0.15, "note": "18時デプロイで解決", "ts": "2026-04-28T10:25:00Z" },
+        { "roleId": "role-pm", "stance": "agree", "weightContribution": 0.25, "ts": "2026-04-28T10:25:00Z" }
+      ],
+      "parked": false,
+      "linkedVoiceIds": ["zd-ticket-001", "jira-issue-002"],
+      "linkedDecisionIds": ["dec-sso-fix-approach"]
+    },
+    {
+      "id": "agenda-003",
+      "title": "顧客リテンション施策（価格・SLA・CSM対応）",
+      "ownerRoleId": "role-csm",
+      "timeBudgetMin": 25,
+      "status": "pending",
+      "discussionLog": [],
+      "reactions": [],
+      "positions": [],
+      "parked": false,
+      "linkedVoiceIds": ["email-001", "sf-opp-001"],
+      "linkedDecisionIds": ["dec-retention-strategy"]
+    }
+  ],
+  "voices": [
+    {
+      "id": "sf-case-001",
+      "source": "salesforce",
+      "incidentId": "sso-001",
+      "handler": { "name": "鈴木 CS", "role": "CS Manager", "organization": "Sophia Project" },
+      "speaker": { "name": "高橋 健一", "role": "CS Manager", "company": "ACME Corp" },
+      "ts": "2026-04-15T08:00:00Z",
+      "text": "SSO連携でのログイン障害が続いています。SAML認証のフィールドマッピングに問題があり、一部ユーザーが本番環境にアクセスできない状態。早急な対応をお願いします。",
+      "sentiment": "critical",
+      "metadata": {
+        "salesforce": { "recordType": "Case", "recordId": "500Hs00001ABCD1", "stage": "Escalated" }
+      }
+    },
+    {
+      "id": "intercom-conv-001",
+      "source": "intercom",
+      "incidentId": "sso-001",
+      "handler": { "name": "Fin AI → 西田 恵子", "role": "Support Engineer", "organization": "Sophia Project" },
+      "speaker": { "name": "ACME Corp ユーザー", "role": "End User", "company": "ACME Corp" },
+      "ts": "2026-04-20T08:30:00Z",
+      "text": "ダッシュボードが急に読み込まれなくなりました。エラーコード500が表示されています。至急確認をお願いします。",
+      "sentiment": "negative",
+      "metadata": {
+        "intercom": {
+          "conversationId": "conv-acme-001",
+          "finInvolved": true,
+          "finConfidence": 0.72,
+          "finResolved": false,
+          "handoffReason": "confidence_threshold_unmet",
+          "proceduresUsed": ["error-diagnosis-flow", "cache-clear-procedure"]
+        }
+      }
+    },
+    {
+      "id": "zd-ticket-001",
+      "source": "zendesk",
+      "incidentId": "sso-001",
+      "handler": { "name": "前田 浩二", "role": "Support Engineer", "organization": "Sophia Project" },
+      "speaker": { "name": "田中 剛", "role": "IT Admin", "company": "ACME Corp" },
+      "ts": "2026-04-20T09:30:00Z",
+      "text": "SAML SSO設定後、特定のユーザーグループがログインできない問題が発生しています。Active Directoryのグループポリシーとの競合が疑われます。",
+      "sentiment": "negative",
+      "metadata": {
+        "zendesk": { "ticketId": "ZD-10042", "priority": "high", "status": "open" }
+      }
+    },
+    {
+      "id": "asana-task-001",
+      "source": "asana",
+      "incidentId": "sso-001",
+      "handler": { "name": "山田 太郎", "role": "PM", "organization": "Sophia Project" },
+      "speaker": { "name": "山田 太郎", "role": "PM", "company": "Sophia Project" },
+      "ts": "2026-04-22T14:00:00Z",
+      "text": "SSOパッチ適用後の動作検証タスクをAsanaに登録。ステージング環境でのSAML認証フローを全グループポリシーパターンでテスト完了後、本番デプロイを承認する。",
+      "sentiment": "neutral",
+      "metadata": {
+        "asana": {
+          "taskId": "asana-1204398",
+          "taskName": "ACME SSO修正後の検証タスク",
+          "projectName": "ACMEサポートQ2",
+          "status": "in_progress",
+          "assignee": "山田 太郎",
+          "dueDate": "2026-04-28"
+        }
+      }
+    },
+    {
+      "id": "email-001",
+      "source": "email",
+      "handler": { "name": "田中 誠", "role": "Account Executive", "organization": "Sophia Project" },
+      "speaker": { "name": "高橋 健一", "role": "CTO", "company": "ACME Corp" },
+      "ts": "2026-04-19T08:00:00Z",
+      "text": "件名：【重要】更新契約の条件について\n\nSSO問題が解決された場合、更新契約を進める用意があります。ただし以下の条件をご考慮ください：1）価格の5%割引、2）SLA 99.9%の保証、3）専任CSMのアサイン。",
+      "sentiment": "concerned",
+      "metadata": {
+        "email": { "messageId": "email-acme-renewal-conditions", "subject": "【重要】更新契約の条件について", "threadCount": 4 }
+      }
+    },
+    {
+      "id": "sf-opp-001",
+      "source": "salesforce",
+      "handler": { "name": "田中 誠", "role": "Account Executive", "organization": "Sophia Project" },
+      "speaker": { "name": "田中 誠", "role": "Account Executive", "company": "Sophia Project" },
+      "ts": "2026-04-20T09:00:00Z",
+      "text": "ACME社との更新商談が佳境に入っています。ARR $240K のリニューアル。現在の懸念は価格感度と競合比較。",
+      "sentiment": "neutral",
+      "metadata": {
+        "salesforce": {
+          "recordType": "Opportunity",
+          "recordId": "006Hs00001KLMnP",
+          "stage": "Negotiation/Review",
+          "arr": 240000,
+          "ownerName": "田中 誠"
+        }
+      }
+    }
+  ],
+  "informationBlocks": {
+    "acme-nps": {
+      "id": "info-acme-nps",
+      "label": "ACME NPS",
+      "value": -12,
+      "previousValue": 8,
+      "unit": "score"
+    },
+    "acme-arr": {
+      "id": "info-acme-arr",
+      "label": "ACME ARR",
+      "value": 240000,
+      "unit": "USD"
+    },
+    "intercom-analytics": {
+      "resolutionRate": 0.67,
+      "vsBenchmark": -0.18,
+      "handoffBreakdown": {
+        "knowledge_gap": 3,
+        "confidence_threshold_unmet": 5,
+        "procedure_failed": 2,
+        "customer_requested_human": 1
+      },
+      "totalConversations": 11,
+      "finResolvedCount": 7,
+      "avgFinConfidence": 0.822
+    }
+  },
+  "ghsItems": [
+    {
+      "id": "ghs-001",
+      "category": "churn",
+      "scope": "agenda",
+      "agendaId": "agenda-001",
+      "title": "ACME Corp チャーンリスク",
+      "score": 28,
+      "trend": "down",
+      "previousScore": 52,
+      "comments": [],
+      "voiceImpactIds": ["impact-001", "impact-002"],
+      "ownerRoleId": "role-csm"
+    },
+    {
+      "id": "ghs-004",
+      "category": "churn",
+      "scope": "agenda",
+      "agendaId": "agenda-002",
+      "title": "SSO障害解決進捗",
+      "score": 45,
+      "trend": "up",
+      "previousScore": 20,
+      "comments": [],
+      "voiceImpactIds": ["impact-001"],
+      "ownerRoleId": "role-eng"
+    },
+    {
+      "id": "ghs-005",
+      "category": "retention",
+      "scope": "agenda",
+      "agendaId": "agenda-003",
+      "title": "ACME リテンション施策スコア",
+      "score": 55,
+      "trend": "flat",
+      "previousScore": 58,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-csm"
+    },
+    {
+      "id": "ghs-002",
+      "category": "retention",
+      "scope": "meeting",
+      "title": "エンタープライズ顧客リテンション全体",
+      "score": 61,
+      "trend": "flat",
+      "previousScore": 63,
+      "comments": [],
+      "voiceImpactIds": ["impact-001"],
+      "ownerRoleId": "role-csm"
+    },
+    {
+      "id": "ghs-003",
+      "category": "expansion",
+      "scope": "meeting",
+      "title": "ACME Corp 拡販機会 (ARR $240K→$300K)",
+      "score": 44,
+      "trend": "up",
+      "previousScore": 35,
+      "comments": [],
+      "voiceImpactIds": ["impact-003"],
+      "ownerRoleId": "role-ceo"
+    }
+  ],
+  "decisionItems": [
+    {
+      "id": "dec-churn-priority",
+      "type": "strategic",
+      "title": "緊急対応リソース配分の優先度",
+      "agendaId": "agenda-001",
+      "alternatives": [
+        {
+          "id": "alt-cp-001",
+          "label": "A: ACME最優先・他案件一時停止",
+          "recommended": true,
+          "impactScore": 5,
+          "riskScore": 2,
+          "eta": "2026-04-28",
+          "description": "ARR $240Kを守るため全リソースをACMEに集中。他エンタープライズ案件は1週間延期。"
+        },
+        {
+          "id": "alt-cp-002",
+          "label": "B: 並行対応（リソース分散）",
+          "recommended": false,
+          "impactScore": 3,
+          "riskScore": 3,
+          "eta": "2026-04-30",
+          "description": "既存リソース配分を維持しつつACME対応を追加。解決ETAが2日延びるリスクあり。"
+        }
+      ],
+      "voiceImpactIds": [],
+      "status": "evaluating",
+      "votingResult": {
+        "agree": 2,
+        "neutral": 1,
+        "disagree": 1,
+        "weightedScore": 0.7
+      }
+    },
+    {
+      "id": "dec-sso-fix-approach",
+      "type": "operational",
+      "title": "SSO修復アプローチ決定",
+      "agendaId": "agenda-002",
+      "alternatives": [
+        {
+          "id": "alt-001",
+          "label": "A: SAMLフィールドマッピング修正 + 18時デプロイ",
+          "recommended": true,
+          "impactScore": 5,
+          "riskScore": 2,
+          "eta": "2026-04-28",
+          "description": "Azure AD のAttributeStatementsフィールドマッピングを修正し、本日18時にデプロイ。21時に顧客環境で検証完了の見込み。"
+        },
+        {
+          "id": "alt-002",
+          "label": "B: 緊急パッチ展開 (即時 / リスク高)",
+          "recommended": false,
+          "impactScore": 4,
+          "riskScore": 4,
+          "eta": "2026-04-28",
+          "description": "本番への即時適用。速度は上がるが検証時間が短縮されリグレッションリスクあり。"
+        }
+      ],
+      "voiceImpactIds": ["impact-002"],
+      "status": "decided",
+      "votingResult": {
+        "agree": 3,
+        "neutral": 1,
+        "disagree": 0,
+        "weightedScore": 0.95
+      }
+    },
+    {
+      "id": "dec-retention-strategy",
+      "type": "strategic",
+      "title": "ACME リテンション施策（価格・SLA・CSM）",
+      "agendaId": "agenda-003",
+      "alternatives": [
+        {
+          "id": "alt-003",
+          "label": "A: 5%割引 + SLA 99.9% + 専任CSMアサイン",
+          "recommended": true,
+          "impactScore": 5,
+          "riskScore": 3,
+          "eta": "2026-05-01",
+          "description": "顧客要求の3条件すべてを受け入れる。ARRは$228Kに微減するが解約を防ぐ。"
+        },
+        {
+          "id": "alt-004",
+          "label": "B: SLA + CSM のみ (価格据え置き)",
+          "recommended": false,
+          "impactScore": 3,
+          "riskScore": 2,
+          "eta": "2026-05-01",
+          "description": "価格割引なし。SLAとCSM対応のみで交渉。ARR維持だが顧客満足リスクあり。"
+        }
+      ],
+      "voiceImpactIds": ["impact-003"],
+      "status": "evaluating",
+      "votingResult": {
+        "agree": 1,
+        "neutral": 2,
+        "disagree": 1,
+        "weightedScore": 0.55
+      }
+    }
+  ],
+  "storyItems": [
+    {
+      "id": "story-001",
+      "audience": "customer",
+      "title": "ACME向け復旧コミュニケーション",
+      "narrative": "お客様へ：SSO障害につきましてご不便をおかけし申し訳ございません。本日18時に修正デプロイを予定しており、21時には完全復旧の見込みです。引き続きサポートチームが対応しております。",
+      "channel": "Email / Slack Connect",
+      "linkedVoiceIds": ["sf-case-001", "email-001"],
+      "voiceImpactIds": ["impact-004"],
+      "intelligence": {
+        "toneRecommendation": "謝罪ベース・事実重視・技術詳細レベル低",
+        "riskWarning": "過度な技術説明は顧客不安を増大させる可能性あり",
+        "confidence": 0.87,
+        "generatedAt": "2026-04-28T10:30:00Z"
+      },
+      "status": "review",
+      "ownerRoleId": "role-csm",
+      "agendaId": "agenda-001"
+    },
+    {
+      "id": "story-002",
+      "audience": "internal",
+      "title": "全社向けACME対応状況アップデート",
+      "narrative": "エンジニアリング・CS・営業が連携しACMEのSSO問題に対応中。本日18時デプロイ予定。ARR $240Kの維持に向け全力対応。進捗は随時Slack #incident-acme で共有。",
+      "channel": "Slack #announcements",
+      "linkedVoiceIds": ["sf-opp-001", "zd-ticket-001"],
+      "voiceImpactIds": [],
+      "intelligence": {
+        "toneRecommendation": "簡潔・行動志向・進捗共有",
+        "confidence": 0.92,
+        "generatedAt": "2026-04-28T10:35:00Z"
+      },
+      "status": "approved",
+      "ownerRoleId": "role-ceo"
+    }
+  ],
+  "voiceImpactIntelligence": [
+    {
+      "id": "impact-001",
+      "voiceId": "sf-case-001",
+      "targetDomain": "growth",
+      "targetItemId": "ghs-001",
+      "impactLevel": "high",
+      "impactDirection": "negative",
+      "reasoning": "SSO障害が主要ユーザー5名の利用停止を引き起こしており、チャーンリスクスコアを直接押し下げている",
+      "confidence": 0.93,
+      "generatedAt": "2026-04-28T10:00:00Z",
+      "generatedBy": "auto"
+    },
+    {
+      "id": "impact-002",
+      "voiceId": "zd-ticket-001",
+      "targetDomain": "decision",
+      "targetItemId": "dec-sso-fix-approach",
+      "impactLevel": "high",
+      "impactDirection": "positive",
+      "reasoning": "Active Directory連携の根本原因特定がAlt-Aの技術的妥当性を裏付けている",
+      "confidence": 0.89,
+      "generatedAt": "2026-04-28T10:05:00Z",
+      "generatedBy": "auto"
+    },
+    {
+      "id": "impact-003",
+      "voiceId": "email-001",
+      "targetDomain": "decision",
+      "targetItemId": "dec-retention-strategy",
+      "impactLevel": "high",
+      "impactDirection": "neutral",
+      "reasoning": "顧客から3条件（価格5%割引・SLA 99.9%・専任CSM）が提示されており、どのAltが最適かの判断材料になる",
+      "confidence": 0.95,
+      "generatedAt": "2026-04-28T10:10:00Z",
+      "generatedBy": "auto"
+    },
+    {
+      "id": "impact-004",
+      "voiceId": "intercom-conv-001",
+      "targetDomain": "story",
+      "targetItemId": "story-001",
+      "impactLevel": "medium",
+      "impactDirection": "negative",
+      "reasoning": "エンドユーザーのダッシュボードエラーは顧客向けコミュニケーションでの謝罪・復旧ETA伝達の必要性を示している",
+      "confidence": 0.78,
+      "generatedAt": "2026-04-28T10:15:00Z",
+      "generatedBy": "auto"
+    }
+  ]
+}

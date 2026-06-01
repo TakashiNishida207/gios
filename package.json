@@ -1,5 +1,5 @@
 {
-  "name": "gios",
+  "name": "gdios",
   "version": "0.1.0",
   "private": true,
   "description": "Growth Intelligence OS — Business-first Intelligence Platform",
@@ -11,10 +11,11 @@
     "type-check": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:e2e": "jest --testPathPattern=e2e"
+    "test:e2e": "jest --testPathPattern=e2e",
+    "setup:notion": "node scripts/setup-notion-db.mjs"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.24.0",
+    "@anthropic-ai/sdk": "^0.99.0",
     "@notionhq/client": "^2.2.15",
     "@supabase/ssr": "^0.9.0",
     "@supabase/supabase-js": "^2.43.0",
@@ -23,6 +24,7 @@
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "tailwind-merge": "^2.3.0",
+    "zod": "^3.25.76",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

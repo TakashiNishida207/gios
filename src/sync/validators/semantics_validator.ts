@@ -34,7 +34,7 @@ export class SemanticsValidator {
       (expected === "string"   && actual === "string")   ||
       (expected === "number"   && actual === "number")   ||
       (expected === "boolean"  && actual === "boolean")  ||
-      (expected === "string[]" && actual === "string[]") ||
+      (expected === "string[]" && (actual === "string[]" || actual === "string")) || // Notion rich_text は string で返るため許容
       (expected === "date"     && actual === "string");   // date は ISO 文字列で受け取る
 
     if (!compatible) {

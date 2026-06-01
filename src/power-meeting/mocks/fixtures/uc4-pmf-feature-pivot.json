@@ -1,0 +1,315 @@
+{
+  "bundleId": "bundle-uc4",
+  "name": "コア機能ピボット判断 — B2B SaaS / PMF探索フェーズ",
+  "phase": "PHASE2",
+  "roles": [
+    { "id": "role-uc4-ceo",      "name": "CEO",      "weight": 0.35 },
+    { "id": "role-uc4-cto",      "name": "CTO",      "weight": 0.30 },
+    { "id": "role-uc4-cs",       "name": "CS Lead",  "weight": 0.20 },
+    { "id": "role-uc4-designer", "name": "Designer", "weight": 0.15 }
+  ],
+  "agendaItems": [
+    {
+      "id": "agenda-uc4-001",
+      "title": "NPS低下とチャーン率上昇の現状把握",
+      "ownerRoleId": "role-uc4-cs",
+      "timeBudgetMin": 20,
+      "status": "aligned",
+      "discussionLog": [
+        {
+          "id": "disc-uc4-001-a",
+          "speaker": "CEO",
+          "roleId": "role-uc4-ceo",
+          "ts": "2026-05-06T00:00:00Z",
+          "text": "先月のNPSレポートを受けて緊急招集しました。NPS=4は創業以来最低値。解約率が先々月比で1.8倍に上がっています。今日は原因を明確にしたい。",
+          "phase": "PHASE1"
+        },
+        {
+          "id": "disc-uc4-001-b",
+          "speaker": "CS Lead",
+          "roleId": "role-uc4-cs",
+          "ts": "2026-05-06T00:02:00Z",
+          "text": "Intercomのチケット分析では、過去90日の解約者のうち78%が機能Aに関する不満を挙げています。『使いにくい』『目的の操作に時間がかかりすぎる』というコメントが集中しています。",
+          "phase": "PHASE1"
+        },
+        {
+          "id": "disc-uc4-001-c",
+          "speaker": "CTO",
+          "roleId": "role-uc4-cto",
+          "ts": "2026-05-06T00:04:00Z",
+          "text": "Mixpanelのデータを確認しました。機能Aの週次アクティブ率は20%まで落ち込んでいます。一方、機能Bは80%が週3回以上使用している。この差が課題の本質と思います。",
+          "phase": "PHASE1"
+        }
+      ],
+      "reactions": [
+        { "id": "react-uc4-001", "emoji": "⚠️", "roleId": "role-uc4-ceo", "ts": "2026-05-06T00:04:00Z" }
+      ],
+      "positions": [
+        { "roleId": "role-uc4-ceo",      "stance": "agree", "weightContribution": 0.35, "ts": "2026-05-06T00:05:00Z" },
+        { "roleId": "role-uc4-cto",      "stance": "agree", "weightContribution": 0.30, "ts": "2026-05-06T00:05:00Z" },
+        { "roleId": "role-uc4-cs",       "stance": "agree", "weightContribution": 0.20, "ts": "2026-05-06T00:05:00Z" },
+        { "roleId": "role-uc4-designer", "stance": "agree", "weightContribution": 0.15, "ts": "2026-05-06T00:05:00Z" }
+      ],
+      "parked": false,
+      "linkedVoiceIds": ["typeform-uc4-001", "gong-exit-uc4-001"],
+      "linkedDecisionIds": []
+    },
+    {
+      "id": "agenda-uc4-002",
+      "title": "機能A vs 機能B — 利用率格差と設計思想の乖離分析",
+      "ownerRoleId": "role-uc4-cto",
+      "timeBudgetMin": 25,
+      "status": "converging",
+      "discussionLog": [
+        {
+          "id": "disc-uc4-002-a",
+          "speaker": "CTO",
+          "roleId": "role-uc4-cto",
+          "ts": "2026-05-06T00:22:00Z",
+          "text": "Gongの顧客IV録音20本を分析しました。機能Bを深く使っているユーザーはコアワークフローへの統合度が高い。機能Aはあくまで補助ツールとして位置付けられており、ICP定義との乖離が明確です。",
+          "phase": "PHASE2"
+        },
+        {
+          "id": "disc-uc4-002-b",
+          "speaker": "Designer",
+          "roleId": "role-uc4-designer",
+          "ts": "2026-05-06T00:25:00Z",
+          "text": "UIヒートマップを見ると、機能Aの主要アクションの60%は初回セッション以降ほとんど触られていません。設計当時に想定したユースケースと実際の使われ方に大きなギャップがあります。",
+          "phase": "PHASE2"
+        },
+        {
+          "id": "disc-uc4-002-c",
+          "speaker": "CS Lead",
+          "roleId": "role-uc4-cs",
+          "ts": "2026-05-06T00:28:00Z",
+          "text": "解約者インタビューで『機能Aに期待していたが期待外れだった』という声が多数。継続ユーザーは機能Bを『なくては困る』と言っています。ICPが機能Bユーザーに集中している証拠だと思います。",
+          "phase": "PHASE2"
+        }
+      ],
+      "reactions": [
+        { "id": "react-uc4-002", "emoji": "❓", "roleId": "role-uc4-designer", "ts": "2026-05-06T00:25:00Z" }
+      ],
+      "positions": [
+        { "roleId": "role-uc4-ceo",      "stance": "agree",   "weightContribution": 0.35, "ts": "2026-05-06T00:30:00Z", "note": "機能B中心の仮説に同意" },
+        { "roleId": "role-uc4-cto",      "stance": "agree",   "weightContribution": 0.30, "ts": "2026-05-06T00:30:00Z" },
+        { "roleId": "role-uc4-cs",       "stance": "agree",   "weightContribution": 0.20, "ts": "2026-05-06T00:30:00Z" },
+        { "roleId": "role-uc4-designer", "stance": "neutral", "weightContribution": 0.15, "ts": "2026-05-06T00:30:00Z", "note": "機能AのUX改善余地を検討中" }
+      ],
+      "parked": false,
+      "linkedVoiceIds": ["intercom-uc4-001", "gong-heavy-uc4-001", "manual-uc4-001"],
+      "linkedDecisionIds": ["dec-uc4-pivot"]
+    },
+    {
+      "id": "agenda-uc4-003",
+      "title": "コア機能ピボット方向性決定 — 3択",
+      "ownerRoleId": "role-uc4-ceo",
+      "timeBudgetMin": 20,
+      "status": "in_discussion",
+      "discussionLog": [
+        {
+          "id": "disc-uc4-003-a",
+          "speaker": "CEO",
+          "roleId": "role-uc4-ceo",
+          "ts": "2026-05-06T00:50:00Z",
+          "text": "Phase2の分析を受けると、機能Bが本命であることはほぼ確か。オプションA(機能Bフォーカス)、B(機能Aを磨き込み継続)、C(両方並走)の3択で議論したい。",
+          "phase": "PHASE3"
+        },
+        {
+          "id": "disc-uc4-003-b",
+          "speaker": "CTO",
+          "roleId": "role-uc4-cto",
+          "ts": "2026-05-06T00:52:00Z",
+          "text": "技術観点ではCは現実的ではありません。エンジニアリングリソースが分散すると機能Bの開発速度が半減します。Aを推します。機能BにICP再定義を紐付け、解約者への再アプローチも設計できます。",
+          "phase": "PHASE3"
+        }
+      ],
+      "reactions": [],
+      "positions": [
+        { "roleId": "role-uc4-ceo",      "stance": "agree",    "weightContribution": 0.35, "ts": "2026-05-06T00:53:00Z" },
+        { "roleId": "role-uc4-cto",      "stance": "agree",    "weightContribution": 0.30, "ts": "2026-05-06T00:53:00Z" },
+        { "roleId": "role-uc4-cs",       "stance": "agree",    "weightContribution": 0.20, "ts": "2026-05-06T00:53:00Z" },
+        { "roleId": "role-uc4-designer", "stance": "disagree", "weightContribution": 0.15, "ts": "2026-05-06T00:53:00Z", "note": "機能Aの改善可能性を諦めるのは早い" }
+      ],
+      "parked": false,
+      "linkedVoiceIds": [],
+      "linkedDecisionIds": ["dec-uc4-pivot"]
+    }
+  ],
+  "voices": [
+    {
+      "id": "gong-exit-uc4-001",
+      "source": "gong",
+      "speaker": { "name": "山田 正雄", "role": "Operations Manager", "company": "ベータ商事" },
+      "handler": { "name": "CS Lead", "role": "CS Lead", "organization": "Sophia Project" },
+      "ts": "2026-05-06T00:00:00Z",
+      "text": "機能Aに期待して契約したのですが、実際に使ってみると操作フローが複雑すぎて現場に定着しませんでした。機能Bは使いやすかったのですが、コア業務で期待していた機能Aがこれでは…。解約を検討しています。",
+      "sentiment": "negative",
+      "tags": ["解約", "機能A", "ユーザビリティ"],
+      "metadata": {
+        "gong": { "callId": "gong-uc4-001", "duration": 1800, "callType": "exit_interview", "recordingUrl": "https://gong.io/calls/uc4-001" }
+      }
+    },
+    {
+      "id": "typeform-uc4-001",
+      "source": "other",
+      "speaker": { "name": "NPS調査回答者 (N=48)", "role": "Customer" },
+      "handler": { "name": "CS Lead", "role": "CS Lead", "organization": "Sophia Project" },
+      "ts": "2026-05-06T00:00:00Z",
+      "text": "【Typeform NPS調査 N=48】NPS=4(プロモーター3% / パッシブ19% / デトラクター78%)。主要デトラクター理由: ①「コア機能が薄い・使いにくい」68%、②「期待値と実態のギャップ」54%、③「サポート対応遅い」23%。MRR成長はQ2以降停滞。",
+      "sentiment": "critical",
+      "tags": ["NPS", "解約理由", "機能A"],
+      "metadata": {}
+    },
+    {
+      "id": "intercom-uc4-001",
+      "source": "intercom",
+      "speaker": { "name": "鈴木 由美", "role": "Product Lead", "company": "ガンマ株式会社" },
+      "handler": { "name": "CS Lead", "role": "CS Lead", "organization": "Sophia Project" },
+      "ts": "2026-05-06T00:00:00Z",
+      "text": "機能Aの使い方が複雑で、チームメンバーに共有するのが難しい状況です。チュートリアルを何度見ても同じ操作に毎回詰まります。機能Bは直感的で良いのですが、メインで使いたい機能Aがこれでは…。",
+      "sentiment": "concerned",
+      "tags": ["機能A", "ユーザビリティ", "改善要望"],
+      "metadata": {
+        "intercom": { "conversationId": "uc4-ic-001", "status": "open", "assignee": "CS Lead" }
+      }
+    },
+    {
+      "id": "gong-heavy-uc4-001",
+      "source": "gong",
+      "speaker": { "name": "田中 健太", "role": "CEO", "company": "デルタ・テクノロジー" },
+      "handler": { "name": "CS Lead", "role": "CS Lead", "organization": "Sophia Project" },
+      "ts": "2026-05-06T00:00:00Z",
+      "text": "機能Bは本当に手放せないツールになっています。チーム全体のコアワークフローに組み込んでいて、週に5回以上使っています。機能Aは正直あまり使っていないですが、機能Bだけで十分なくらい価値があります。",
+      "sentiment": "advocacy",
+      "tags": ["機能B", "継続利用", "高活用"],
+      "metadata": {
+        "gong": { "callId": "gong-uc4-002", "duration": 2400, "callType": "customer_success", "recordingUrl": "https://gong.io/calls/uc4-002" }
+      }
+    },
+    {
+      "id": "manual-uc4-001",
+      "source": "manual",
+      "speaker": { "name": "CTO", "role": "CTO", "organization": "Sophia Project" },
+      "handler": { "name": "CTO", "role": "CTO", "organization": "Sophia Project" },
+      "ts": "2026-05-06T00:00:00Z",
+      "text": "【Mixpanel / Amplitude 行動データ分析メモ】機能A: WAU 20%、平均セッション深度 1.8ステップ (設計想定5ステップ)。機能B: WAU 80%、平均セッション深度 6.2ステップ、Retention D30: 68%。機能Bヘビーユーザー(WAU≥3回)のチャーン率: 2.1%(全体平均8.4%の1/4)。",
+      "sentiment": "neutral",
+      "tags": ["Mixpanel", "利用率", "Retention"],
+      "metadata": {}
+    }
+  ],
+  "ghsItems": [
+    {
+      "id": "ghs-uc4-001",
+      "category": "churn",
+      "scope": "agenda",
+      "agendaId": "agenda-uc4-001",
+      "title": "NPS・リテンション健全性スコア",
+      "score": 22,
+      "trend": "down",
+      "previousScore": 55,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-uc4-cs"
+    },
+    {
+      "id": "ghs-uc4-002",
+      "category": "retention",
+      "scope": "agenda",
+      "agendaId": "agenda-uc4-002",
+      "title": "コア機能PMF達成スコア",
+      "score": 35,
+      "trend": "flat",
+      "previousScore": 38,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-uc4-cto"
+    },
+    {
+      "id": "ghs-uc4-003",
+      "category": "expansion",
+      "scope": "agenda",
+      "agendaId": "agenda-uc4-003",
+      "title": "ピボット決定準備スコア",
+      "score": 60,
+      "trend": "up",
+      "previousScore": 30,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-uc4-ceo"
+    },
+    {
+      "id": "ghs-uc4-004",
+      "category": "churn",
+      "scope": "meeting",
+      "title": "プロダクト市場適合スコア(全社)",
+      "score": 28,
+      "trend": "down",
+      "previousScore": 62,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-uc4-ceo"
+    }
+  ],
+  "decisionItems": [
+    {
+      "id": "dec-uc4-pivot",
+      "type": "strategic",
+      "title": "コア機能ピボット方向性",
+      "agendaId": "agenda-uc4-003",
+      "alternatives": [
+        {
+          "id": "alt-uc4-001",
+          "label": "A: 機能Bに集中ピボット(推奨)",
+          "recommended": true,
+          "impactScore": 5,
+          "riskScore": 3,
+          "eta": "2026-08-06",
+          "description": "機能BをコアプロダクトとしてICP再定義。機能AはSunset化。機能B深化ロードマップRev3を策定し、解約者への再アプローチを実施。3ヶ月でMRR成長再加速を目指す。"
+        },
+        {
+          "id": "alt-uc4-002",
+          "label": "B: 機能Aを磨き込み継続",
+          "recommended": false,
+          "impactScore": 2,
+          "riskScore": 4,
+          "eta": "2026-11-06",
+          "description": "機能AのデザインをUX刷新・オンボーディング強化で6ヶ月投資。機能B開発速度は維持。ただしPMF改善の確証が薄く、解約増加が続くリスクがある。"
+        },
+        {
+          "id": "alt-uc4-003",
+          "label": "C: AB両方並走",
+          "recommended": false,
+          "impactScore": 3,
+          "riskScore": 5,
+          "eta": "2027-02-06",
+          "description": "機能A・B双方に開発リソースを配分。エンジニアリング負荷が2倍になり機能B開発速度が半減。短期的なチャーン改善には寄与しにくい。"
+        }
+      ],
+      "voiceImpactIds": [],
+      "status": "evaluating",
+      "votingResult": { "agree": 3, "neutral": 0, "disagree": 1, "weightedScore": 0.85 }
+    }
+  ],
+  "storyItems": [
+    {
+      "id": "story-uc4-001",
+      "audience": "internal",
+      "title": "PMFピボット意思決定サマリー — 機能B集中化の根拠",
+      "narrative": "顧客IV・利用データ・NPS分析の3軸から、機能Bへの集中ピボットが最もPMF達成に近い経路と判断。機能BヘビーユーザーのチャーンはD30で2.1%(全体の1/4)。ICP再定義・ロードマップRev3・解約者再アプローチの3施策を90日以内に実行する。",
+      "channel": "Notion / Slack #pmf-pivot",
+      "linkedVoiceIds": ["gong-exit-uc4-001", "typeform-uc4-001", "gong-heavy-uc4-001"],
+      "voiceImpactIds": [],
+      "intelligence": {
+        "toneRecommendation": "データドリブンで簡潔に。ステークホルダー向けにエビデンスを明示",
+        "riskWarning": "機能A既存ユーザーへのコミュニケーションは丁寧に。Sunset告知は法務確認後に実施",
+        "confidence": 0.87,
+        "generatedAt": "2026-05-06T01:00:00Z"
+      },
+      "status": "draft",
+      "ownerRoleId": "role-uc4-ceo",
+      "agendaId": "agenda-uc4-003"
+    }
+  ],
+  "voiceImpactIntelligence": []
+}

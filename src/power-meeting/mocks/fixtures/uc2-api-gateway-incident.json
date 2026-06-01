@@ -1,0 +1,363 @@
+{
+  "bundleId": "bundle-uc2",
+  "name": "API Gateway障害対応 - 複数顧客影響インシデント",
+  "phase": "PHASE3",
+  "roles": [
+    { "id": "role-ceo",     "name": "CEO",             "weight": 0.25 },
+    { "id": "role-pm",      "name": "PM",              "weight": 0.25 },
+    { "id": "role-eng",     "name": "Engineering Lead", "weight": 0.35 },
+    { "id": "role-support", "name": "Support Lead",    "weight": 0.15 }
+  ],
+  "agendaItems": [
+    {
+      "id": "agenda-uc2-001",
+      "title": "API Gateway障害の影響範囲確認",
+      "ownerRoleId": "role-eng",
+      "timeBudgetMin": 10,
+      "status": "aligned",
+      "discussionLog": [
+        {
+          "id": "disc-uc2-001-a",
+          "speaker": "Engineering Lead",
+          "roleId": "role-eng",
+          "ts": "2026-05-06T02:05:00Z",
+          "text": "PagerDutyアラート発火から14分。APIエラー率が75%に到達、GatewayのConfigデプロイ直後から急上昇しています。影響顧客は現時点で26社を確認。SLA違反リスクは12社。",
+          "phase": "PHASE1"
+        },
+        {
+          "id": "disc-uc2-001-b",
+          "speaker": "Support Lead",
+          "roleId": "role-support",
+          "ts": "2026-05-06T02:07:00Z",
+          "text": "Zendeskへの新規チケット流入が急増しています。過去30分で28件。enterprise枠の6社からはすでにエスカレーションが来ています。",
+          "phase": "PHASE1"
+        },
+        {
+          "id": "disc-uc2-001-c",
+          "speaker": "CEO",
+          "roleId": "role-ceo",
+          "ts": "2026-05-06T02:08:00Z",
+          "text": "ARRベースで影響範囲はどれくらいだ？",
+          "phase": "PHASE1"
+        },
+        {
+          "id": "disc-uc2-001-d",
+          "speaker": "PM",
+          "roleId": "role-pm",
+          "ts": "2026-05-06T02:09:00Z",
+          "text": "26社合計で約$3.2M ARR。うちenterprise 6社が$2.1M。SLA違反が確定すると契約条項上のクレジット発生リスクがあります。",
+          "phase": "PHASE1"
+        }
+      ],
+      "reactions": [
+        { "id": "react-uc2-001", "emoji": "🚨", "roleId": "role-ceo", "ts": "2026-05-06T02:09:00Z" }
+      ],
+      "positions": [
+        { "roleId": "role-eng",     "stance": "agree", "weightContribution": 0.35, "ts": "2026-05-06T02:10:00Z", "note": "影響確認済み" },
+        { "roleId": "role-pm",      "stance": "agree", "weightContribution": 0.25, "ts": "2026-05-06T02:10:00Z" },
+        { "roleId": "role-support", "stance": "agree", "weightContribution": 0.15, "ts": "2026-05-06T02:10:00Z" }
+      ],
+      "parked": false,
+      "linkedVoiceIds": ["pd-alert-001", "dd-metric-001", "sf-case-uc2-001"],
+      "linkedDecisionIds": []
+    },
+    {
+      "id": "agenda-uc2-002",
+      "title": "根本原因分析とロールバック判断",
+      "ownerRoleId": "role-eng",
+      "timeBudgetMin": 15,
+      "status": "converging",
+      "discussionLog": [
+        {
+          "id": "disc-uc2-002-a",
+          "speaker": "Engineering Lead",
+          "roleId": "role-eng",
+          "ts": "2026-05-06T02:12:00Z",
+          "text": "Datadogのトレースを確認。本日02:00にデプロイした Config変更で、Gateway→Backend間のタイムアウト設定が1000msから100msに誤設定されていました。DB過負荷ではなく純粋なConfig問題です。",
+          "phase": "PHASE2"
+        },
+        {
+          "id": "disc-uc2-002-b",
+          "speaker": "PM",
+          "roleId": "role-pm",
+          "ts": "2026-05-06T02:14:00Z",
+          "text": "ロールバックの所要時間は？",
+          "phase": "PHASE2"
+        },
+        {
+          "id": "disc-uc2-002-c",
+          "speaker": "Engineering Lead",
+          "roleId": "role-eng",
+          "ts": "2026-05-06T02:15:00Z",
+          "text": "前バージョンへのロールバックは約8分。スケールアウト+設定修正は30分。ロールバックが最速で確実です。リグレッションリスクはほぼゼロ。",
+          "phase": "PHASE2"
+        },
+        {
+          "id": "disc-uc2-002-d",
+          "speaker": "CEO",
+          "roleId": "role-ceo",
+          "ts": "2026-05-06T02:16:00Z",
+          "text": "ロールバックで行く。今すぐ実行の承認を出す。影響顧客への一斉通知と並行で。",
+          "phase": "PHASE2"
+        }
+      ],
+      "reactions": [
+        { "id": "react-uc2-002", "emoji": "👍", "roleId": "role-pm",      "ts": "2026-05-06T02:16:00Z" },
+        { "id": "react-uc2-003", "emoji": "👍", "roleId": "role-support", "ts": "2026-05-06T02:16:00Z" }
+      ],
+      "positions": [
+        { "roleId": "role-ceo",     "stance": "agree",    "weightContribution": 0.25, "ts": "2026-05-06T02:17:00Z", "note": "ロールバック承認" },
+        { "roleId": "role-eng",     "stance": "agree",    "weightContribution": 0.35, "ts": "2026-05-06T02:17:00Z" },
+        { "roleId": "role-pm",      "stance": "agree",    "weightContribution": 0.25, "ts": "2026-05-06T02:17:00Z" },
+        { "roleId": "role-support", "stance": "neutral",  "weightContribution": 0.15, "ts": "2026-05-06T02:17:00Z" }
+      ],
+      "parked": false,
+      "linkedVoiceIds": ["dd-metric-001", "slack-incident-001"],
+      "linkedDecisionIds": ["dec-uc2-rollback"]
+    },
+    {
+      "id": "agenda-uc2-003",
+      "title": "影響顧客への通知・対応プロセス確立",
+      "ownerRoleId": "role-support",
+      "timeBudgetMin": 15,
+      "status": "in_discussion",
+      "discussionLog": [
+        {
+          "id": "disc-uc2-003-a",
+          "speaker": "Support Lead",
+          "roleId": "role-support",
+          "ts": "2026-05-06T02:18:00Z",
+          "text": "一斉通知は26社全員に即送付します。Statuspage更新も同時。enterprise 6社には個別電話フォローが必要です。",
+          "phase": "PHASE3"
+        },
+        {
+          "id": "disc-uc2-003-b",
+          "speaker": "PM",
+          "roleId": "role-pm",
+          "ts": "2026-05-06T02:20:00Z",
+          "text": "通知文面はAIに生成させましょう。顧客ごとのARR・影響時間・SLAクレジット有無を組み込んだパーソナライズが必要です。",
+          "phase": "PHASE3"
+        }
+      ],
+      "reactions": [],
+      "positions": [
+        { "roleId": "role-support", "stance": "agree",   "weightContribution": 0.15, "ts": "2026-05-06T02:21:00Z" },
+        { "roleId": "role-pm",      "stance": "agree",   "weightContribution": 0.25, "ts": "2026-05-06T02:21:00Z" }
+      ],
+      "parked": false,
+      "linkedVoiceIds": ["sf-case-uc2-001", "zd-ticket-uc2-001"],
+      "linkedDecisionIds": ["dec-uc2-notification"]
+    }
+  ],
+  "voices": [
+    {
+      "id": "pd-alert-001",
+      "source": "other",
+      "speaker": { "name": "PagerDuty", "role": "Monitoring System" },
+      "ts": "2026-05-06T01:51:00Z",
+      "text": "[CRITICAL] API Gateway Error Rate > 50% — api-gateway-prod / region: ap-northeast-1. Error rate: 75.3%. Triggered by: config-deploy-20260506-0200. Affected services: 26 accounts.",
+      "sentiment": "critical",
+      "metadata": {
+        "other": {
+          "externalSystem": "PagerDuty",
+          "externalSystemId": "PD-INC-20260506-001",
+          "externalUrl": "https://app.pagerduty.com/incidents/PD-INC-20260506-001"
+        }
+      }
+    },
+    {
+      "id": "dd-metric-001",
+      "source": "other",
+      "speaker": { "name": "Datadog", "role": "APM / Monitoring" },
+      "ts": "2026-05-06T01:53:00Z",
+      "text": "API Gateway タイムアウト急増: p99レイテンシ 8200ms（閾値: 2000ms）。トレース解析: config-deploy 02:00〜でBackend timeout設定が 1000ms → 100ms に変更。DB負荷は正常範囲内。根本原因はConfig誤設定と特定。",
+      "sentiment": "critical",
+      "metadata": {
+        "other": {
+          "externalSystem": "Datadog APM",
+          "externalSystemId": "dd-trace-20260506-gateway"
+        }
+      }
+    },
+    {
+      "id": "slack-incident-001",
+      "source": "slack",
+      "speaker": { "name": "on-call Engineer", "role": "SRE", "company": "Sophia Project" },
+      "ts": "2026-05-06T01:55:00Z",
+      "text": "#incident-2026-0506 エラー率急上昇中。02:00のConfigデプロイと相関あり。ロールバック準備中。影響範囲確認してください。@engineering @support",
+      "sentiment": "negative",
+      "metadata": {
+        "slack": { "channel": "#incident-2026-0506" }
+      }
+    },
+    {
+      "id": "sf-case-uc2-001",
+      "source": "salesforce",
+      "incidentId": "gw-incident-001",
+      "handler": { "name": "Support Lead", "role": "Support Lead", "organization": "Sophia Project" },
+      "speaker": { "name": "Enterprise顧客 CTO", "role": "CTO", "company": "Enterprise A社" },
+      "ts": "2026-05-06T02:03:00Z",
+      "text": "API全停止状態です。本番ワークフローが完全に止まっています。即時対応を要求します。SLA違反の場合はクレジット請求します。",
+      "sentiment": "critical",
+      "metadata": {
+        "salesforce": { "recordType": "Case", "recordId": "500Hs00002EFGH1", "stage": "Escalated", "arr": 480000 }
+      }
+    },
+    {
+      "id": "zd-ticket-uc2-001",
+      "source": "zendesk",
+      "incidentId": "gw-incident-001",
+      "handler": { "name": "Support Lead", "role": "Support Lead", "organization": "Sophia Project" },
+      "speaker": { "name": "顧客担当者", "role": "IT Manager", "company": "顧客B社" },
+      "ts": "2026-05-06T02:06:00Z",
+      "text": "ダッシュボードにアクセスできません。API呼び出しが全てタイムアウトしています。ステータスを教えてください。",
+      "sentiment": "negative",
+      "metadata": {
+        "zendesk": { "ticketId": "ZD-20042", "priority": "urgent", "status": "open" }
+      }
+    }
+  ],
+  "ghsItems": [
+    {
+      "id": "ghs-uc2-001",
+      "category": "churn",
+      "scope": "agenda",
+      "agendaId": "agenda-uc2-001",
+      "title": "API障害インシデント — 影響範囲リスク",
+      "score": 12,
+      "trend": "down",
+      "previousScore": 68,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-eng"
+    },
+    {
+      "id": "ghs-uc2-002",
+      "category": "retention",
+      "scope": "agenda",
+      "agendaId": "agenda-uc2-002",
+      "title": "ロールバック実行速度スコア",
+      "score": 35,
+      "trend": "up",
+      "previousScore": 10,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-eng"
+    },
+    {
+      "id": "ghs-uc2-003",
+      "category": "retention",
+      "scope": "agenda",
+      "agendaId": "agenda-uc2-003",
+      "title": "顧客コミュニケーション品質スコア",
+      "score": 50,
+      "trend": "flat",
+      "previousScore": 50,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-support"
+    },
+    {
+      "id": "ghs-uc2-004",
+      "category": "churn",
+      "scope": "meeting",
+      "title": "全顧客横断 API安定性スコア",
+      "score": 15,
+      "trend": "down",
+      "previousScore": 82,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-eng"
+    }
+  ],
+  "decisionItems": [
+    {
+      "id": "dec-uc2-rollback",
+      "type": "operational",
+      "title": "障害対応アプローチ選択",
+      "agendaId": "agenda-uc2-002",
+      "alternatives": [
+        {
+          "id": "alt-uc2-001",
+          "label": "A: 直近ConfigロールバックEng 3名・8分",
+          "recommended": true,
+          "impactScore": 5,
+          "riskScore": 1,
+          "eta": "2026-05-06",
+          "description": "前バージョンConfigへの即時ロールバック。所要8分。リグレッションリスクほぼゼロ。最速で確実。"
+        },
+        {
+          "id": "alt-uc2-002",
+          "label": "B: スケールアウト + 設定修正（30分）",
+          "recommended": false,
+          "impactScore": 4,
+          "riskScore": 3,
+          "eta": "2026-05-06",
+          "description": "タイムアウト設定を修正しながらスケールアウトで負荷分散。所要30分。機能保持できるが時間がかかる。"
+        },
+        {
+          "id": "alt-uc2-003",
+          "label": "C: メンテナンスモード移行",
+          "recommended": false,
+          "impactScore": 2,
+          "riskScore": 2,
+          "eta": "2026-05-06",
+          "description": "全顧客にメンテナンスページを表示し安全に修正。影響を制御できるが全面停止扱いとなる。"
+        }
+      ],
+      "voiceImpactIds": [],
+      "status": "decided",
+      "votingResult": { "agree": 4, "neutral": 0, "disagree": 0, "weightedScore": 1.0 }
+    },
+    {
+      "id": "dec-uc2-notification",
+      "type": "operational",
+      "title": "顧客通知戦略",
+      "agendaId": "agenda-uc2-003",
+      "alternatives": [
+        {
+          "id": "alt-uc2-004",
+          "label": "A: 即時一斉通知 + Enterprise個別電話",
+          "recommended": true,
+          "impactScore": 5,
+          "riskScore": 2,
+          "eta": "2026-05-06",
+          "description": "26社全員にStatuspage + メール即送付。Enterprise 6社にはCSMが個別電話フォロー。"
+        },
+        {
+          "id": "alt-uc2-005",
+          "label": "B: 復旧後まとめて通知",
+          "recommended": false,
+          "impactScore": 2,
+          "riskScore": 4,
+          "eta": "2026-05-06",
+          "description": "復旧完了後に一括通知。問い合わせ急増リスクが高い。"
+        }
+      ],
+      "voiceImpactIds": [],
+      "status": "evaluating",
+      "votingResult": { "agree": 2, "neutral": 1, "disagree": 0, "weightedScore": 0.8 }
+    }
+  ],
+  "storyItems": [
+    {
+      "id": "story-uc2-001",
+      "audience": "customer",
+      "title": "API Gateway障害に関するお詫びと復旧状況のご報告",
+      "narrative": "2026年5月6日 02:00頃より、API Gatewayにおいて一部のお客様でAPIエラーが発生しております。現在、エンジニアリングチームが原因を特定し復旧対応中です。02:30頃の完全復旧を見込んでおります。ご迷惑をおかけし、誠に申し訳ございません。",
+      "channel": "Statuspage / Email",
+      "linkedVoiceIds": ["sf-case-uc2-001", "zd-ticket-uc2-001"],
+      "voiceImpactIds": [],
+      "intelligence": {
+        "toneRecommendation": "謝罪ベース・迅速・具体的ETAを明示",
+        "riskWarning": "SLAクレジット言及は法務確認後に。過度な技術詳細は避ける",
+        "confidence": 0.91,
+        "generatedAt": "2026-05-06T02:22:00Z"
+      },
+      "status": "approved",
+      "ownerRoleId": "role-support",
+      "agendaId": "agenda-uc2-003"
+    }
+  ],
+  "voiceImpactIntelligence": []
+}

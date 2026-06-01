@@ -1,0 +1,193 @@
+// src/ui/screens/InsightScreen.tsx
+// Insight Screen — インサイト・仮説・選択肢を編集・保存・Notion同期する
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import { useGDIOSStore } from "@/store";
+import { usePreferences } from "@/ui/preferences";
+
+const FLOW_STRIP = [
+  { label: "Input",      active: false, color: "var(--teal)"   },
+  { label: "Processing", active: false, color: "var(--amber)"  },
+  { label: "Insight",    active: true,  color: "var(--purple)" },
+  { label: "Action",     active: false, color: "var(--accent)" },
+  { label: "Feedback",   active: false, color: "var(--red)"    },
+  { label: "Learning",   active: false, color: "var(--green)"  },
+];
+
+const inputStyle: React.CSSProperties = {
+  background: "var(--bg3)", border: "1px solid var(--border)", borderRadius: 6,
+  padding: "8px 12px", color: "var(--text-primary)", fontFamily: "var(--sans)",
+  fontSize: 12, width: "100%", outline: "none",
+};
+const labelStyle: React.CSSProperties = {
+  fontFamily: "var(--mono)", fontSize: 9, color: "var(--text-tertiary)",
+  textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6, display: "block",
+};
+
+export default function InsightScreen() {
+  const insight    = useGDIOSStore((s) => s.flow.Insight);
+  const processing = useGDIOSStore((s) => s.flow.Processing);
+  const setFlow    = useGDIOSStore((s) => s.setFlow);
+  const appendDiff = useGDIOSStore((s) => s.appendDiff);
+  const { lang }   = usePreferences();
+
+  const [form, setForm] = useState({
+    // Insight
+    narrative:         String(insight["narrative"]         ?? ""),
+    valueHypothesis:   String(insight["valueHypothesis"]   ?? ""),
+    decisionRationale: String(insight["decisionRationale"] ?? ""),
+    successMetric:     String(insight["successMetric"]     ?? ""),
+    decisionOptions:   Array.isArray(insight["decisionOptions"])
+      ? (insight["decisionOptions"] as string[]).join("\n")
+      : String(insight["decisionOptions"] ?? ""),
+    // Processing (numbers as strings)
+    gapLevel:        String(processing["gapLevel"]        ?? ""),
+    priorityScore:   String(processing["priorityScore"]   ?? ""),
+    painSeverity:    String(processing["painSeverity"]    ?? ""),
+    opportunitySize: String(processing["opportunitySize"] ?? ""),
+  });
+  const [saved, setSaved] = useState(false);
+
+  // 外部変更（Notion同期・シナリオ切り替え）を検出してフォームに反映
+  const prevInsightRef    = useRef(insight);
+  const prevProcessingRef = useRef(processing);
+  useEffect(() => {
+    if (insight !== prevInsightRef.current || processing !== prevProcessingRef.current) {
+      prevInsightRef.current    = insight;
+      prevProcessingRef.current = processing;
+      setForm({
+        narrative:         String(insight["narrative"]         ?? ""),
+        valueHypothesis:   String(insight["valueHypothesis"]   ?? ""),
+        decisionRationale: String(insight["decisionRationale"] ?? ""),
+        successMetric:     String(insight["successMetric"]     ?? ""),
+        decisionOptions:   Array.isArray(insight["decisionOptions"])
+          ? (insight["decisionOptions"] as string[]).join("\n")
+          : String(insight["decisionOptions"] ?? ""),
+        gapLevel:        String(processing["gapLevel"]        ?? ""),
+        priorityScore:   String(processing["priorityScore"]   ?? ""),
+        painSeverity:    String(processing["painSeverity"]    ?? ""),
+        opportunitySize: String(processing["opportunitySize"] ?? ""),
+      });
+    }
+  }, [insight, processing]);
+
+  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm((p) => ({ ...p, [k]: e.target.value }));
+    setSaved(false);
+  };
+
+  const handleSave = () => {
+    const insightData = {
+      narrative:         form.narrative         || undefined,
+      valueHypothesis:   form.valueHypothesis   || undefined,
+      decisionRationale: form.decisionRationale || undefined,
+      successMetric:     form.successMetric     || undefined,
+      decisionOptions:   form.decisionOptions   ? form.decisionOptions.split("\n").filter(Boolean) : undefined,
+    };
+    const processingData = {
+      gapLevel:        form.gapLevel        ? parseFloat(form.gapLevel)        : undefined,
+      priorityScore:   form.priorityScore   ? parseFloat(form.priorityScore)   : undefined,
+      painSeverity:    form.painSeverity    ? parseFloat(form.painSeverity)    : undefined,
+      opportunitySize: form.opportunitySize ? parseFloat(form.opportunitySize) : undefined,
+    };
+    setFlow("Insight",    Object.fromEntries(Object.entries(insightData).filter(([,v]) => v !== undefined)));
+    setFlow("Processing", Object.fromEntries(Object.entries(processingData).filter(([,v]) => v !== undefined)));
+    setSaved(true);
+  };
+
+  const handleSyncToNotion = () => {
+    handleSave();
+    appendDiff({ ...Object.fromEntries(Object.entries(form).filter(([,v]) => String(v).trim() !== "")) });
+  };
+
+  const SCORING = [
+    { key: "gapLevel",        label: "Gap Level",        color: "var(--teal)"   },
+    { key: "priorityScore",   label: "Priority Score",   color: "var(--amber)"  },
+    { key: "painSeverity",    label: "Pain Severity",    color: "var(--red)"    },
+    { key: "opportunitySize", label: "Opportunity Size", color: "var(--purple)" },
+  ] as const;
+
+  return (
+    <div style={{ overflowY: "auto", height: "100%" }}>
+      <div style={{ padding: "28px 32px", maxWidth: 1100 }}>
+
+        {/* Flow strip */}
+        <div style={{ display: "flex", alignItems: "center", gap: 4, marginBottom: 24, padding: "8px 12px", background: "var(--bg2)", border: "1px solid var(--border)", borderRadius: 8 }}>
+          {FLOW_STRIP.map((p, i) => (
+            <div key={p.label} style={{ display: "flex", alignItems: "center", gap: 4 }}>
+              {i > 0 && <div style={{ width: 16, height: 1, background: "var(--border)", margin: "0 2px" }} />}
+              <div style={{ padding: "3px 8px", borderRadius: 4, fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.06em", background: p.active ? "var(--purple-dim)" : "transparent", color: p.active ? p.color : "var(--text-tertiary)", border: p.active ? "1px solid rgba(139,130,192,0.25)" : "1px solid transparent" }}>
+                {p.label}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Header */}
+        <header style={{ marginBottom: 24, paddingBottom: 20, borderBottom: "1px solid var(--border)" }}>
+          <p style={{ fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.12em", color: "var(--purple)", textTransform: "uppercase", marginBottom: 6 }}>Insight</p>
+          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between" }}>
+            <div>
+              <h1 style={{ fontFamily: "var(--sans)", fontSize: 26, fontWeight: 400, color: "var(--text-primary)", marginBottom: 4 }}>
+                {lang === "ja" ? "インサイト" : "Insight"}
+              </h1>
+              <p style={{ fontSize: 12, color: "var(--text-secondary)" }}>
+                {lang === "ja" ? "意味づけ・仮説・意思決定の根拠を記録する" : "Record meaning, hypotheses, and decision rationale"}
+              </p>
+            </div>
+            {saved && <span style={{ fontFamily: "var(--mono)", fontSize: 10, color: "var(--green)" }}>✓ {lang === "ja" ? "保存済み" : "Saved"}</span>}
+          </div>
+        </header>
+
+        {/* Scoring */}
+        <section style={{ marginBottom: 24 }}>
+          <p style={{ ...labelStyle, marginBottom: 12 }}>{lang === "ja" ? "スコアリング" : "Scoring"}</p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10 }}>
+            {SCORING.map(({ key, label, color }) => (
+              <div key={key} style={{ background: "var(--bg2)", border: "1px solid var(--border)", borderRadius: 8, padding: "12px 14px", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: color }} />
+                <label style={{ ...labelStyle, color }}>{label}</label>
+                <input type="number" step="0.1" value={form[key]} onChange={set(key)}
+                  style={{ ...inputStyle, fontFamily: "var(--mono)", fontSize: 18, fontWeight: 300, color, background: "transparent", border: "none", padding: "0", width: "100%" }} />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Narrative */}
+        <section style={{ marginBottom: 16 }}>
+          <label style={labelStyle}>{lang === "ja" ? "ストーリー" : "Narrative"}</label>
+          <textarea rows={4} value={form.narrative} onChange={set("narrative")}
+            style={{ ...inputStyle, resize: "vertical", lineHeight: 1.7 }} />
+        </section>
+
+        {/* Other insight fields */}
+        {([
+          { key: "valueHypothesis",   ja: "価値仮説",   en: "Value Hypothesis",   rows: 3 },
+          { key: "decisionRationale", ja: "選択理由",   en: "Decision Rationale", rows: 3 },
+          { key: "successMetric",     ja: "KPI",        en: "Success Metric",     rows: 1 },
+          { key: "decisionOptions",   ja: "選択肢（1行1項目）", en: "Decision Options (one per line)", rows: 4 },
+        ] as const).map(({ key, ja, en, rows }) => (
+          <section key={key} style={{ marginBottom: 16 }}>
+            <label style={labelStyle}>{lang === "ja" ? ja : en}</label>
+            <textarea rows={rows} value={form[key]} onChange={set(key)}
+              style={{ ...inputStyle, resize: "vertical", lineHeight: 1.6 }} />
+          </section>
+        ))}
+
+        {/* Actions */}
+        <div style={{ borderTop: "1px solid var(--border)", paddingTop: 20, display: "flex", gap: 10 }}>
+          <button onClick={handleSave}
+            style={{ padding: "8px 20px", background: "var(--purple)", border: "none", borderRadius: 6, color: "var(--bg)", fontFamily: "var(--mono)", fontSize: 11, fontWeight: 500, cursor: "pointer", letterSpacing: "0.04em" }}>
+            {lang === "ja" ? "保存" : "Save"}
+          </button>
+          <button onClick={handleSyncToNotion}
+            style={{ padding: "8px 18px", background: "var(--bg2)", border: "1px solid var(--border)", borderRadius: 6, color: "var(--text-secondary)", fontFamily: "var(--mono)", fontSize: 11, cursor: "pointer", letterSpacing: "0.04em" }}>
+            {lang === "ja" ? "保存 & Notion キューに積む" : "Save & Queue to Notion"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

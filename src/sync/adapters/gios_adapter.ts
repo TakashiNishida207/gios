@@ -1,16 +1,16 @@
 // src/sync/adapters/gios_adapter.ts
-// GIOS Adapter — GIOSStore との入出力を担う唯一のゲートウェイ
+// GDIOS Adapter — GDIOSStore との入出力を担う唯一のゲートウェイ
 // 因果ループ: Intelligence Mapper の後に位置し、Store の状態を更新する
 
-import type { GIOSStore, FlowState, IntelligenceState } from "../../store/store";
+import type { GDIOSStore, FlowState, IntelligenceState } from "../../store/store";
 import type { IntelligenceBundle } from "../mappers/intelligence_mapper";
 import type { FlowPhase, IntelligenceType } from "../../dictionary/types";
 
-export class GIOSAdapter {
-  constructor(private store: GIOSStore) {}
+export class GDIOSAdapter {
+  constructor(private store: GDIOSStore) {}
 
   /**
-   * Intelligence Mapper の出力を GIOSStore に書き込む。
+   * Intelligence Mapper の出力を GDIOSStore に書き込む。
    * - flowPhase に従い store.flow の対応バケットに格納する
    * - intelligence に従い store.intelligence の対応バケットに格納する
    * Sync Layer 外から直接 store を変更してはならない。
@@ -38,8 +38,8 @@ export class GIOSAdapter {
   }
 
   /**
-   * GIOS 側で変更された Insight / Action / Learning の差分を返す。
-   * SyncEngine が GIOS → Notion 逆同期を行う際に使用する。
+   * GDIOS 側で変更された Insight / Action / Learning の差分を返す。
+   * SyncEngine が GDIOS → Notion 逆同期を行う際に使用する。
    * 差分取得後、__diff__ はクリアされる（冪等性の保証）。
    */
   async fetchDiff(): Promise<Record<string, unknown>[]> {
@@ -65,6 +65,32 @@ export class GIOSAdapter {
    */
   markDirty(data: Record<string, unknown>): void {
     (this.store.__diff__ as Record<string, unknown>[]).push(data);
+  }
+
+  /**
+   * Notion → GDIOS 順方向同期時に取得した Notion ページ ID を保存する。
+   * 逆同期時に書き戻し先として使用する。
+   */
+  storePageIds(ids: string[]): void {
+    this.store.__notionPageIds__ = ids;
+  }
+
+  /** 保存済みの Notion ページ ID を返す */
+  getPageIds(): string[] {
+    return this.store.__notionPageIds__ ?? [];
+  }
+
+  /**
+   * customerId → Notion ページ ID のマップを保存する。
+   * 逆同期時に書き戻し先を正確に特定するために使用する。
+   */
+  storePageIdMap(map: Record<string, string>): void {
+    this.store.__notionPageIdMap__ = map;
+  }
+
+  /** 保存済みの customerId → pageId マップを返す */
+  getPageIdMap(): Record<string, string> {
+    return this.store.__notionPageIdMap__ ?? {};
   }
 
   /** 現在のフロー状態を読み取る（Intelligence Engine が参照する） */

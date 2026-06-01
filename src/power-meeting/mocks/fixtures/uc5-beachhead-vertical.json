@@ -1,0 +1,344 @@
+{
+  "bundleId": "bundle-uc5",
+  "name": "Beachhead Vertical集中決定 — B2B SaaS / キャズム突破フェーズ",
+  "phase": "PHASE3",
+  "roles": [
+    { "id": "role-uc5-ceo",  "name": "CEO",   "weight": 0.30 },
+    { "id": "role-uc5-cro",  "name": "CRO",   "weight": 0.35 },
+    { "id": "role-uc5-pmm",  "name": "PMM",   "weight": 0.20 },
+    { "id": "role-uc5-csvp", "name": "CS VP", "weight": 0.15 }
+  ],
+  "agendaItems": [
+    {
+      "id": "agenda-uc5-001",
+      "title": "業種別勝率・CAC格差の現状把握",
+      "ownerRoleId": "role-uc5-cro",
+      "timeBudgetMin": 15,
+      "status": "aligned",
+      "discussionLog": [
+        {
+          "id": "disc-uc5-001-a",
+          "speaker": "CRO",
+          "roleId": "role-uc5-cro",
+          "ts": "2026-05-06T05:00:00Z",
+          "text": "Salesforceのデータを整理しました。直近6ヶ月の業種別勝率は医療30%、製造10%、小売8%、一般サービス15%。CACは業種間で差がなく、医療のROIが圧倒的に高い。ARR成長率も医療主体パイプラインで鈍化兆候が出ています。",
+          "phase": "PHASE1"
+        },
+        {
+          "id": "disc-uc5-001-b",
+          "speaker": "PMM",
+          "roleId": "role-uc5-pmm",
+          "ts": "2026-05-06T05:02:00Z",
+          "text": "MarketoのMQL→SQL転換率も医療43%、製造22%と2倍の差。セールスサイクルも医療が短い。Sales Playの再現性不足は、医療以外のVertical向けに汎用化しすぎたことが原因だと思います。",
+          "phase": "PHASE1"
+        },
+        {
+          "id": "disc-uc5-001-c",
+          "speaker": "CS VP",
+          "roleId": "role-uc5-csvp",
+          "ts": "2026-05-06T05:04:00Z",
+          "text": "ChurnZeroのヘルススコアも医療平均78点、製造54点。継続率は医療91%、製造72%。製造業での解約増加が今期のNRR低下の主因です。",
+          "phase": "PHASE1"
+        }
+      ],
+      "reactions": [
+        { "id": "react-uc5-001", "emoji": "👍", "roleId": "role-uc5-ceo", "ts": "2026-05-06T05:04:00Z" }
+      ],
+      "positions": [
+        { "roleId": "role-uc5-ceo",  "stance": "agree", "weightContribution": 0.30, "ts": "2026-05-06T05:05:00Z" },
+        { "roleId": "role-uc5-cro",  "stance": "agree", "weightContribution": 0.35, "ts": "2026-05-06T05:05:00Z" },
+        { "roleId": "role-uc5-pmm",  "stance": "agree", "weightContribution": 0.20, "ts": "2026-05-06T05:05:00Z" },
+        { "roleId": "role-uc5-csvp", "stance": "agree", "weightContribution": 0.15, "ts": "2026-05-06T05:05:00Z" }
+      ],
+      "parked": false,
+      "linkedVoiceIds": ["sf-uc5-001", "churno-uc5-001"],
+      "linkedDecisionIds": []
+    },
+    {
+      "id": "agenda-uc5-002",
+      "title": "医療業界高勝率の要因深掘り分析",
+      "ownerRoleId": "role-uc5-cro",
+      "timeBudgetMin": 20,
+      "status": "converging",
+      "discussionLog": [
+        {
+          "id": "disc-uc5-002-a",
+          "speaker": "CRO",
+          "roleId": "role-uc5-cro",
+          "ts": "2026-05-06T05:17:00Z",
+          "text": "Gongで医療業界の成約通話を10本分析しました。共通パターン: ①Implementation Timeが業界標準比60%短縮、②HIPAA準拠が完了済み、③医療特有ワークフローへの適合。この3点が繰り返し出てきます。",
+          "phase": "PHASE2"
+        },
+        {
+          "id": "disc-uc5-002-b",
+          "speaker": "PMM",
+          "roleId": "role-uc5-pmm",
+          "ts": "2026-05-06T05:20:00Z",
+          "text": "G2のレビューでも医療業界ユーザーから『導入がスムーズで現場が使いやすい』が集中しています。競合が医療規制対応に時間かかる中、我々の強みが際立っています。ただし現状のBattle Cardは汎用的すぎて医療商談で活かせていない。",
+          "phase": "PHASE2"
+        },
+        {
+          "id": "disc-uc5-002-c",
+          "speaker": "CS VP",
+          "roleId": "role-uc5-csvp",
+          "ts": "2026-05-06T05:23:00Z",
+          "text": "医療顧客のオンボーディング完了率が94%なのに対して、製造業は61%。このImplementation成功率の差がそのままRetention差に直結しています。医療向けCS Playbookが暗黙知化していて、他Verticalに横展開できていないのも課題です。",
+          "phase": "PHASE2"
+        }
+      ],
+      "reactions": [
+        { "id": "react-uc5-002", "emoji": "⭐", "roleId": "role-uc5-pmm", "ts": "2026-05-06T05:23:00Z" }
+      ],
+      "positions": [
+        { "roleId": "role-uc5-ceo",  "stance": "agree",   "weightContribution": 0.30, "ts": "2026-05-06T05:25:00Z", "note": "医療集中の方向性に賛成" },
+        { "roleId": "role-uc5-cro",  "stance": "agree",   "weightContribution": 0.35, "ts": "2026-05-06T05:25:00Z" },
+        { "roleId": "role-uc5-pmm",  "stance": "agree",   "weightContribution": 0.20, "ts": "2026-05-06T05:25:00Z" },
+        { "roleId": "role-uc5-csvp", "stance": "neutral", "weightContribution": 0.15, "ts": "2026-05-06T05:25:00Z", "note": "他Verticalを完全に切るのは慎重に" }
+      ],
+      "parked": false,
+      "linkedVoiceIds": ["gong-uc5-001", "gong-uc5-002", "g2-uc5-001"],
+      "linkedDecisionIds": ["dec-uc5-vertical"]
+    },
+    {
+      "id": "agenda-uc5-003",
+      "title": "Beachhead Vertical選定 — 集中戦略の意思決定",
+      "ownerRoleId": "role-uc5-ceo",
+      "timeBudgetMin": 25,
+      "status": "in_discussion",
+      "discussionLog": [
+        {
+          "id": "disc-uc5-003-a",
+          "speaker": "CEO",
+          "roleId": "role-uc5-ceo",
+          "ts": "2026-05-06T05:45:00Z",
+          "text": "データが揃いました。3択で議論します。A)医療業界集中、B)製造業パッケージ再設計、C)パートナー戦略でマルチVertical維持。それぞれの立場を聞かせてください。",
+          "phase": "PHASE3"
+        },
+        {
+          "id": "disc-uc5-003-b",
+          "speaker": "CRO",
+          "roleId": "role-uc5-cro",
+          "ts": "2026-05-06T05:47:00Z",
+          "text": "Aを強く推します。今の成功パターンを深掘りするのが最も確実。医療向けPlaybook v2、競合4社分Battle Card、リードスコア新モデルを揃えれば、6ヶ月以内に医療ARR比率を40%→65%に引き上げられます。CRO配下に医療専任2名を置く体制に変えたい。",
+          "phase": "PHASE3"
+        }
+      ],
+      "reactions": [],
+      "positions": [
+        { "roleId": "role-uc5-ceo",  "stance": "agree",   "weightContribution": 0.30, "ts": "2026-05-06T05:48:00Z" },
+        { "roleId": "role-uc5-cro",  "stance": "agree",   "weightContribution": 0.35, "ts": "2026-05-06T05:48:00Z" },
+        { "roleId": "role-uc5-pmm",  "stance": "agree",   "weightContribution": 0.20, "ts": "2026-05-06T05:48:00Z" },
+        { "roleId": "role-uc5-csvp", "stance": "neutral", "weightContribution": 0.15, "ts": "2026-05-06T05:48:00Z", "note": "既存製造業顧客のケアが必要" }
+      ],
+      "parked": false,
+      "linkedVoiceIds": [],
+      "linkedDecisionIds": ["dec-uc5-vertical"]
+    }
+  ],
+  "voices": [
+    {
+      "id": "sf-uc5-001",
+      "source": "salesforce",
+      "speaker": { "name": "Salesforce Pipeline分析", "role": "CRM Data" },
+      "handler": { "name": "CRO", "role": "CRO", "organization": "Sophia Project" },
+      "ts": "2026-05-06T05:00:00Z",
+      "text": "【Salesforce Pipeline 直近6ヶ月 業種別受注分析】医療: Opportunity 42件, 勝率30%, 平均ACV $48K, Closed Won ARR $605K。製造: 38件, 勝率10%, ARR $156K。小売: 29件, 勝率8%。一般サービス: 31件, 勝率15%。医療CACペイバック8ヶ月 vs 製造18ヶ月。",
+      "sentiment": "neutral",
+      "tags": ["pipeline", "win-rate", "vertical", "CAC"],
+      "metadata": {
+        "salesforce": { "recordType": "Report", "recordId": "report-uc5-001", "stage": "Closed", "arr": 605000 }
+      }
+    },
+    {
+      "id": "gong-uc5-001",
+      "source": "gong",
+      "speaker": { "name": "木村 裕子", "role": "IT Director", "company": "医療法人 さくら会" },
+      "handler": { "name": "CRO", "role": "CRO", "organization": "Sophia Project" },
+      "ts": "2026-05-06T05:00:00Z",
+      "text": "HIPAA準拠が最初から確認できたのは大きかったです。他社は対応に数ヶ月かかると言っていたので。Implementationも予定より2週間早く終わって、現場からの評判も良いです。来期は別病棟にも展開したいと思っています。",
+      "sentiment": "advocacy",
+      "tags": ["医療", "HIPAA", "Implementation", "拡張意向"],
+      "metadata": {
+        "gong": { "callId": "gong-uc5-001", "duration": 2700, "callType": "customer_success", "recordingUrl": "https://gong.io/calls/uc5-001" }
+      }
+    },
+    {
+      "id": "gong-uc5-002",
+      "source": "gong",
+      "speaker": { "name": "渡辺 拓也", "role": "Operations Manager", "company": "精密部品製造 東洋工業" },
+      "handler": { "name": "CRO", "role": "CRO", "organization": "Sophia Project" },
+      "ts": "2026-05-06T05:00:00Z",
+      "text": "導入から3ヶ月経ちますが、製造ラインのワークフローとうまく合わせられていないです。製造業固有のカスタムフィールドが少なくて、結局Excelと並行運用になっています。競合他社が製造業向けパッケージを出すと聞いて、乗り換えを検討中です。",
+      "sentiment": "negative",
+      "tags": ["製造業", "カスタマイズ不足", "競合", "解約リスク"],
+      "metadata": {
+        "gong": { "callId": "gong-uc5-002", "duration": 1800, "callType": "churn_risk", "recordingUrl": "https://gong.io/calls/uc5-002" }
+      }
+    },
+    {
+      "id": "g2-uc5-001",
+      "source": "other",
+      "speaker": { "name": "G2 / Capterra 医療業界レビュー集計 (N=34)", "role": "Review Platform" },
+      "handler": { "name": "PMM", "role": "PMM", "organization": "Sophia Project" },
+      "ts": "2026-05-06T05:00:00Z",
+      "text": "【G2/Capterra 医療業界レビュー(N=34)】平均評価4.6/5。主要ポジティブ: 「HIPAA対応スムーズ」「導入が早い」「医療ワークフローに合っている」「サポート丁寧」。医療以外の業種平均は3.8/5。差別化軸として活用価値高い。",
+      "sentiment": "positive",
+      "tags": ["G2", "Capterra", "レビュー", "医療差別化"],
+      "metadata": {}
+    },
+    {
+      "id": "churno-uc5-001",
+      "source": "other",
+      "speaker": { "name": "ChurnZero ヘルスサマリー", "role": "CS Platform" },
+      "handler": { "name": "CS VP", "role": "CS VP", "organization": "Sophia Project" },
+      "ts": "2026-05-06T05:00:00Z",
+      "text": "【ChurnZero ヘルスサマリー】製造業(N=18社): ヘルススコア平均54点、Red Zone(≤40点)6社、解約リスク高。医療(N=22社): 平均78点、Yellow Zone以上100%。製造業のRed Zone 6社は今後90日以内に解約アクション予定。CACペイバック未達状態。",
+      "sentiment": "concerned",
+      "tags": ["ChurnZero", "製造業", "解約リスク", "ヘルスケア"],
+      "metadata": {}
+    }
+  ],
+  "ghsItems": [
+    {
+      "id": "ghs-uc5-001",
+      "category": "acquisition",
+      "scope": "agenda",
+      "agendaId": "agenda-uc5-001",
+      "title": "業種別勝率・CAC健全性スコア",
+      "score": 45,
+      "trend": "flat",
+      "previousScore": 48,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-uc5-cro"
+    },
+    {
+      "id": "ghs-uc5-002",
+      "category": "expansion",
+      "scope": "agenda",
+      "agendaId": "agenda-uc5-002",
+      "title": "医療Vertical PMFスコア",
+      "score": 72,
+      "trend": "up",
+      "previousScore": 58,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-uc5-cro"
+    },
+    {
+      "id": "ghs-uc5-003",
+      "category": "expansion",
+      "scope": "agenda",
+      "agendaId": "agenda-uc5-003",
+      "title": "Beachhead戦略確定スコア",
+      "score": 65,
+      "trend": "up",
+      "previousScore": 40,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-uc5-ceo"
+    },
+    {
+      "id": "ghs-uc5-004",
+      "category": "expansion",
+      "scope": "meeting",
+      "title": "GTMフォーカス健全性スコア(全社)",
+      "score": 55,
+      "trend": "up",
+      "previousScore": 42,
+      "comments": [],
+      "voiceImpactIds": [],
+      "ownerRoleId": "role-uc5-ceo"
+    }
+  ],
+  "decisionItems": [
+    {
+      "id": "dec-uc5-vertical",
+      "type": "strategic",
+      "title": "Beachhead Vertical選定",
+      "agendaId": "agenda-uc5-003",
+      "alternatives": [
+        {
+          "id": "alt-uc5-001",
+          "label": "A: 医療業界集中フォーカス(推奨)",
+          "recommended": true,
+          "impactScore": 5,
+          "riskScore": 3,
+          "eta": "2026-11-06",
+          "description": "医療向けPlaybook v2、競合4社Battle Card、リードスコア新モデル(精度85%)を6ヶ月で整備。CRO配下に医療専任2名配置。医療ARR比率40%→65%を目標とする。"
+        },
+        {
+          "id": "alt-uc5-002",
+          "label": "B: 製造業パッケージ再設計",
+          "recommended": false,
+          "impactScore": 3,
+          "riskScore": 4,
+          "eta": "2027-05-06",
+          "description": "製造業固有ワークフロー対応強化。カスタムフィールド拡張・ERP連携など12ヶ月の開発投資。既存製造業顧客の解約を防ぐが、新規獲得は不確実。"
+        },
+        {
+          "id": "alt-uc5-003",
+          "label": "C: パートナー主導マルチVertical",
+          "recommended": false,
+          "impactScore": 2,
+          "riskScore": 3,
+          "eta": "2026-11-06",
+          "description": "パートナー経由で複数Verticalを同時展開。直接リソース投資は最小化。ただしパートナー育成コストとパイプラインコントロール喪失のリスクあり。"
+        }
+      ],
+      "voiceImpactIds": [],
+      "status": "decided",
+      "votingResult": { "agree": 3, "neutral": 1, "disagree": 0, "weightedScore": 0.85 }
+    },
+    {
+      "id": "dec-uc5-playbook",
+      "type": "operational",
+      "title": "医療Vertical Sales Playbook制作方針",
+      "agendaId": "agenda-uc5-002",
+      "alternatives": [
+        {
+          "id": "alt-uc5-004",
+          "label": "A: AI生成 + PMM監修(2週間、推奨)",
+          "recommended": true,
+          "impactScore": 4,
+          "riskScore": 2,
+          "eta": "2026-05-20",
+          "description": "Gong成約録音をAIで分析しBattle Card・Playbook草案を自動生成。PMM 1名が監修して2週間でリリース。スピードと品質を両立。"
+        },
+        {
+          "id": "alt-uc5-005",
+          "label": "B: CROが全社インタビュー(6週間)",
+          "recommended": false,
+          "impactScore": 5,
+          "riskScore": 1,
+          "eta": "2026-06-17",
+          "description": "CROが全セールスと医療顧客をインタビューして完全手作業で作成。品質は高いが時間がかかりすぎる。"
+        }
+      ],
+      "voiceImpactIds": [],
+      "status": "evaluating",
+      "votingResult": { "agree": 2, "neutral": 2, "disagree": 0, "weightedScore": 0.75 }
+    }
+  ],
+  "storyItems": [
+    {
+      "id": "story-uc5-001",
+      "audience": "internal",
+      "title": "医療Vertical集中戦略 — 意思決定記録",
+      "narrative": "業種別WIN率・CAC・Retentionの3軸分析の結果、医療業界への集中が最もROIが高いと判断。医療専任チーム設立・Playbook v2整備・リードスコア更新の3施策を6ヶ月で実行。目標: 医療ARR比率 40%→65%、全社NRR 5pt改善。",
+      "channel": "Notion / Salesforce / Slack #sales-strategy",
+      "linkedVoiceIds": ["sf-uc5-001", "gong-uc5-001", "churno-uc5-001"],
+      "voiceImpactIds": [],
+      "intelligence": {
+        "toneRecommendation": "意思決定の根拠をデータで補強。CRO主導で全セールスに周知。製造業既存顧客への対応計画も併記",
+        "riskWarning": "製造業既存顧客への解約リスク対応計画を別途策定すること",
+        "confidence": 0.88,
+        "generatedAt": "2026-05-06T06:00:00Z"
+      },
+      "status": "approved",
+      "ownerRoleId": "role-uc5-ceo",
+      "agendaId": "agenda-uc5-003"
+    }
+  ],
+  "voiceImpactIntelligence": []
+}

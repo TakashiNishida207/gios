@@ -1,0 +1,89 @@
+[
+  {
+    "id": "intercom-conv-001",
+    "source": "intercom",
+    "speaker": { "name": "ACME Corp ユーザー", "role": "End User", "company": "ACME Corp" },
+    "ts": "2026-04-20T08:30:00Z",
+    "text": "ダッシュボードが急に読み込まれなくなりました。エラーコード500が表示されています。至急確認をお願いします。",
+    "sentiment": "negative",
+    "metadata": {
+      "intercom": {
+        "conversationId": "conv-acme-001",
+        "finInvolved": true,
+        "finConfidence": 0.72,
+        "finResolved": false,
+        "handoffReason": "confidence_threshold_unmet",
+        "proceduresUsed": ["error-diagnosis-flow", "cache-clear-procedure"]
+      }
+    }
+  },
+  {
+    "id": "intercom-conv-002",
+    "source": "intercom",
+    "speaker": { "name": "GlobalTech ユーザー", "role": "End User", "company": "GlobalTech" },
+    "ts": "2026-04-19T14:00:00Z",
+    "text": "APIのリクエスト制限について教えてください。現在のプランで1時間あたり何リクエスト可能ですか？",
+    "sentiment": "neutral",
+    "metadata": {
+      "intercom": {
+        "conversationId": "conv-globaltech-002",
+        "finInvolved": true,
+        "finConfidence": 0.95,
+        "finResolved": true,
+        "proceduresUsed": ["api-limits-faq"]
+      }
+    }
+  },
+  {
+    "id": "intercom-conv-003",
+    "source": "intercom",
+    "speaker": { "name": "StartupX ユーザー", "role": "Admin", "company": "StartupX" },
+    "ts": "2026-04-18T11:00:00Z",
+    "text": "プランをProにアップグレードしたのですが、新機能が反映されていないように見えます。",
+    "sentiment": "negative",
+    "metadata": {
+      "intercom": {
+        "conversationId": "conv-startupx-003",
+        "finInvolved": true,
+        "finConfidence": 0.65,
+        "finResolved": false,
+        "handoffReason": "procedure_failed",
+        "proceduresUsed": ["plan-upgrade-verification", "cache-clear-procedure"]
+      }
+    }
+  },
+  {
+    "id": "intercom-conv-004",
+    "source": "intercom",
+    "speaker": { "name": "MidCo ユーザー", "role": "Manager", "company": "MidCo" },
+    "ts": "2026-04-17T16:30:00Z",
+    "text": "チームメンバーを招待したいのですが、メールが届かないと言っています。スパムフォルダも確認済みです。",
+    "sentiment": "negative",
+    "metadata": {
+      "intercom": {
+        "conversationId": "conv-midco-004",
+        "finInvolved": true,
+        "finConfidence": 0.88,
+        "finResolved": true,
+        "proceduresUsed": ["invite-email-troubleshoot"]
+      }
+    }
+  },
+  {
+    "id": "intercom-conv-005",
+    "source": "intercom",
+    "speaker": { "name": "BetaCorp ユーザー", "role": "Developer", "company": "BetaCorp" },
+    "ts": "2026-04-16T09:00:00Z",
+    "text": "Webhookの署名検証の実装方法についてサンプルコードを教えてください。Node.jsで使っています。",
+    "sentiment": "neutral",
+    "metadata": {
+      "intercom": {
+        "conversationId": "conv-betacorp-005",
+        "finInvolved": true,
+        "finConfidence": 0.91,
+        "finResolved": true,
+        "proceduresUsed": ["webhook-docs-guide"]
+      }
+    }
+  }
+]

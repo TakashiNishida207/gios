@@ -1,0 +1,188 @@
+[
+  {
+    "id": "sf-opp-001",
+    "source": "salesforce",
+    "speaker": { "name": "田中 誠", "role": "Account Executive", "company": "Sophia Project" },
+    "ts": "2026-04-20T09:00:00Z",
+    "text": "ACME社との更新商談が佳境に入っています。ARR $240K のリニューアルで、現在の懸念は価格感度と競合比較です。先週のデモ評価は好評でしたが、最終決裁者が未確定の状態です。",
+    "sentiment": "neutral",
+    "metadata": {
+      "salesforce": {
+        "recordType": "Opportunity",
+        "recordId": "006Hs00001KLMnP",
+        "stage": "Negotiation/Review",
+        "arr": 240000,
+        "ownerName": "田中 誠"
+      }
+    }
+  },
+  {
+    "id": "sf-opp-002",
+    "source": "salesforce",
+    "speaker": { "name": "鈴木 花子", "role": "Account Executive", "company": "Sophia Project" },
+    "ts": "2026-04-21T10:30:00Z",
+    "text": "GlobalTech社の新規商談。IT部門長からの紹介案件で、エンタープライズプランの検討中。初回デモは4/25に予定。期待ARR $180K。",
+    "sentiment": "positive",
+    "metadata": {
+      "salesforce": {
+        "recordType": "Opportunity",
+        "recordId": "006Hs00001KLMnQ",
+        "stage": "Qualification",
+        "arr": 180000,
+        "ownerName": "鈴木 花子"
+      }
+    }
+  },
+  {
+    "id": "sf-opp-003",
+    "source": "salesforce",
+    "speaker": { "name": "山田 太郎", "role": "Senior AE", "company": "Sophia Project" },
+    "ts": "2026-04-19T14:00:00Z",
+    "text": "BetaCorp社の案件がスタックしています。チャンピオンが異動となり、新担当者との関係構築が必要。クロージングは5月末を目標に。ARR $320K のアップセル含む。",
+    "sentiment": "negative",
+    "metadata": {
+      "salesforce": {
+        "recordType": "Opportunity",
+        "recordId": "006Hs00001KLMnR",
+        "stage": "Value Proposition",
+        "arr": 320000,
+        "ownerName": "山田 太郎"
+      }
+    }
+  },
+  {
+    "id": "sf-opp-004",
+    "source": "salesforce",
+    "speaker": { "name": "佐藤 美咲", "role": "Account Executive", "company": "Sophia Project" },
+    "ts": "2026-04-22T11:00:00Z",
+    "text": "StartupXの迅速クローズ案件。創業者がプロダクトに惚れ込んでおり、今週中にProプランで契約見込み。ARR $60K。",
+    "sentiment": "positive",
+    "metadata": {
+      "salesforce": {
+        "recordType": "Opportunity",
+        "recordId": "006Hs00001KLMnS",
+        "stage": "Proposal/Price Quote",
+        "arr": 60000,
+        "ownerName": "佐藤 美咲"
+      }
+    }
+  },
+  {
+    "id": "sf-opp-005",
+    "source": "salesforce",
+    "speaker": { "name": "田中 誠", "role": "Account Executive", "company": "Sophia Project" },
+    "ts": "2026-04-18T16:00:00Z",
+    "text": "MegaCorp社のパイロット拡張提案。3ヶ月パイロット評価が良好で、全社展開の提案書を作成中。対象ユーザー数500名、ARR $480K 見込み。",
+    "sentiment": "positive",
+    "metadata": {
+      "salesforce": {
+        "recordType": "Opportunity",
+        "recordId": "006Hs00001KLMnT",
+        "stage": "Perception Analysis",
+        "arr": 480000,
+        "ownerName": "田中 誠"
+      }
+    }
+  },
+  {
+    "id": "sf-case-001",
+    "source": "salesforce",
+    "speaker": { "name": "高橋 健一", "role": "CS Manager", "company": "ACME Corp" },
+    "ts": "2026-04-15T08:00:00Z",
+    "text": "SSO連携でのログイン障害が続いています。SAML認証のフィールドマッピングに問題があり、一部ユーザーが本番環境にアクセスできない状態。早急な対応をお願いします。",
+    "sentiment": "negative",
+    "metadata": {
+      "salesforce": {
+        "recordType": "Case",
+        "recordId": "500Hs00001ABCD1",
+        "stage": "Escalated"
+      }
+    }
+  },
+  {
+    "id": "sf-case-002",
+    "source": "salesforce",
+    "speaker": { "name": "渡辺 さくら", "role": "IT Admin", "company": "GlobalTech" },
+    "ts": "2026-04-16T10:00:00Z",
+    "text": "CSVエクスポート機能で文字化けが発生しています。日本語を含むデータのエクスポート時にUTF-8が正しく処理されていないようです。",
+    "sentiment": "negative",
+    "metadata": {
+      "salesforce": {
+        "recordType": "Case",
+        "recordId": "500Hs00001ABCD2",
+        "stage": "In Progress"
+      }
+    }
+  },
+  {
+    "id": "sf-case-003",
+    "source": "salesforce",
+    "speaker": { "name": "伊藤 隆", "role": "Operations Lead", "company": "BetaCorp" },
+    "ts": "2026-04-17T13:00:00Z",
+    "text": "APIレート制限に関する質問です。現在のプランでの制限を確認したく、またエンタープライズプランではどのように変わるかも教えてください。",
+    "sentiment": "neutral",
+    "metadata": {
+      "salesforce": {
+        "recordType": "Case",
+        "recordId": "500Hs00001ABCD3",
+        "stage": "Waiting for Customer"
+      }
+    }
+  },
+  {
+    "id": "sf-activity-001",
+    "source": "salesforce",
+    "speaker": { "name": "田中 誠", "role": "Account Executive", "company": "Sophia Project" },
+    "ts": "2026-04-20T15:00:00Z",
+    "text": "ACME社との更新交渉コール完了。価格について5%のディスカウント交渉あり。競合はZendeskとIntercomを評価中との情報。次回は意思決定者を含む最終プレゼンを4/28に設定。",
+    "sentiment": "neutral",
+    "metadata": {
+      "salesforce": {
+        "recordType": "Activity",
+        "recordId": "00THS00001ActivityA"
+      }
+    }
+  },
+  {
+    "id": "sf-activity-002",
+    "source": "salesforce",
+    "speaker": { "name": "鈴木 花子", "role": "Account Executive", "company": "Sophia Project" },
+    "ts": "2026-04-21T16:30:00Z",
+    "text": "GlobalTech社との初期スコーピングコール。予算は承認済み、Q2クローズが目標。技術要件のRFPを来週共有予定。",
+    "sentiment": "positive",
+    "metadata": {
+      "salesforce": {
+        "recordType": "Activity",
+        "recordId": "00THS00001ActivityB"
+      }
+    }
+  },
+  {
+    "id": "sf-activity-003",
+    "source": "salesforce",
+    "speaker": { "name": "山田 太郎", "role": "Senior AE", "company": "Sophia Project" },
+    "ts": "2026-04-22T09:00:00Z",
+    "text": "BetaCorp社の新担当者（山本部長）とのキックオフミーティング。プロダクトのメリットを再説明し、ユースケースを3つ提示。次のステップとしてPoCの設計を提案。",
+    "sentiment": "positive",
+    "metadata": {
+      "salesforce": {
+        "recordType": "Activity",
+        "recordId": "00THS00001ActivityC"
+      }
+    }
+  },
+  {
+    "id": "sf-activity-004",
+    "source": "salesforce",
+    "speaker": { "name": "佐藤 美咲", "role": "Account Executive", "company": "Sophia Project" },
+    "ts": "2026-04-23T11:00:00Z",
+    "text": "StartupX創業者とのクロージングコール。契約書レビューは法務に回した。支払い条件：年払い、来週中に署名予定。",
+    "sentiment": "positive",
+    "metadata": {
+      "salesforce": {
+        "recordType": "Activity",
+        "recordId": "00THS00001ActivityD"
+      }
+    }
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "id": "email-001",
+    "source": "email",
+    "speaker": { "name": "高橋 健一", "role": "CTO", "company": "ACME Corp" },
+    "ts": "2026-04-19T08:00:00Z",
+    "text": "件名：【重要】更新契約の条件について\n\nSSO問題が解決された場合、更新契約を進める用意があります。ただし以下の条件をご考慮ください：1）価格の5%割引、2）SLA 99.9%の保証、3）専任CSMのアサイン。これらが対応可能であれば、4/28の最終確認で署名を予定しています。",
+    "sentiment": "neutral",
+    "metadata": {
+      "email": { "messageId": "email-acme-renewal-conditions", "subject": "【重要】更新契約の条件について", "threadCount": 4 }
+    }
+  },
+  {
+    "id": "email-002",
+    "source": "email",
+    "speaker": { "name": "松本 由美子", "role": "VP of Operations", "company": "MidCo" },
+    "ts": "2026-04-18T14:30:00Z",
+    "text": "件名：トライアル延長のお願い\n\n2週間のトライアルで機能を確認できましたが、全社展開の判断には追加で2週間のデータが欲しいです。特にモバイルアプリの安定性を評価したく、トライアル延長をご検討いただけますか？",
+    "sentiment": "neutral",
+    "metadata": {
+      "email": { "messageId": "email-midco-trial-extension", "subject": "トライアル延長のお願い", "threadCount": 2 }
+    }
+  }
+]

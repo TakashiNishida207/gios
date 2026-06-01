@@ -1,0 +1,36 @@
+[
+  {
+    "id": "gong-call-001",
+    "source": "gong",
+    "speaker": { "name": "田中 誠（AE）", "role": "Account Executive", "company": "Sophia Project" },
+    "ts": "2026-04-20T15:00:00Z",
+    "text": "ACME社との更新交渉コール。顧客側：高橋CTO、鈴木購買部長。主な議題：価格交渉（5%値引き要求）、競合比較（Zendesk, Intercom）。Gong AIスコア：Positive 42%、Neutral 38%、Negative 20%。Next step: 4/28 最終プレゼン。",
+    "sentiment": "neutral",
+    "metadata": {
+      "gong": {
+        "callId": "gong-call-acme-renewal",
+        "callTitle": "ACME Corp 更新交渉 - 最終段階",
+        "startTs": "2026-04-20T15:00:00Z",
+        "durationSec": 2700,
+        "speakerSide": "rep"
+      }
+    }
+  },
+  {
+    "id": "gong-call-002",
+    "source": "gong",
+    "speaker": { "name": "鈴木 花子（AE）", "role": "Account Executive", "company": "Sophia Project" },
+    "ts": "2026-04-21T16:00:00Z",
+    "text": "GlobalTech社との初期スコーピングコール。顧客側：松本VP Operations。競合言及なし。予算・タイムラインを確認。Gong AIスコア：Positive 68%、Neutral 28%、Negative 4%。",
+    "sentiment": "positive",
+    "metadata": {
+      "gong": {
+        "callId": "gong-call-globaltech-scoping",
+        "callTitle": "GlobalTech スコーピングコール",
+        "startTs": "2026-04-21T16:00:00Z",
+        "durationSec": 1800,
+        "speakerSide": "rep"
+      }
+    }
+  }
+]

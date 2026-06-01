@@ -1,0 +1,91 @@
+[
+  {
+    "id": "notion-voc-001",
+    "source": "notion",
+    "speaker": { "name": "CS Team", "role": "Customer Success" },
+    "ts": "2026-04-10T09:00:00Z",
+    "text": "【VoC DB】ACME Corp Q1レビュー\n\n## 全体評価\n顧客満足度スコア：NPS +42、CSAT 4.2/5.0\n\n## 高評価ポイント\n- オンボーディング体験が業界最高水準\n- APIドキュメントの充実度が高い\n- サポートレスポンスタイムの改善（平均2.1h → 0.8h）\n\n## 改善要望\n- ダッシュボードのカスタマイズ柔軟性を高めてほしい\n- モバイルアプリの安定性向上\n- データエクスポート形式の追加（Parquet形式対応）\n- 管理者向け権限設定の粒度を細かく\n\n## 競合比較での優位性\n顧客が明示した競合：Zendesk、Intercom\n→ 「統合のしやすさ」「カスタマイズ性」で優位\n\n## 解約リスク\n中リスク：ダッシュボードカスタマイズが解決されない場合、競合移行を検討する可能性あり",
+    "textSummary": "ACME Corp Q1 VoCレビュー。NPS +42、CSAT 4.2/5.0。強み：オンボーディング、APIドキュメント、サポート速度。改善要望：ダッシュボードカスタマイズ、モバイル安定性、データエクスポート形式。解約リスク：中（カスタマイズ未解決の場合）。",
+    "sentiment": "positive",
+    "metadata": {
+      "notion": {
+        "pageId": "notion-page-voc-acme",
+        "databaseId": "notion-db-voc",
+        "pageTitle": "ACME Corp Q1 VoC レビュー",
+        "lastEditedBy": "田中 CS",
+        "lastEditedTs": "2026-04-10T09:00:00Z",
+        "parentDatabaseTitle": "VoC Database",
+        "blockCount": 24,
+        "contentLength": 892,
+        "comments": [
+          { "author": "PM 山田", "ts": "2026-04-11T10:00:00Z", "text": "ダッシュボードカスタマイズはQ2の優先タスクに追加済み" },
+          { "author": "Eng 加藤", "ts": "2026-04-11T14:00:00Z", "text": "Parquet形式対応はQ3予定でロードマップに記載" }
+        ]
+      }
+    }
+  },
+  {
+    "id": "notion-retro-001",
+    "source": "notion",
+    "speaker": { "name": "Product Team", "role": "Product" },
+    "ts": "2026-04-05T13:00:00Z",
+    "text": "【Sprint 23 レトロスペクティブ】\n\n## Keep\n- デイリースタンドアップの効率が上がった\n- 技術的負債の可視化ダッシュボードが活用されている\n- ユーザーストーリーのサイズが適切になった\n\n## Problem\n- リリース直前のバグ発見が多い（QAフェーズが不十分）\n- デザインとエンジニアリングの連携タイミングが遅い\n- ステークホルダーへの進捗共有が不定期\n\n## Try\n- QAをスプリント中盤から開始する（後半集中を避ける）\n- デザインレビューをスプリント計画時に含める\n- 隔週のステークホルダーアップデートを設定する\n\n## アクションアイテム\n1. QAチェックリストの整備（担当：加藤、期限：4/15）\n2. デザイン<>エンジニア連携ガイドラインの作成（担当：UI担当、期限：4/20）\n3. ステークホルダーアップデートテンプレート作成（担当：PM、期限：4/12）",
+    "textSummary": "Sprint 23 レトロ。良かった点：スタンドアップ効率化、技術負債可視化。課題：リリース前バグ多発、デザイン<>Eng連携遅延。改善策：QA中盤開始、デザインレビュー計画組込、隔週ステークホルダー報告。",
+    "sentiment": "neutral",
+    "metadata": {
+      "notion": {
+        "pageId": "notion-page-retro-s23",
+        "pageTitle": "Sprint 23 レトロスペクティブ",
+        "lastEditedBy": "Scrum Master 木村",
+        "lastEditedTs": "2026-04-05T15:30:00Z",
+        "blockCount": 18,
+        "contentLength": 742
+      }
+    }
+  },
+  {
+    "id": "notion-interview-001",
+    "source": "notion",
+    "speaker": { "name": "UXR 佐々木", "role": "UX Researcher" },
+    "ts": "2026-04-08T14:00:00Z",
+    "text": "【カスタマーインタビューノート：GlobalTech 松田様】\n\n**インタビュー日時：** 2026-04-08 14:00-15:00\n**インタビュイー：** 松田様（Product Manager、GlobalTech）\n\n## 現状の課題\n\"現在はSpreadsheetとSlackを組み合わせて使っているが、情報が散逸して属人化が進んでいる。特にカスタマーフィードバックの収集と分析に時間がかかりすぎている\"\n\n## ジョブtoビー達成状況\n- 情報の一元化：未達成（ツールが分散）\n- 意思決定のスピード：遅延中（週次ミーティングでしか意思決定できない）\n- チーム間連携：部分的に達成（Slackで連携はできているが質が低い）\n\n## 理想の状態\n\"リアルタイムで顧客の声が集まり、重要度でソートされた状態で朝一番に確認できる。月次ではなく週次で意思決定できるようになりたい\"\n\n## プロダクトへのフィードバック\n- デモで見たリアルタイムダッシュボードへの期待が高い\n- Slack連携は必須要件\n- モバイルでの確認は日常的に行いたい\n- 価格についてはチームの予算（月$500以内）が制約\n\n## フォローアップ\n- セキュリティドキュメントを送付済み\n- 3週間のトライアル設定を提案→ 前向きな反応",
+    "textSummary": "GlobalTech 松田様インタビュー。課題：情報散逸・分析時間超過。理想：リアルタイムVoC集約・週次意思決定。要件：リアルタイムダッシュボード、Slack連携必須、モバイル対応、月$500以内。トライアルに前向き。",
+    "sentiment": "positive",
+    "metadata": {
+      "notion": {
+        "pageId": "notion-page-interview-globaltech",
+        "databaseId": "notion-db-customer-interviews",
+        "pageTitle": "カスタマーインタビュー：GlobalTech 松田様",
+        "lastEditedBy": "UXR 佐々木",
+        "lastEditedTs": "2026-04-08T16:00:00Z",
+        "parentDatabaseTitle": "Customer Interview Notes",
+        "blockCount": 32,
+        "contentLength": 1284,
+        "comments": [
+          { "author": "PM 山田", "ts": "2026-04-09T09:00:00Z", "text": "Slack連携はSpring 24に入れる予定。松田様に連絡する" }
+        ]
+      }
+    }
+  },
+  {
+    "id": "notion-interview-002",
+    "source": "notion",
+    "speaker": { "name": "UXR 佐々木", "role": "UX Researcher" },
+    "ts": "2026-04-12T10:00:00Z",
+    "text": "【カスタマーインタビューノート：BetaCorp 山本部長】\n\n**インタビュー日時：** 2026-04-12 10:00-11:00\n**インタビュイー：** 山本 健太郎（VP Engineering、BetaCorp）\n\n## 背景\n前チャンピオン（田中氏）が異動し、山本氏が新たな担当者に。前任者の評価コンテキストの引き継ぎが不十分。\n\n## 現状理解\n\"田中さんから聞いてはいるが、実際のプロダクトをまだちゃんと触れていない。エンジニアリング観点での評価をしたい\"\n\n## 技術的関心事\n- Kubernetes環境へのデプロイ対応\n- SLAとインシデント対応の実績\n- マルチテナントアーキテクチャの設計\n- APIのバージョニングポリシー\n\n## 意思決定軸\n\"セキュリティとスケーラビリティが最重要。次に開発者体験（DX）。価格は予算内に収まれば問題ない\"\n\n## 次ステップ\n- テクニカルディープダイブセッションを設定（4/25 予定）\n- セキュリティホワイトペーパー送付\n- エンジニアリングブログの紹介",
+    "textSummary": "BetaCorp 山本部長（新担当者）インタビュー。エンジニアリング観点での評価希望。重視：セキュリティ、スケーラビリティ、DX。次：テクニカルDD 4/25、セキュリティホワイトペーパー送付。",
+    "sentiment": "neutral",
+    "metadata": {
+      "notion": {
+        "pageId": "notion-page-interview-betacorp",
+        "databaseId": "notion-db-customer-interviews",
+        "pageTitle": "カスタマーインタビュー：BetaCorp 山本部長",
+        "lastEditedBy": "UXR 佐々木",
+        "lastEditedTs": "2026-04-12T11:30:00Z",
+        "parentDatabaseTitle": "Customer Interview Notes",
+        "blockCount": 28,
+        "contentLength": 1156
+      }
+    }
+  }
+]
