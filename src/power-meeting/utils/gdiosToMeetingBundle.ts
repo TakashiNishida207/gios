@@ -122,7 +122,7 @@ export function gdiosToMeetingBundle(
     });
   });
 
-  // アクションアイテム → PLANNING アジェンダ
+  // アクションアイテム → PLANNING アジェンダ（voice/growth との紐付けも設定）
   const actionLines = arr(action.actionItems);
   if (actionLines.length > 0 || str(action.nextAction)) {
     const discussionLog = actionLines.map((line, i) => ({
@@ -149,6 +149,8 @@ export function gdiosToMeetingBundle(
       })),
       parked:            false,
       linkedDecisionIds: ["dec-gdios-main"],
+      linkedVoiceIds:    voiceIds,          // ★ 全 voice を紐付け
+      linkedGrowthIds:   ["ghs-gdios-expansion", "ghs-gdios-churn", "ghs-gdios-retention"],
     });
   }
 
@@ -264,7 +266,7 @@ export function gdiosToMeetingBundle(
   ghsItems.push({
     id:            "ghs-gdios-expansion",
     category:      "expansion",
-    scope:         "meeting",
+    scope:         "agenda",
     agendaId:      firstAgendaId,
     title:         "エクスパンション機会",
     score:         oppScore,
@@ -289,7 +291,7 @@ export function gdiosToMeetingBundle(
   ghsItems.push({
     id:            "ghs-gdios-churn",
     category:      "churn",
-    scope:         "meeting",
+    scope:         "agenda",
     agendaId:      firstAgendaId,
     title:         "チャーン・リスク（課題深刻度）",
     score:         churnScore,
@@ -314,7 +316,7 @@ export function gdiosToMeetingBundle(
   ghsItems.push({
     id:            "ghs-gdios-retention",
     category:      "retention",
-    scope:         "global",
+    scope:         "agenda",
     title:         "リテンション・施策進捗",
     score:         priScore,
     trend:         str(action.chosenOption) ? "up" : "flat",
