@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from 'react'
-import type { Phase } from '@pm/types/agenda'
+import type { Phase } from '../../types/agenda'
 
 interface Props {
   toPhase: Phase

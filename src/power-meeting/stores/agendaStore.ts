@@ -1,7 +1,7 @@
 import { create } from 'zustand'
-import type { AgendaItem, DiscussionEntry, Reaction, Position, Phase, Role } from '@pm/types/agenda'
-import type { PhaseTransitionEvent, TransitionMode } from '@pm/types/phase'
-import { useAttendeeStore } from '@pm/stores/attendeeStore'
+import type { AgendaItem, DiscussionEntry, Reaction, Position, Phase, Role } from '../types/agenda'
+import type { PhaseTransitionEvent, TransitionMode } from '../types/phase'
+import { useAttendeeStore } from '../stores/attendeeStore'
 
 const CONSENSUS_THRESHOLD = 0.7
 const POSITIONS_TIEBREAK_FEATURE_FLAG = true

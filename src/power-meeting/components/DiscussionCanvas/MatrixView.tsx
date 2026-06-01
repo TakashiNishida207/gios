@@ -1,12 +1,12 @@
 "use client"
 
-import type { AgendaItem, Phase } from '@pm/types/agenda'
-import type { VoiceItem } from '@pm/types/voice'
-import { useAgendaStore } from '@pm/stores/agendaStore'
-import { useGrowthStore } from '@pm/stores/growthStore'
+import type { AgendaItem, Phase } from '../../types/agenda'
+import type { VoiceItem } from '../../types/voice'
+import { useAgendaStore } from '../../stores/agendaStore'
+import { useGrowthStore } from '../../stores/growthStore'
 import { AgendaInput } from './AgendaInput'
-import { VoiceCard } from '@pm/components/VoiceTab/VoiceCard'
-import { scoreAgendaItem } from '@pm/utils/scoreMissionAlignment'
+import { VoiceCard } from '../../components/VoiceTab/VoiceCard'
+import { scoreAgendaItem } from '../../utils/scoreMissionAlignment'
 import { usePreferences } from '@/ui/preferences'
 
 const COL_LABELS = {

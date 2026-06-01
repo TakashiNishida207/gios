@@ -1,7 +1,7 @@
 import { create } from 'zustand'
-import type { PermissionAction, RolePermission } from '@pm/types/permission'
-import { ALL_PERMISSION_ACTIONS } from '@pm/types/permission'
-import type { Role } from '@pm/types/agenda'
+import type { PermissionAction, RolePermission } from '../types/permission'
+import { ALL_PERMISSION_ACTIONS } from '../types/permission'
+import type { Role } from '../types/agenda'
 
 // ──────────────────────────────────────────────────────────────────
 // F-2-1 デフォルト権限決定ロジック

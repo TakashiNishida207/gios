@@ -1,13 +1,13 @@
 "use client"
 
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { usePermissionStore } from '@pm/stores/permissionStore'
+import { usePermissionStore } from '../../stores/permissionStore'
 import {
   ALL_PERMISSION_ACTIONS,
   PERMISSION_ACTION_LABELS,
   PERMISSION_ACTION_DESCRIPTIONS,
-} from '@pm/types/permission'
-import type { PermissionAction } from '@pm/types/permission'
+} from '../../types/permission'
+import type { PermissionAction } from '../../types/permission'
 
 interface Props {
   currentRoleId: string

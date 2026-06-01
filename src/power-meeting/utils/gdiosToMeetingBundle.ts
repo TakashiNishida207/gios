@@ -3,12 +3,12 @@
 // ★ flow.* データのみを参照する（intelligence.* は旧デモデータが残留するため使わない）
 
 import type { FlowState, IntelligenceState } from "@/store/store";
-import type { MeetingBundle, AgendaItem, Role } from "@pm/types/agenda";
-import type { VoiceItem } from "@pm/types/voice";
-import type { GHSItem } from "@pm/types/growth";
-import type { DecisionItem, Alternative } from "@pm/types/decision";
-import type { StoryItem } from "@pm/types/story";
-import type { HumanTask, AITask } from "@pm/stores/executionStore";
+import type { MeetingBundle, AgendaItem, Role } from "../types/agenda";
+import type { VoiceItem } from "../types/voice";
+import type { GHSItem } from "../types/growth";
+import type { DecisionItem, Alternative } from "../types/decision";
+import type { StoryItem } from "../types/story";
+import type { HumanTask, AITask } from "../stores/executionStore";
 
 const str  = (v: unknown): string => (v != null ? String(v).trim() : "");
 const arr  = (v: unknown): string[] => {

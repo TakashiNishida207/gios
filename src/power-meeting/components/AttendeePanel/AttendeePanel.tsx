@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from 'react'
-import { useAttendeeStore } from '@pm/stores/attendeeStore'
-import type { AttendeeStatus } from '@pm/types/attendee'
+import { useAttendeeStore } from '../../stores/attendeeStore'
+import type { AttendeeStatus } from '../../types/attendee'
 
 const STATUS_CONFIG: Record<
   AttendeeStatus,

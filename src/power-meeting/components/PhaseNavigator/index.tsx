@@ -1,16 +1,16 @@
 "use client"
 
 import { useState } from 'react'
-import { useAgendaStore } from '@pm/stores/agendaStore'
-import { useVoiceStore } from '@pm/stores/voiceStore'
-import { useDecisionStore } from '@pm/stores/decisionStore'
-import { usePermissionStore } from '@pm/stores/permissionStore'
-import { PHASE_TRANSITION_RULES, PHASE_LABELS, getNextPhase, getPrevPhase } from '@pm/config/phaseTransitionRules'
-import { checkPhaseConditions } from '@pm/utils/checkPhaseConditions'
+import { useAgendaStore } from '../../stores/agendaStore'
+import { useVoiceStore } from '../../stores/voiceStore'
+import { useDecisionStore } from '../../stores/decisionStore'
+import { usePermissionStore } from '../../stores/permissionStore'
+import { PHASE_TRANSITION_RULES, PHASE_LABELS, getNextPhase, getPrevPhase } from '../../config/phaseTransitionRules'
+import { checkPhaseConditions } from '../../utils/checkPhaseConditions'
 import { ForceTransitionModal } from './ForceTransitionModal'
 import { RollbackModal } from './RollbackModal'
-import type { TransitionMode } from '@pm/types/phase'
-import type { Phase } from '@pm/types/agenda'
+import type { TransitionMode } from '../../types/phase'
+import type { Phase } from '../../types/agenda'
 
 interface Props {
   currentRoleId: string

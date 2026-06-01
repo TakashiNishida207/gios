@@ -6,8 +6,8 @@
  * GDIOS連携モード時はストアにセットされた顧客データを使用する
  */
 
-import { useExecutionStore } from '@pm/stores/executionStore'
-import type { HumanTaskStatus } from '@pm/stores/executionStore'
+import { useExecutionStore } from '../../stores/executionStore'
+import type { HumanTaskStatus } from '../../stores/executionStore'
 
 const STATUS_LABELS: Record<HumanTaskStatus, string> = {
   pending:     '未着手',

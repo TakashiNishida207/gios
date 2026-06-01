@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from 'react'
-import type { VoiceSource } from '@pm/types/voice'
-import { voiceSourcePresets, type VoiceSourcePreset } from '@pm/config/voiceSourcePresets'
+import type { VoiceSource } from '../../types/voice'
+import { voiceSourcePresets, type VoiceSourcePreset } from '../../config/voiceSourcePresets'
 
 type Props = {
   sources: VoiceSource[]

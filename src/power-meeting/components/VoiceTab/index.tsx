@@ -1,10 +1,10 @@
 "use client"
 
 import { useState } from 'react'
-import { useVoiceStore } from '@pm/stores/voiceStore'
+import { useVoiceStore } from '../../stores/voiceStore'
 import { VoiceCard } from './VoiceCard'
 import { SourceFilterChips } from './SourceFilterChips'
-import type { VoiceSource } from '@pm/types/voice'
+import type { VoiceSource } from '../../types/voice'
 
 const ALL_SOURCES: VoiceSource[] = [
   'zendesk', 'intercom', 'jira', 'asana',  // D-1: asana 追加
@@ -218,7 +218,7 @@ export function VoiceTab({ linkedVoiceIds }: Props) {
 
 type IncidentGroupProps = {
   incidentId: string
-  items: import('@pm/types/voice').VoiceItem[]
+  items: import('../../types/voice').VoiceItem[]
   onUnlink: (itemId: string) => void
 }
 

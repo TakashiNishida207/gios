@@ -1,11 +1,11 @@
 "use client"
 
-import type { AgendaItem, Phase } from '@pm/types/agenda'
-import type { VoiceItem } from '@pm/types/voice'
+import type { AgendaItem, Phase } from '../../types/agenda'
+import type { VoiceItem } from '../../types/voice'
 import { AgendaInput } from './AgendaInput'
-import { VoiceCard } from '@pm/components/VoiceTab/VoiceCard'
-import { VoiceTab } from '@pm/components/VoiceTab'
-import { useAgendaStore } from '@pm/stores/agendaStore'
+import { VoiceCard } from '../../components/VoiceTab/VoiceCard'
+import { VoiceTab } from '../../components/VoiceTab'
+import { useAgendaStore } from '../../stores/agendaStore'
 
 type Props = {
   item: AgendaItem

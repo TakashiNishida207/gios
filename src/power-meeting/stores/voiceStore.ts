@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { VoiceItem, VoiceSource } from '@pm/types/voice'
+import type { VoiceItem, VoiceSource } from '../types/voice'
 
 /** D-3: ソート順 */
 export type VoiceSort = 'newest' | 'importance'

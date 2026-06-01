@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from 'react'
-import type { AgendaItem, Phase } from '@pm/types/agenda'
-import type { VoiceItem } from '@pm/types/voice'
+import type { AgendaItem, Phase } from '../../types/agenda'
+import type { VoiceItem } from '../../types/voice'
 import { MatrixView } from './MatrixView'
 import { DetailPanel } from './DetailPanel'
 import { usePreferences } from '@/ui/preferences'

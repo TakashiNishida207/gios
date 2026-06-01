@@ -1,9 +1,9 @@
 "use client"
 
 import { useState } from 'react'
-import { useDecisionStore } from '@pm/stores/decisionStore'
-import { useImpactStore } from '@pm/stores/impactStore'
-import type { DecisionItem, DecisionType } from '@pm/types/decision'
+import { useDecisionStore } from '../../stores/decisionStore'
+import { useImpactStore } from '../../stores/impactStore'
+import type { DecisionItem, DecisionType } from '../../types/decision'
 
 type SubTab = DecisionType
 

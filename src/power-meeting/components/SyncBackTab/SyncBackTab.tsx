@@ -7,9 +7,9 @@
  */
 
 import { useState, useMemo } from 'react'
-import { useDecisionStore } from '@pm/stores/decisionStore'
-import { useStoryStore } from '@pm/stores/storyStore'
-import { useAgendaStore } from '@pm/stores/agendaStore'
+import { useDecisionStore } from '../../stores/decisionStore'
+import { useStoryStore } from '../../stores/storyStore'
+import { useAgendaStore } from '../../stores/agendaStore'
 
 // ─── 外部システム定義 ───────────────────────────────────────
 

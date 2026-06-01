@@ -1,9 +1,9 @@
 "use client"
 
 import { useState } from 'react'
-import { useGrowthStore } from '@pm/stores/growthStore'
-import { useImpactStore } from '@pm/stores/impactStore'
-import type { GHSItem, GrowthCategory } from '@pm/types/growth'
+import { useGrowthStore } from '../../stores/growthStore'
+import { useImpactStore } from '../../stores/impactStore'
+import type { GHSItem, GrowthCategory } from '../../types/growth'
 
 type SubTab = 'all' | GrowthCategory
 

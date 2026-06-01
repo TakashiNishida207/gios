@@ -1,8 +1,8 @@
 "use client"
 
 import { useState, useEffect, useCallback } from 'react'
-import type { Phase } from '@pm/types/agenda'
-import { PHASE_LABELS } from '@pm/config/phaseTransitionRules'
+import type { Phase } from '../../types/agenda'
+import { PHASE_LABELS } from '../../config/phaseTransitionRules'
 
 interface Props {
   toPhase: Phase

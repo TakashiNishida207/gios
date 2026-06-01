@@ -1,6 +1,6 @@
 import { create } from 'zustand'
-import type { Attendee, AttendeeStatus } from '@pm/types/attendee'
-import type { Role } from '@pm/types/agenda'
+import type { Attendee, AttendeeStatus } from '../types/attendee'
+import type { Role } from '../types/agenda'
 
 /** 出席者に対して effectiveWeight を再計算して返す（純粋関数） */
 export function recalcEffectiveWeights(attendees: Attendee[]): Attendee[] {

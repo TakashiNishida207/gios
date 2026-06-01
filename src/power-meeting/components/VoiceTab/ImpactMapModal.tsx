@@ -1,10 +1,10 @@
 "use client"
 
-import { useImpactStore } from '@pm/stores/impactStore'
-import { useGrowthStore } from '@pm/stores/growthStore'
-import { useDecisionStore } from '@pm/stores/decisionStore'
-import { useStoryStore } from '@pm/stores/storyStore'
-import type { VoiceImpactIntelligence } from '@pm/types/impact'
+import { useImpactStore } from '../../stores/impactStore'
+import { useGrowthStore } from '../../stores/growthStore'
+import { useDecisionStore } from '../../stores/decisionStore'
+import { useStoryStore } from '../../stores/storyStore'
+import type { VoiceImpactIntelligence } from '../../types/impact'
 
 type Props = {
   voiceId: string

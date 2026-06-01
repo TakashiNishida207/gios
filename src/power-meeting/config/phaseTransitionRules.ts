@@ -7,8 +7,8 @@
  *      → PLANNING → HUMAN_EXEC → AI_EXEC → SYNC_BACK
  */
 
-import type { Phase } from '@pm/types/agenda'
-import type { PhaseTransitionRule, PhaseContext } from '@pm/types/phase'
+import type { Phase } from '../types/agenda'
+import type { PhaseTransitionRule, PhaseContext } from '../types/phase'
 
 /** フェーズ表示名（日本語） */
 export const PHASE_LABELS: Record<Phase, string> = {

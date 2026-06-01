@@ -1,5 +1,5 @@
-import type { VoiceSource, VoiceItem } from '@pm/types/voice'
-import { VoiceItemSchema } from '@pm/schemas/voice.schema'
+import type { VoiceSource, VoiceItem } from '../../types/voice'
+import { VoiceItemSchema } from '../../schemas/voice.schema'
 import { z } from 'zod'
 
 const fixtureMap: Record<VoiceSource, () => Promise<unknown>> = {

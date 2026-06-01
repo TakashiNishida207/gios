@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { DecisionItem, DecisionType, Alternative } from '@pm/types/decision'
+import type { DecisionItem, DecisionType, Alternative } from '../types/decision'
 
 interface DecisionState {
   items: DecisionItem[]

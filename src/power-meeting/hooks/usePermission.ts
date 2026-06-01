@@ -1,5 +1,5 @@
-import { usePermissionStore } from '@pm/stores/permissionStore'
-import type { PermissionAction } from '@pm/types/permission'
+import { usePermissionStore } from '../stores/permissionStore'
+import type { PermissionAction } from '../types/permission'
 
 /**
  * 現在のロール（roleId）が指定アクションを実行できるかを返す。

@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { StoryItem, StoryAudience } from '@pm/types/story'
+import type { StoryItem, StoryAudience } from '../types/story'
 
 interface StoryState {
   items: StoryItem[]

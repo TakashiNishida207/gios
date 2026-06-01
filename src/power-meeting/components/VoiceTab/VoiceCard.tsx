@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from 'react'
-import type { VoiceItem } from '@pm/types/voice'
-import { useImpactStore } from '@pm/stores/impactStore'
+import type { VoiceItem } from '../../types/voice'
+import { useImpactStore } from '../../stores/impactStore'
 import { ImpactMapModal } from './ImpactMapModal'
 
 type Props = {

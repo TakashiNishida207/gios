@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { GHSItem, GrowthCategory } from '@pm/types/growth'
+import type { GHSItem, GrowthCategory } from '../types/growth'
 
 interface GrowthState {
   items: GHSItem[]

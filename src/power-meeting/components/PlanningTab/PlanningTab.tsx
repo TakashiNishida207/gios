@@ -5,9 +5,9 @@
  * Story承認状況・決定事項サマリー・次フェーズタスク振り分けを表示
  */
 
-import { useStoryStore } from '@pm/stores/storyStore'
-import { useDecisionStore } from '@pm/stores/decisionStore'
-import { useAgendaStore } from '@pm/stores/agendaStore'
+import { useStoryStore } from '../../stores/storyStore'
+import { useDecisionStore } from '../../stores/decisionStore'
+import { useAgendaStore } from '../../stores/agendaStore'
 
 export function PlanningTab() {
   const { items: stories } = useStoryStore()

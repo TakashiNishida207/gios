@@ -6,7 +6,7 @@
  * GDIOS連携モード時はストアにセットされた顧客データを使用する
  */
 
-import { useExecutionStore } from '@pm/stores/executionStore'
+import { useExecutionStore } from '../../stores/executionStore'
 
 export function AIExecutionTab() {
   const { aiTasks, updateAITaskStatus } = useExecutionStore()

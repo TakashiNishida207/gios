@@ -4,8 +4,8 @@ import {
   THRESHOLDS,
   type AlignmentLevel,
   type KeywordRule,
-} from '@pm/config/missionAlignment'
-import type { AgendaItem } from '@pm/types/agenda'
+} from '../config/missionAlignment'
+import type { AgendaItem } from '../types/agenda'
 
 export type MissionAlignmentResult = {
   /** 正規化スコア 0.0–1.0 */

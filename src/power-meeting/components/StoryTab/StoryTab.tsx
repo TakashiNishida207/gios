@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from 'react'
-import { useStoryStore } from '@pm/stores/storyStore'
-import type { StoryAudience, StoryItem, StoryStatus } from '@pm/types/story'
+import { useStoryStore } from '../../stores/storyStore'
+import type { StoryAudience, StoryItem, StoryStatus } from '../../types/story'
 
 type SubTab = StoryAudience
 

@@ -1,9 +1,9 @@
 "use client"
 
 import { useState } from 'react'
-import type { AgendaItem, AgendaItemStatus, Phase, Reaction, Stance } from '@pm/types/agenda'
-import { useAgendaStore } from '@pm/stores/agendaStore'
-import { usePermission } from '@pm/hooks/usePermission'
+import type { AgendaItem, AgendaItemStatus, Phase, Reaction, Stance } from '../../types/agenda'
+import { useAgendaStore } from '../../stores/agendaStore'
+import { usePermission } from '../../hooks/usePermission'
 
 /** E-1: 他アジェンダへのクロスリンク選択ポップオーバー */
 function CrossLinkPicker({

@@ -2,7 +2,7 @@
  * C-2: フェーズ遷移条件チェックユーティリティ
  */
 
-import type { PhaseTransitionRule, PhaseContext, TransitionCheckResult } from '@pm/types/phase'
+import type { PhaseTransitionRule, PhaseContext, TransitionCheckResult } from '../types/phase'
 
 /**
  * ルールとコンテキストを受け取り、各条件の評価結果を返す。

@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { VoiceImpactIntelligence } from '@pm/types/impact'
+import type { VoiceImpactIntelligence } from '../types/impact'
 
 interface ImpactState {
   items: VoiceImpactIntelligence[]
