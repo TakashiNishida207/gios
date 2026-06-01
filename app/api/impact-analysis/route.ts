@@ -78,10 +78,26 @@ ${storyItems.length > 0
 
     const raw = response.content[0].type === "text" ? response.content[0].text : "";
 
-    // JSON ブロック抽出
-    const match = raw.match(/```json\s*([\s\S]*?)```/);
-    const jsonStr = match ? match[1].trim() : raw.trim();
-    const items: object[] = JSON.parse(jsonStr);
+    // JSON 抽出（複数パターンに対応）
+    let jsonStr = "";
+    // 1) ```json ... ``` ブロック
+    const codeMatch = raw.match(/```(?:json)?\s*([\s\S]*?)```/);
+    if (codeMatch) {
+      jsonStr = codeMatch[1].trim();
+    } else {
+      // 2) JSON 配列を直接探す
+      const arrayMatch = raw.match(/\[[\s\S]*\]/);
+      jsonStr = arrayMatch ? arrayMatch[0] : raw.trim();
+    }
+
+    let items: object[] = [];
+    try {
+      const parsed = JSON.parse(jsonStr);
+      items = Array.isArray(parsed) ? parsed : [parsed];
+    } catch {
+      // JSON parse 失敗時は空配列を返す（エラーにしない）
+      console.error("[impact-analysis] JSON parse failed:", jsonStr.slice(0, 200));
+    }
 
     // VoiceImpactIntelligence 形式に変換
     const now = new Date().toISOString();
