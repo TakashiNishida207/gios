@@ -171,10 +171,19 @@ export default function PowerMeetApp() {
     <div className="pm-root flex flex-col w-full bg-gray-50 overflow-hidden" style={{ flex: 1, minHeight: 0 }} data-pm-theme={theme}>
 
       {/* コントロールバー: フェーズバー(左) + UCセレクター・ロール・権限(右) */}
-      <div className="bg-white border-b border-gray-200 shrink-0 px-3 py-1.5 flex flex-nowrap items-center gap-2 min-w-0 w-full">
+      <div style={{
+        display: 'flex', flexDirection: 'row', flexWrap: 'nowrap',
+        alignItems: 'center', gap: 8, padding: '6px 12px',
+        background: 'var(--pm-ctrl-bg, #fff)', borderBottom: '1px solid #e5e7eb',
+        flexShrink: 0, width: '100%', minWidth: 0, overflow: 'hidden',
+      }}>
 
-        {/* フェーズバー (flex-1 で残りを埋める) */}
-        <div className="flex flex-nowrap items-center gap-0 overflow-x-auto scrollbar-none select-none flex-1 min-w-0">
+        {/* フェーズバー */}
+        <div style={{
+          display: 'flex', flexDirection: 'row', flexWrap: 'nowrap',
+          alignItems: 'center', flex: 1, minWidth: 0,
+          overflowX: 'auto', overflowY: 'hidden',
+        }}>
           {PHASE_ORDER.map((phase, idx) => {
             const phaseIdx   = PHASE_ORDER.indexOf(phase)
             const currentIdx = PHASE_ORDER.indexOf(currentPhase)
@@ -184,18 +193,26 @@ export default function PowerMeetApp() {
             return (
               <Fragment key={phase}>
                 {idx > 0 && (
-                  <span className="text-gray-200 text-[10px] px-0.5 shrink-0 leading-none whitespace-nowrap">›</span>
+                  <span style={{ color: '#d1d5db', fontSize: 10, padding: '0 2px', flexShrink: 0, whiteSpace: 'nowrap' }}>›</span>
                 )}
                 {isCurrent ? (
                   <button
                     onClick={() => { setShowPhaseNav(true); setAutoToastDismissed(false) }}
-                    className="text-[11px] font-semibold bg-blue-50 text-blue-600 px-2 py-0.5 rounded hover:bg-blue-100 transition-colors shrink-0 leading-tight whitespace-nowrap"
+                    style={{
+                      fontSize: 11, fontWeight: 600, background: '#eff6ff', color: '#2563eb',
+                      padding: '2px 8px', borderRadius: 4, border: 'none', cursor: 'pointer',
+                      flexShrink: 0, whiteSpace: 'nowrap', lineHeight: 1.4,
+                    }}
                     title={lang === 'ja' ? 'フェーズナビゲータを開く' : 'Open Phase Navigator'}
                   >
                     {phaseLabel}
                   </button>
                 ) : (
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded shrink-0 leading-tight whitespace-nowrap ${isPast ? 'text-gray-400' : 'text-gray-300'}`}>
+                  <span style={{
+                    fontSize: 10, padding: '2px 6px', borderRadius: 4,
+                    flexShrink: 0, whiteSpace: 'nowrap', lineHeight: 1.4,
+                    color: isPast ? '#9ca3af' : '#d1d5db',
+                  }}>
                     {phaseLabel}
                   </span>
                 )}
@@ -205,9 +222,8 @@ export default function PowerMeetApp() {
         </div>
 
         {/* 右端: ロール + UCセレクター + 権限ボタン */}
-        <span className="text-xs text-gray-500 shrink-0 whitespace-nowrap">{currentRole.name}</span>
+        <span style={{ fontSize: 12, color: '#6b7280', flexShrink: 0, whiteSpace: 'nowrap' }}>{currentRole.name}</span>
 
-        {/* ① UCセレクター */}
         <select
           value={activeBundleId}
           onChange={e => {
@@ -216,7 +232,11 @@ export default function PowerMeetApp() {
             setAutoToastDismissed(false)
             setShowPhaseNav(false)
           }}
-          className="text-xs border border-gray-200 rounded px-2 py-1 text-gray-600 bg-white hover:bg-gray-50 cursor-pointer shrink-0 max-w-[220px]"
+          style={{
+            fontSize: 12, border: '1px solid #e5e7eb', borderRadius: 4,
+            padding: '4px 8px', color: '#4b5563', background: 'inherit',
+            cursor: 'pointer', flexShrink: 0, maxWidth: 240,
+          }}
           title="ミーティングを切り替え"
         >
           {(Object.entries(BUNDLES) as [BundleId, { label: string }][]).map(([id, b]) => (
@@ -226,7 +246,11 @@ export default function PowerMeetApp() {
 
         <button
           onClick={() => setShowPermissions(true)}
-          className="text-xs px-2 py-1 rounded border border-gray-200 text-gray-500 hover:bg-gray-50 shrink-0 whitespace-nowrap"
+          style={{
+            fontSize: 12, padding: '4px 8px', borderRadius: 4,
+            border: '1px solid #e5e7eb', color: '#6b7280', background: 'inherit',
+            cursor: 'pointer', flexShrink: 0, whiteSpace: 'nowrap',
+          }}
           title="権限マトリクスを表示"
         >
           🔐 権限
@@ -263,7 +287,12 @@ export default function PowerMeetApp() {
       )}
 
       {/* タブナビゲーション */}
-      <nav className="bg-white border-b border-gray-200 shrink-0 px-4 flex flex-nowrap gap-1 overflow-x-auto scrollbar-none w-full">
+      <nav style={{
+        display: 'flex', flexDirection: 'row', flexWrap: 'nowrap',
+        gap: 4, padding: '0 16px', flexShrink: 0, width: '100%',
+        background: 'var(--pm-ctrl-bg, #fff)', borderBottom: '1px solid #e5e7eb',
+        overflowX: 'auto', overflowY: 'hidden',
+      }}>
         {TABS.map(tab => {
           const isMain = mainTabs.includes(tab.id)
           const tabLabel = lang === 'ja' ? tab.ja : tab.en
