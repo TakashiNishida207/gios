@@ -70,11 +70,11 @@ export function PhaseNavigator({ currentRoleId, onClose }: Props) {
   return (
     <>
       <div
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4"
+        style={{ position: 'fixed', inset: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.3)', padding: 16 }}
         onClick={onClose}
       >
         <div
-          className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 space-y-5"
+          style={{ background: '#fff', borderRadius: 16, boxShadow: '0 25px 50px rgba(0,0,0,0.25)', width: '100%', maxWidth: 448, padding: 24, display: 'flex', flexDirection: 'column', gap: 20 }}
           onClick={e => e.stopPropagation()}
         >
           {/* ヘッダー */}

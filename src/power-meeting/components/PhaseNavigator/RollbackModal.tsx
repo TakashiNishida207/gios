@@ -21,7 +21,7 @@ export function RollbackModal({ fromPhase, fromLabel, toPhase, toLabel, onConfir
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 p-4"
+      style={{ position: "fixed", inset: 0, zIndex: 60, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,0.5)", padding: 16 }}
       onClick={onClose}
     >
       <div
