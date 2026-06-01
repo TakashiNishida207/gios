@@ -109,28 +109,79 @@ html, body { height: 100%; background: var(--bg); color: var(--text-primary); fo
 [data-pm-theme="dark"] .border-blue-600   { border-color: var(--blue)          !important; }
 [data-pm-theme="dark"] .hover\:bg-blue-100:hover { background-color: var(--blue-dim) !important; }
 
-/* アンバー */
+/* アンバー / オレンジ（GHSカード 40-70スコア帯, HubSpot等） */
 [data-pm-theme="dark"] .bg-amber-50       { background-color: var(--amber-dim) !important; }
+[data-pm-theme="dark"] .bg-amber-100      { background-color: var(--amber-dim) !important; }
 [data-pm-theme="dark"] .text-amber-600    { color: var(--amber)                !important; }
-[data-pm-theme="dark"] .border-amber-200  { border-color: var(--amber-dim)     !important; }
+[data-pm-theme="dark"] .text-amber-700    { color: var(--amber)                !important; }
+[data-pm-theme="dark"] .border-amber-200  { border-color: rgba(196,151,90,0.25) !important; }
+[data-pm-theme="dark"] .bg-orange-50      { background-color: rgba(196,151,90,0.08) !important; }
+[data-pm-theme="dark"] .bg-orange-100     { background-color: rgba(196,151,90,0.15) !important; }
+[data-pm-theme="dark"] .bg-orange-400     { background-color: var(--amber)     !important; }
+[data-pm-theme="dark"] .text-orange-500   { color: var(--amber)                !important; }
+[data-pm-theme="dark"] .text-orange-600   { color: var(--amber)                !important; }
+[data-pm-theme="dark"] .text-orange-700   { color: var(--amber)                !important; }
+[data-pm-theme="dark"] .border-orange-200 { border-color: rgba(196,151,90,0.25) !important; }
 
-/* グリーン */
+/* グリーン（GHSカード 70+スコア帯, 出席バッジ等） */
 [data-pm-theme="dark"] .bg-green-50       { background-color: var(--green-dim) !important; }
+[data-pm-theme="dark"] .bg-green-100      { background-color: rgba(122,170,128,0.15) !important; }
+[data-pm-theme="dark"] .text-green-500    { color: var(--green)                !important; }
 [data-pm-theme="dark"] .text-green-600    { color: var(--green)                !important; }
+[data-pm-theme="dark"] .text-green-700    { color: var(--green)                !important; }
 [data-pm-theme="dark"] .bg-green-500      { background-color: var(--green)     !important; }
+[data-pm-theme="dark"] .border-green-200  { border-color: rgba(122,170,128,0.25) !important; }
+[data-pm-theme="dark"] .border-green-300  { border-color: rgba(122,170,128,0.35) !important; }
+[data-pm-theme="dark"] .hover\:bg-green-100:hover { background-color: rgba(122,170,128,0.2) !important; }
 
-/* レッド */
+/* レッド / ローズ（GHSカード <40, チャーン, 欠席等） */
 [data-pm-theme="dark"] .bg-red-50         { background-color: var(--red-dim)   !important; }
+[data-pm-theme="dark"] .bg-red-100        { background-color: rgba(181,110,110,0.15) !important; }
+[data-pm-theme="dark"] .text-red-400      { color: var(--red)                  !important; }
 [data-pm-theme="dark"] .text-red-600      { color: var(--red)                  !important; }
-[data-pm-theme="dark"] .border-red-200    { border-color: var(--red-dim)       !important; }
+[data-pm-theme="dark"] .text-red-700      { color: var(--red)                  !important; }
+[data-pm-theme="dark"] .border-red-200    { border-color: rgba(181,110,110,0.25) !important; }
+[data-pm-theme="dark"] .bg-rose-50        { background-color: rgba(181,110,110,0.08) !important; }
+[data-pm-theme="dark"] .border-rose-200   { border-color: rgba(181,110,110,0.2) !important; }
 
-/* バイオレット（バッジ等） */
+/* パープル（アクイジションバッジ, Slack, Story等） */
+[data-pm-theme="dark"] .bg-purple-50      { background-color: var(--purple-dim) !important; }
+[data-pm-theme="dark"] .bg-purple-100     { background-color: rgba(139,130,192,0.15) !important; }
+[data-pm-theme="dark"] .text-purple-700   { color: var(--purple)               !important; }
 [data-pm-theme="dark"] .bg-violet-50      { background-color: var(--purple-dim) !important; }
+[data-pm-theme="dark"] .bg-violet-100     { background-color: rgba(139,130,192,0.15) !important; }
 [data-pm-theme="dark"] .text-violet-600   { color: var(--purple)               !important; }
+[data-pm-theme="dark"] .border-violet-200 { border-color: rgba(139,130,192,0.25) !important; }
+
+/* スカイ / インディゴ（Salesforce, Jira等） */
+[data-pm-theme="dark"] .bg-sky-50         { background-color: rgba(58,122,254,0.08) !important; }
+[data-pm-theme="dark"] .bg-sky-100        { background-color: rgba(58,122,254,0.15) !important; }
+[data-pm-theme="dark"] .text-sky-700      { color: #60a5fa                     !important; }
+[data-pm-theme="dark"] .border-sky-200    { border-color: rgba(58,122,254,0.25) !important; }
+[data-pm-theme="dark"] .bg-indigo-50      { background-color: rgba(99,102,241,0.08) !important; }
+[data-pm-theme="dark"] .bg-indigo-100     { background-color: rgba(99,102,241,0.15) !important; }
+[data-pm-theme="dark"] .text-indigo-700   { color: #818cf8                     !important; }
+[data-pm-theme="dark"] .border-indigo-200 { border-color: rgba(99,102,241,0.25) !important; }
+
+/* ピンク / ローズ（Asana等） */
+[data-pm-theme="dark"] .bg-pink-50        { background-color: rgba(236,72,153,0.08) !important; }
+[data-pm-theme="dark"] .bg-pink-100       { background-color: rgba(236,72,153,0.15) !important; }
+[data-pm-theme="dark"] .text-pink-700     { color: #f472b6                     !important; }
+[data-pm-theme="dark"] .border-pink-200   { border-color: rgba(236,72,153,0.25) !important; }
+
+/* イエロー（Email等） */
+[data-pm-theme="dark"] .bg-yellow-50      { background-color: rgba(234,179,8,0.08) !important; }
+[data-pm-theme="dark"] .bg-yellow-100     { background-color: rgba(234,179,8,0.15) !important; }
+[data-pm-theme="dark"] .text-yellow-700   { color: #facc15                     !important; }
+[data-pm-theme="dark"] .border-yellow-200 { border-color: rgba(234,179,8,0.25) !important; }
 
 /* ティール */
 [data-pm-theme="dark"] .bg-teal-50        { background-color: var(--teal-dim)  !important; }
 [data-pm-theme="dark"] .text-teal-600     { color: var(--teal)                 !important; }
+
+/* エメラルド */
+[data-pm-theme="dark"] .bg-emerald-50     { background-color: rgba(16,185,129,0.08) !important; }
+[data-pm-theme="dark"] .text-emerald-700  { color: #34d399                     !important; }
 
 /* select / input 要素 */
 [data-pm-theme="dark"] select,
