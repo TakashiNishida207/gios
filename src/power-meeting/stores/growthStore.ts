@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { GHSItem, GrowthCategory } from '../types/growth'
+import type { GHSItem, GrowthCategory, Comment } from '../types/growth'
 
 interface GrowthState {
   items: GHSItem[]
@@ -7,6 +7,8 @@ interface GrowthState {
   addItem: (item: GHSItem) => void
   updateItem: (id: string, patch: Partial<GHSItem>) => void
   getByCategory: (category: GrowthCategory) => GHSItem[]
+  /** 改善提案コメントを GHS アイテムに追加 */
+  addComment: (itemId: string, comment: Comment) => void
 }
 
 export const useGrowthStore = create<GrowthState>((set, get) => ({
@@ -23,4 +25,11 @@ export const useGrowthStore = create<GrowthState>((set, get) => ({
 
   getByCategory: (category) =>
     get().items.filter((it) => it.category === category),
+
+  addComment: (itemId, comment) =>
+    set((s) => ({
+      items: s.items.map((it) =>
+        it.id === itemId ? { ...it, comments: [...it.comments, comment] } : it
+      ),
+    })),
 }))

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useGrowthStore } from '../../stores/growthStore'
 import { useImpactStore } from '../../stores/impactStore'
+import { useAgendaStore } from '../../stores/agendaStore'
 import type { GHSItem, GrowthCategory } from '../../types/growth'
 
 type SubTab = 'all' | GrowthCategory
@@ -48,7 +49,9 @@ const TREND_COLOR = { up: 'text-green-600', down: 'text-red-600', flat: 'text-gr
 function GHSCard({ item }: { item: GHSItem }) {
   const { getByTarget } = useImpactStore()
   const impacts = getByTarget('growth', item.id)
-  const [toast, setToast] = useState<string | null>(null)
+  const { requestNavToCanvas } = useAgendaStore()
+  const { addComment }         = useGrowthStore()
+  const [toast, setToast]      = useState<string | null>(null)
   const [showImprove, setShowImprove] = useState(false)
   const [improveText, setImproveText] = useState('')
 
@@ -147,7 +150,22 @@ function GHSCard({ item }: { item: GHSItem }) {
           />
           <div className="flex gap-1 justify-end">
             <button onClick={() => { setShowImprove(false); setImproveText('') }} className="text-xs px-2 py-1 border border-gray-200 rounded text-gray-500">キャンセル</button>
-            <button onClick={() => { showToast('改善提案を記録しました ✓'); setShowImprove(false); setImproveText('') }} disabled={!improveText.trim()} className="text-xs px-2 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-40">送信</button>
+            <button
+              onClick={() => {
+                if (!improveText.trim()) return
+                addComment(item.id, {
+                  id:     `comment-${Date.now()}`,
+                  roleId: 'role-mgr',
+                  text:   `【改善提案】${improveText.trim()}`,
+                  ts:     new Date().toISOString(),
+                })
+                showToast('改善提案をスコア根拠に追記しました ✓')
+                setShowImprove(false)
+                setImproveText('')
+              }}
+              disabled={!improveText.trim()}
+              className="text-xs px-2 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-40"
+            >送信</button>
           </div>
         </div>
       )}
@@ -162,7 +180,14 @@ function GHSCard({ item }: { item: GHSItem }) {
         <span className="text-xs text-gray-400">{item.ownerRoleId}</span>
         <div className="flex gap-1">
           <button
-            onClick={() => showToast('ディスカッションキャンバス → 該当アジェンダの議論スレッドを開始してください')}
+            onClick={() => {
+              if (item.agendaId) {
+                // Discussion Canvas タブへジャンプ + 該当アジェンダをハイライト
+                requestNavToCanvas(item.agendaId)
+              } else {
+                showToast('アジェンダ紐付けなし — ディスカッションキャンバスから手動で追加してください')
+              }
+            }}
             className="text-xs px-2 py-1 rounded border border-blue-200 text-blue-600 bg-blue-50 hover:bg-blue-100"
           >
             議論を起こす

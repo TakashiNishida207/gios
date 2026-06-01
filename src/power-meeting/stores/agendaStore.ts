@@ -29,6 +29,10 @@ type AgendaState = {
   updateStatus: (agendaId: string, status: AgendaItem['status']) => void
 
   getConsensusScore: (agendaId: string) => number
+
+  /** ナビゲーション要求: GrowthTab 等から Discussion Canvas + agendaId へジャンプ */
+  requestNavToCanvas: (agendaId: string | null) => void
+  navRequest: { agendaId: string | null } | null
   getWeightedLinearScore: (agendaId: string) => number
   getOverconsensusItems: () => AgendaItem[]
   /** E-1: 他アジェンダから agendaId にリンクしている発言を返す */
@@ -80,6 +84,8 @@ export const useAgendaStore = create<AgendaState>((set, get) => ({
   currentPhase: 'PHASE1',
   selectedIds: [],
   transitionHistory: [],
+  navRequest: null,
+  requestNavToCanvas: (agendaId) => set({ navRequest: agendaId ? { agendaId } : null }),
 
   setItems: (items) => set({ items }),
   setRoles: (roles) => set({ roles }),

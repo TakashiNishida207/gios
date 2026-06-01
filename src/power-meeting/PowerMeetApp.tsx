@@ -164,10 +164,23 @@ export default function PowerMeetApp() {
     initFromRoles, initPermissions,
   ])
 
-  const { items: agendaItems, currentPhase, roles, advancePhase } = useAgendaStore()
+  const { items: agendaItems, currentPhase, roles, advancePhase, navRequest, requestNavToCanvas } = useAgendaStore()
   const { items: voiceItems } = useVoiceStore()
   const { items: decisionItems } = useDecisionStore()
   const { items: storyItems } = useStoryStore()
+
+  // GrowthTab等からのナビゲーション要求を監視してDiscussion Canvasへジャンプ
+  useEffect(() => {
+    if (navRequest?.agendaId) {
+      setActiveTab('canvas')
+      // agendaStore の selectedIds を設定して該当行をハイライト
+      useAgendaStore.setState(s => ({
+        selectedIds: [navRequest.agendaId!],
+      }))
+      // 要求をクリア
+      requestNavToCanvas(null)
+    }
+  }, [navRequest, requestNavToCanvas])
 
   const currentRole = roles[0] ?? { id: 'role-ceo', name: 'CEO', weight: 0.3 }
   const mainTabs = PHASE_MAIN_TAB[currentPhase] ?? []
