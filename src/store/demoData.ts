@@ -773,9 +773,139 @@ const UC6: DemoScenario = {
   },
 };
 
+// ─── UC1 英語版 ────────────────────────────────────────────────────────────────
+
+const UC1_EN: DemoScenario = {
+  id:            "uc1",
+  bundleId:      "bundle-b-uc1",
+  name:          "Churn Risk Emergency — ACME Corp",
+  nameJa:        "Churn Risk Emergency — ACME Corp",
+  description:   "Critical SSO outage causing churn risk on $240K ARR enterprise account.",
+  descriptionJa: "Critical SSO outage causing churn risk on $240K ARR enterprise account.",
+
+  flow: {
+    Input: {
+      customerName:    "ACME Corp",
+      industry:        "SaaS / Enterprise",
+      companySize:     "500 employees",
+      contactPerson:   "Ken Takahashi (CTO)",
+      contactEmail:    "takahashi@acme.example.com",
+      valueMomentName: "Retention from SSO Outage",
+      painPoint:       "SAML AttributeStatements field mapping mismatch prevents 5 key users from accessing production. NPS dropped to -12 and churn risk on ARR $240K is surging.",
+      context:         "Enterprise renewal negotiation in progress (ARR $240K). Competitor evaluation ongoing — SSO fix is a prerequisite for renewal. Customer presented 3 conditions: 5% price discount, SLA 99.9%, dedicated CSM.",
+      hypothesis:      "Deploying the SAML patch today (18:00) combined with a dedicated CSM assignment is the most cost-effective strategy to retain ARR and recover NPS long-term.",
+      experimentMethod:"18:00 patch deploy → 21:00 ACME environment verification → Next day NPS re-measure → 5/1 renewal close",
+      agenda:          "① Confirm SSO outage root cause & resolution ETA\n② Decide retention strategy (pricing, SLA, CSM)\n③ Approve customer communication draft",
+    },
+    Processing: {
+      gapLevel:        "Critical",
+      priorityScore:   9,
+      painSeverity:    8,
+      opportunitySize: 7,
+    },
+    Insight: {
+      valueHypothesis:   "Completing the SSO fix immediately eliminates the $240K ARR churn risk. Strengthening SLA and assigning a dedicated CSM can drive long-term NPS recovery (-12→+30) and expansion ($240K→$300K).",
+      narrative:         "ACME presented 3 conditions (5% discount, SLA 99.9%, dedicated CSM), but today's SSO fix removes all technical risk. By prioritizing SLA and CSM commitments over price discounts, we maximize ARR retention while preventing churn and positioning for upsell. CTO Takahashi values technical reliability above all — a swift recovery report is the critical turning point in negotiations.",
+      decisionRationale: "Alt-A (ACME priority, pause other projects) scores highest at 0.95. Engineering, CS, and Sales acting together ensures same-day resolution — protecting $240K ARR as the top portfolio priority.",
+      successMetric:     "NPS: -12 → +30 (within 30 days) / Churn rate: 0% / ARR maintained: $240K / Renewal close: 2026-05-01",
+    },
+    Action: {
+      chosenOption:     "A: Prioritize ACME, pause other accounts (ARR $240K retention priority)",
+      nextAction:       "Deploy SAML patch to production at 18:00 today. After ACME environment verification at 21:00, send recovery report email to CTO Takahashi. Resume renewal negotiations in CSM call tomorrow.",
+      actionItems: [
+        "Engineering Lead: Deploy SAML patch to production at 18:00 (staging verified)",
+        "CS Manager: Send recovery ETA notification email to CTO Takahashi (today 14:00)",
+        "Account Executive: Submit retention proposal (SLA 99.9%, dedicated CSM) to ACME today",
+        "CS Manager: Schedule renewal negotiation targeting 2026-05-01 close",
+        "PM: Notify owners of 1-week delay for other enterprise accounts",
+      ],
+      owner:            "Engineering Lead (technical) / CS Manager (customer)",
+      dueDate:          "2026-04-28",
+      meetingDecisions: "SSO fix: Alt-A (18:00 deploy) confirmed · Retention: SLA + CSM proposal (price discount is last resort) · Renewal target: 2026-05-01",
+    },
+    Feedback: {
+      actualOutcome:     "18:00 deploy successful, full recovery confirmed in ACME environment at 21:15. CTO sent thank-you email same day. NPS recovery to be measured in 30 days.",
+      hypothesisResult:  "Hypothesis: Same-day SAML patch prevents churn → Validated ✓",
+      customerResponse:  "'We appreciate your swift response. We are positively considering renewing the contract.' (CTO Takahashi)",
+    },
+    Learning: {
+      learning:          "For enterprise churn at the $240K ARR level, same-day resolution through dedicated resource allocation is the fastest and cheapest mitigation. SLA and dedicated CSM outperform price discounts in preventing churn. Speed of technical recovery is the critical trust inflection point.",
+      updatedHypothesis: "High-value enterprise customers can recover NPS through rapid technical resolution (within 24h) + dedicated CSM support. Price discounts should be held as a last negotiation card.",
+      updatedNarrative:  "Same-day resolution within 48 hours of incident is the critical point for maintaining customer trust. SLA 99.9% commitment positively correlates with annual retention rate. Dedicated CSM functions as a direct pipeline to the customer decision-maker.",
+      playbookUpdate:    "Enterprise Emergency Churn Playbook v2: ①Assign dedicated engineer immediately ②Joint CEO/CSM call (within 24h) ③Present SLA/CSM proposal within 24h ④Begin price negotiation only after tech fix ETA confirmed ⑤Price discount is last resort",
+    },
+  },
+
+  intelligence: {
+    Growth: {
+      bestPractice: "For high-ARR customers with critical outages, concentrate dedicated resources. Willingness to pause other accounts maximizes long-term LTV. Prioritize churn risk by ARR impact — $200K+ triggers immediate escalation.",
+      antiPattern:  "Spreading resources during emergency response extends resolution ETA and simultaneously increases customer dissatisfaction and churn probability. Compounding SLA violations can take months to recover NPS.",
+      growthScore:  61,
+    },
+    Evidence: {
+      npsScore:       -12,
+      previousNps:    8,
+      arrImpact:      240000,
+      churnRisk:      "high",
+      incidentId:     "sso-001",
+    },
+    Story: {
+      customerStory:  "Dear ACME Team: We sincerely apologize for the inconvenience caused by the SSO outage. We have scheduled a fix deployment for 18:00 today and expect full recovery by 21:00. Our dedicated support team is working with you every step of the way.",
+      internalStory:  "Engineering, CS, and Sales coordinating to resolve ACME's SSO issue. Deploy scheduled for 18:00 today. All hands on deck to protect ARR $240K. Updates shared in real-time on Slack #incident-acme.",
+      toneGuidance:   "Apology-based, fact-driven, low technical detail",
+    },
+    Decision: {
+      decisionOptions: [
+        "A: Prioritize ACME, pause other accounts — ARR $240K retention priority, delay other enterprise by 1 week (Recommended · weighted score 0.95)",
+        "B: Parallel response (split resources) — Maintain existing resource allocation while adding ACME support. Risk of +2 days to resolution ETA (weighted score 0.52)",
+      ],
+      recommendedOption: "A",
+      confidence:       0.95,
+    },
+    Voice: {
+      sourceCount:      6,
+      criticalCount:    1,
+      negativeCount:    3,
+      neutralCount:     2,
+      topInsight:       "Root cause of SSO outage: SAML AttributeStatements field mapping mismatch. Conflict with Azure AD settings confirmed.",
+    },
+    PowerMeeting: {
+      activeBundleId:  "bundle-b-uc1",
+      phase:           "PHASE2",
+    },
+  },
+
+  pmfEvidence: {
+    day30Retention:            0.72,
+    coreActionPerWeek:         3.8,
+    behaviorChangeScore:       7.2,
+    seanEllisVeryDisappointed: 0.54,
+    nps:                       42,
+    qualitativeHeat:           3.8,
+    activationRate:            0.81,
+    timeToValueScore:          7.5,
+  },
+
+  chasmEvidence: {
+    segmentShare:           0.28,
+    segmentPainIntensity:   8.5,
+    referenceability:       7.2,
+    winRate:                0.48,
+    repeatablePatternCount: 6,
+    salesCycleConsistency:  7.8,
+    messageClarity:         7.5,
+    useCaseStandardization: 7.2,
+  },
+};
+
 // ─── エクスポート ──────────────────────────────────────────────────────────────
 
 export const DEMO_SCENARIOS: DemoScenario[] = [UC1, UC2, UC3, UC4, UC5, UC6];
 
 /** ストアの初期デモデータ（UC1: チャーンリスク緊急対応） */
 export const DEFAULT_DEMO = DEMO_SCENARIOS[0];
+
+/** 言語に応じた UC1 データを返す */
+export function getUC1ByLang(lang: 'ja' | 'en'): DemoScenario {
+  return lang === 'en' ? UC1_EN : UC1;
+}

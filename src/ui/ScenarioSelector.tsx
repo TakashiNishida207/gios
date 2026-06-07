@@ -6,7 +6,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useGDIOSStore } from "@/store";
-import { DEMO_SCENARIOS }  from "@/store/demoData";
+import { DEMO_SCENARIOS, getUC1ByLang } from "@/store/demoData";
 import { usePreferences }  from "@/ui/preferences";
 
 // UC番号ごとのカラー
@@ -62,12 +62,37 @@ export default function ScenarioSelector() {
     return () => document.removeEventListener("mousedown", handler);
   }, [open]);
 
+  // 言語切り替え時に UC1 のデータを英語/日本語で再ロード
+  useEffect(() => {
+    if (activeId !== "uc1") return;
+    const scenario = getUC1ByLang(lang as "ja" | "en");
+    // store に直接 flow/intelligence を書き込む
+    useGDIOSStore.setState({
+      flow:            scenario.flow,
+      intelligence:    scenario.intelligence,
+      activeScenarioId: "uc1",
+    });
+  // lang が変わるたびに実行
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang]);
+
   const handleSelect = useCallback((id: string) => {
-    loadScenario(id);
+    // UC1 かつ英語モードの場合は英語データをロード
+    if (id === "uc1" && lang === "en") {
+      const scenario = getUC1ByLang("en");
+      useGDIOSStore.setState({
+        flow:            scenario.flow,
+        intelligence:    scenario.intelligence,
+        activeScenarioId: "uc1",
+        __diff__:        [],
+      });
+    } else {
+      loadScenario(id);
+    }
     setOpen(false);
     setFlash(true);
     setTimeout(() => setFlash(false), 1200);
-  }, [loadScenario]);
+  }, [loadScenario, lang]);
 
   const color = UC_COLORS[activeId] ?? "var(--text-tertiary)";
   const label = UC_LABELS[activeId] ?? "—";
