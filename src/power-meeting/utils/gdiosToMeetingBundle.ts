@@ -43,6 +43,7 @@ export type GDIOSBundle = {
 export function gdiosToMeetingBundle(
   flow: FlowState,
   _intelligence: IntelligenceState,  // 意図的に未使用（デモ汚染回避）
+  lang: 'ja' | 'en' = 'ja',
 ): GDIOSBundle {
   const input    = flow.Input      as Record<string, unknown>;
   const proc     = flow.Processing as Record<string, unknown>;
@@ -268,7 +269,7 @@ export function gdiosToMeetingBundle(
     category:      "expansion",
     scope:         "agenda",
     agendaId:      firstAgendaId,
-    title:         "エクスパンション機会",
+    title:         lang === 'en' ? "Expansion Opportunity" : "エクスパンション機会",
     score:         oppScore,
     trend:         oppScore >= 60 ? "up" : "down",
     previousScore: Math.round(oppScore * 0.88),
@@ -293,7 +294,7 @@ export function gdiosToMeetingBundle(
     category:      "churn",
     scope:         "agenda",
     agendaId:      firstAgendaId,
-    title:         "チャーン・リスク（課題深刻度）",
+    title:         lang === 'en' ? "Churn Risk (Issue Severity)" : "チャーン・リスク（課題深刻度）",
     score:         churnScore,
     trend:         churnScore >= 60 ? "flat" : "down",
     previousScore: Math.round(churnScore * 1.1 > 100 ? 100 : churnScore * 1.1),
@@ -317,7 +318,7 @@ export function gdiosToMeetingBundle(
     id:            "ghs-gdios-retention",
     category:      "retention",
     scope:         "agenda",
-    title:         "リテンション・施策進捗",
+    title:         lang === 'en' ? "Retention Initiative Progress" : "リテンション・施策進捗",
     score:         priScore,
     trend:         str(action.chosenOption) ? "up" : "flat",
     previousScore: Math.round(priScore * 0.9),

@@ -40,6 +40,7 @@ import type { VoiceImpactIntelligence } from './types/impact'
 import { useGDIOSStore } from '@/store/store'
 import { gdiosToMeetingBundle } from './utils/gdiosToMeetingBundle'
 import { useExecutionStore } from './stores/executionStore'
+import { translateFixture } from './utils/translateFixture'
 
 type BundleId = 'gdios-live' | 'uc1' | 'uc2' | 'uc3' | 'uc4' | 'uc5' | 'uc6'
 const BUNDLES: Record<BundleId, { label: string; fixture: unknown }> = {
@@ -122,7 +123,7 @@ export default function PowerMeetApp() {
     if (activeBundleId === 'gdios-live') {
       // GDIOS連携モード: 現在のストアデータをリアルタイムでマッピング
       const { bundle, voices, ghsItems, decisionItems, storyItems, humanTasks, aiTasks } =
-        gdiosToMeetingBundle(gdiosFlow, gdiosIntelligence)
+        gdiosToMeetingBundle(gdiosFlow, gdiosIntelligence, lang as 'ja' | 'en')
       setAgendaItems(bundle.agendaItems)
       setRoles(bundle.roles)
       setPhase(bundle.phase)
@@ -138,7 +139,11 @@ export default function PowerMeetApp() {
     }
 
     // 固定フィクスチャモード (UC1〜UC6)
-    const bundle = BUNDLES[activeBundleId].fixture as unknown as MeetingBundle & {
+    // 英語モードの場合はフィクスチャデータを英語化
+    const rawFixture = lang === 'en'
+      ? translateFixture(BUNDLES[activeBundleId].fixture as object)
+      : BUNDLES[activeBundleId].fixture
+    const bundle = rawFixture as unknown as MeetingBundle & {
       informationBlocks: unknown
       voices: VoiceItem[]
       ghsItems?: GHSItem[]
