@@ -2,7 +2,7 @@
 // Chasm Score API — エビデンスからスコアを計算し Supabase に保存する
 // POST: エビデンスを受け取りスコア計算 → chasm_score テーブルに保存
 // GET:  segment 指定で最新スコアを取得
-// 注意: chasm_score は GIOS 内部指標。Notion に同期しない。
+// 注意: chasm_score は GDIOS 内部指標。Notion に同期しない。
 
 import { NextResponse } from "next/server";
 import { computeChasm }          from "@/chasm/chasm_engine";

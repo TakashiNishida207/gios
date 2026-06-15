@@ -1,5 +1,5 @@
 // src/score/GIOS_SCORE_ENGINE.ts
-// GIOS Score Engine — PMF / Chasm / Scale スコアを計算する純粋関数モジュール
+// GDIOS Score Engine — PMF / Chasm / Scale スコアを計算する純粋関数モジュール
 // 副作用なし、外部依存なし
 // 因果ループ: Evidence → Score → Phase → Intelligence
 

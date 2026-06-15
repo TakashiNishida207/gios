@@ -2,7 +2,7 @@
 // PMF Score Engine — 行動・感情・経済の3次元統合スコア計算
 // 因果ループ: structured_evidence → scores → phase_judgment
 // 重要: スコアは 0-1 正規化済み。UI 表示時は × 100 して 0-100 に変換すること。
-// 重要: PMF Score は GIOS 内部指標。Notion に同期しない。
+// 重要: PMF Score は GDIOS 内部指標。Notion に同期しない。
 
 import { PMF_WEIGHTS }    from "./config/pmfWeights";
 import { PMF_THRESHOLDS } from "./config/pmfThresholds";

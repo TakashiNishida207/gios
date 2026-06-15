@@ -1,7 +1,7 @@
 // src/chasm/chasm_engine.ts
 // Chasm Breakthrough Phase Score Engine — 支配・リファレンス・拡張の3次元統合スコア計算
 // 因果ループ: structured_chasm_evidence → scores → chasm_phase_judgment
-// 重要: chasm_score は GIOS 内部指標。Notion に同期しない。
+// 重要: chasm_score は GDIOS 内部指標。Notion に同期しない。
 // 重要: deal_velocity・adoption_barrier・price_sensitivity は逆数使用。ゼロ除算を防ぐこと。
 
 import { CHASM_WEIGHTS }     from "./config/chasmWeights";

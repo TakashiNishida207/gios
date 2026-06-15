@@ -1,16 +1,18 @@
 // src/ui/screens/PMFScreen.tsx
-// PMF Score Dashboard — GIOS_SCORE_ENGINE による純粋関数スコア計算
+// PMF Score Dashboard — GDIOS_SCORE_ENGINE による純粋関数スコア計算
 // 因果ループ: PMFEvidence → calculatePMFScore → 可視化 → Action
 
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { usePreferences } from "@/ui/preferences";
 import {
   calculatePMFScore,
   type PMFEvidence,
   type PMFScoreResult,
 } from "@/score/GIOS_SCORE_ENGINE";
+import { DEMO_SCENARIOS } from "@/store/demoData";
+import { useGDIOSStore }  from "@/store";
 
 // ─── 定数 ─────────────────────────────────────────────────────────────────────
 
@@ -27,19 +29,10 @@ function scoreColor(total: number): string {
   return "var(--red)";
 }
 
-// ─── デフォルトエビデンス ──────────────────────────────────────────────────────
+// ─── デフォルトエビデンス（UC1デモデータで初期化）────────────────────────────
 
 function defaultEvidence(): PMFEvidence {
-  return {
-    day30Retention:            0,
-    coreActionPerWeek:         0,
-    behaviorChangeScore:       0,
-    seanEllisVeryDisappointed: 0,
-    nps:                       0,
-    qualitativeHeat:           0,
-    activationRate:            0,
-    timeToValueScore:          0,
-  };
+  return { ...DEMO_SCENARIOS[0].pmfEvidence };
 }
 
 // ─── サブコンポーネント ────────────────────────────────────────────────────────
@@ -100,11 +93,22 @@ function EvidenceInput({
 // ─── メイン画面 ────────────────────────────────────────────────────────────────
 
 export default function PMFScreen() {
-  const { lang } = usePreferences();
+  const { lang }      = usePreferences();
+  const activeScenarioId = useGDIOSStore((s) => s.activeScenarioId);
 
   const [segment,  setSegment]  = useState(DEMO_SEGMENTS[0]);
   const [evidence, setEvidence] = useState<PMFEvidence>(defaultEvidence);
-  const [result,   setResult]   = useState<PMFScoreResult | null>(null);
+  // デモデータを初期値として自動計算
+  const [result,   setResult]   = useState<PMFScoreResult | null>(() => calculatePMFScore(defaultEvidence()));
+
+  // シナリオ切り替え時に evidence を更新
+  useEffect(() => {
+    const scenario = DEMO_SCENARIOS.find((s) => s.id === activeScenarioId);
+    if (!scenario) return;
+    const ev = { ...scenario.pmfEvidence };
+    setEvidence(ev);
+    setResult(calculatePMFScore(ev));
+  }, [activeScenarioId]);
 
   const handleEvidenceChange = useCallback(
     (field: keyof PMFEvidence, value: number) => {
@@ -115,8 +119,10 @@ export default function PMFScreen() {
 
   const handleSegmentChange = (s: string) => {
     setSegment(s);
-    setEvidence(defaultEvidence());
-    setResult(null);
+    const scenario = DEMO_SCENARIOS.find((sc) => sc.id === activeScenarioId);
+    const ev = scenario ? { ...scenario.pmfEvidence } : defaultEvidence();
+    setEvidence(ev);
+    setResult(calculatePMFScore(ev));
   };
 
   // 純粋関数を直接呼ぶ — API 不要
@@ -157,12 +163,12 @@ export default function PMFScreen() {
         {/* Header */}
         <header style={{ marginBottom: 24, paddingBottom: 20, borderBottom: "1px solid var(--border)" }}>
           <p style={{ fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.12em", color: "var(--green)", textTransform: "uppercase", marginBottom: 6 }}>
-            PMF Score
+            {lang === "ja" ? "PMF達成スコア" : "PMF Score"}
           </p>
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between" }}>
             <div>
               <h1 style={{ fontFamily: "var(--sans)", fontSize: 26, fontWeight: 400, color: "var(--text-primary)", marginBottom: 4 }}>
-                {lang === "ja" ? "PMFスコア" : "PMF Score"}
+                {lang === "ja" ? "PMF達成スコア" : "PMF Score"}
               </h1>
               <p style={{ fontSize: 12, color: "var(--text-secondary)" }}>
                 {lang === "ja" ? "行動・感情・アクティベーションの3次元でPMFを測定する" : "Measure PMF across behavioral, emotional, and activation dimensions"}
@@ -221,7 +227,7 @@ export default function PMFScreen() {
             {/* Gauge */}
             <div style={{ background: "var(--bg2)", border: "1px solid var(--border)", borderRadius: 10, padding: "20px", marginBottom: 12, position: "relative", overflow: "hidden" }}>
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: gaugeColor }} />
-              <p style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>PMF Score</p>
+              <p style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>{lang === "ja" ? "PMF達成スコア" : "PMF Score"}</p>
               <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginBottom: 14 }}>
                 <span style={{ fontFamily: "var(--mono)", fontSize: 48, fontWeight: 300, color: gaugeColor, lineHeight: 1 }}>{Math.round(total)}</span>
                 <span style={{ fontFamily: "var(--mono)", fontSize: 14, color: "var(--text-tertiary)" }}>/ 100</span>
