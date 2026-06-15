@@ -24,65 +24,43 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error: "voiceId と voiceText は必須です" }, { status: 400 });
     }
 
-    const prompt = `あなたは GTM（Go-to-Market）インテリジェンス分析AIです。
-以下の「顧客・市場の声（Voice）」が、各インテリジェンス要素に与える影響を分析してください。
+    const growthList = ghsItems.length > 0
+      ? ghsItems.map((g: {id: string; title: string; category: string}) => `- ID: ${g.id} | ${g.category} | "${g.title}"`).join('\n')
+      : '- なし';
+    const decisionList = decisionItems.length > 0
+      ? decisionItems.map((d: {id: string; title: string}) => `- ID: ${d.id} | "${d.title}"`).join('\n')
+      : '- なし';
+    const storyList = storyItems.length > 0
+      ? storyItems.map((s: {id: string; title: string; audience: string}) => `- ID: ${s.id} | ${s.audience}向け | "${s.title}"`).join('\n')
+      : '- なし';
 
-## 分析対象の Voice
-"${voiceText}"
+    const prompt = `あなたはGTMインテリジェンス分析AIです。以下のVoiceが各要素に与える影響をJSON配列で返してください。
 
-## 現在のインテリジェンス要素
+Voice: "${voiceText}"
 
-### Growth（成長健全性スコア）
-${ghsItems.length > 0
-  ? ghsItems.map((g: {id: string; title: string; category: string}) => `- ID: ${g.id} | ${g.category} | "${g.title}"`).join('\n')
-  : '- なし'}
+Growth要素:
+${growthList}
 
-### Decision（意思決定）
-${decisionItems.length > 0
-  ? decisionItems.map((d: {id: string; title: string}) => `- ID: ${d.id} | "${d.title}"`).join('\n')
-  : '- なし'}
+Decision要素:
+${decisionList}
 
-### Story（コミュニケーション）
-${storyItems.length > 0
-  ? storyItems.map((s: {id: string; title: string; audience: string}) => `- ID: ${s.id} | ${s.audience}向け | "${s.title}"`).join('\n')
-  : '- なし'}
+Story要素:
+${storyList}
 
-## 出力ルール（厳守）
-- 必ず JSON 配列のみを返すこと。説明文・前置き・後書きは一切不要。
-- Growth・Decision・Story それぞれ最低1件ずつ、合計3件以上を返すこと。
-- 上記リストに ID がない場合は "generic-growth"/"generic-decision"/"generic-story" を使うこと。
-- JSON は以下の形式のみ。コードブロック不要、配列だけ返す。
+【必須ルール】
+1. Growth・Decision・Storyそれぞれ1件以上、合計3件以上を出力する
+2. IDがない場合は "generic-growth"/"generic-decision"/"generic-story" を使う
+3. JSONのみ返す（説明文・コードブロック記号は一切不要）
+4. impactLevelは "high" "medium" "low" のいずれか1つの文字列
+5. impactDirectionは "positive" "negative" "neutral" のいずれか1つの文字列
+6. confidenceは0.0〜1.0の数値
 
-[
-  {
-    "targetDomain": "growth",
-    "targetItemId": "<上記Growth IDまたはgeneric-growth>",
-    "impactLevel": "high" | "medium" | "low",
-    "impactDirection": "positive" | "negative" | "neutral",
-    "reasoning": "なぜこの影響があるか（日本語・2〜3文）",
-    "confidence": 0.0〜1.0の数値
-  },
-  {
-    "targetDomain": "decision",
-    "targetItemId": "<上記Decision IDまたはgeneric-decision>",
-    "impactLevel": "high" | "medium" | "low",
-    "impactDirection": "positive" | "negative" | "neutral",
-    "reasoning": "意思決定にどう影響するか（日本語・2〜3文）",
-    "confidence": 0.0〜1.0の数値
-  },
-  {
-    "targetDomain": "story",
-    "targetItemId": "<上記Story IDまたはgeneric-story>",
-    "impactLevel": "high" | "medium" | "low",
-    "impactDirection": "positive" | "negative" | "neutral",
-    "reasoning": "コミュニケーションをどう変えるべきか（日本語・2〜3文）",
-    "confidence": 0.0〜1.0の数値
-  }
-]`;
+出力形式（この形式のみ、余計なテキスト不要）:
+[{"targetDomain":"growth","targetItemId":"IDをここに","impactLevel":"high","impactDirection":"positive","reasoning":"日本語の説明文","confidence":0.8},{"targetDomain":"decision","targetItemId":"IDをここに","impactLevel":"medium","impactDirection":"positive","reasoning":"日本語の説明文","confidence":0.75},{"targetDomain":"story","targetItemId":"IDをここに","impactLevel":"high","impactDirection":"positive","reasoning":"日本語の説明文","confidence":0.85}]`;
 
     const response = await client.messages.create({
       model: "claude-haiku-4-5-20251001",
-      max_tokens: 1024,
+      max_tokens: 2048,
       messages: [{ role: "user", content: prompt }],
     });
 
@@ -90,7 +68,7 @@ ${storyItems.length > 0
 
     // JSON 抽出（複数パターンに対応）
     let jsonStr = "";
-    // 1) ```json ... ``` ブロック
+    // 1) ```json ... ``` ブロック（モデルがコードブロックを返した場合）
     const codeMatch = raw.match(/```(?:json)?\s*([\s\S]*?)```/);
     if (codeMatch) {
       jsonStr = codeMatch[1].trim();
