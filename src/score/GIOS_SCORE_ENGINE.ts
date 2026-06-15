@@ -87,19 +87,19 @@ export type PhaseResult = {
  */
 export function calculatePMFScore(e: PMFEvidence): PMFScoreResult {
   // Behavior Score (45点)
-  const b1 = clamp01(e.day30Retention            / 0.30) * 20;
-  const b2 = clamp01(e.coreActionPerWeek         / 2   ) * 15;
+  const b1 = clamp01(e.day30Retention            / 0.70) * 20;  // 70%継続率で満点
+  const b2 = clamp01(e.coreActionPerWeek         / 4   ) * 15;  // 週4回で満点
   const b3 = clamp01(e.behaviorChangeScore       / 10  ) * 10;
   const behaviorScore = b1 + b2 + b3;
 
   // Emotion Score (35点)
-  const e1 = clamp01(e.seanEllisVeryDisappointed / 0.40) * 20;
-  const e2 = clamp01(e.nps                       / 30  ) * 10;
+  const e1 = clamp01(e.seanEllisVeryDisappointed / 0.60) * 20;  // 60%で満点
+  const e2 = clamp01(e.nps                       / 50  ) * 10;  // NPS50で満点
   const e3 = clamp01(e.qualitativeHeat           / 5   ) * 5;
   const emotionScore = e1 + e2 + e3;
 
   // Activation Score (20点)
-  const a1 = clamp01(e.activationRate            / 0.60) * 10;
+  const a1 = clamp01(e.activationRate            / 0.80) * 10;  // 80%で満点
   const a2 = clamp01(e.timeToValueScore          / 10  ) * 10;
   const activationScore = a1 + a2;
 
@@ -125,14 +125,14 @@ export function calculatePMFScore(e: PMFEvidence): PMFScoreResult {
  */
 export function calculateChasmScore(e: ChasmEvidence): ChasmScoreResult {
   // Segment Dominance (40点)
-  const s1 = clamp01(e.segmentShare         / 0.30) * 20;
+  const s1 = clamp01(e.segmentShare         / 0.40) * 20;  // 40%シェアで満点
   const s2 = clamp01(e.segmentPainIntensity / 10  ) * 10;
   const s3 = clamp01(e.referenceability     / 10  ) * 10;
   const segmentDominanceScore = s1 + s2 + s3;
 
   // Sales Repeatability (40点)
-  const r1 = clamp01(e.winRate                 / 0.40) * 15;
-  const r2 = clamp01(e.repeatablePatternCount  / 3   ) * 15;
+  const r1 = clamp01(e.winRate                 / 0.60) * 15;  // 60%勝率で満点
+  const r2 = clamp01(e.repeatablePatternCount  / 5   ) * 15;  // 5パターンで満点
   const r3 = clamp01(e.salesCycleConsistency   / 10  ) * 10;
   const salesRepeatabilityScore = r1 + r2 + r3;
 
