@@ -35,40 +35,50 @@ export async function POST(req: Request) {
 ### Growth（成長健全性スコア）
 ${ghsItems.length > 0
   ? ghsItems.map((g: {id: string; title: string; category: string}) => `- ID: ${g.id} | ${g.category} | "${g.title}"`).join('\n')
-  : '- なし（汎用分析を実施）'}
+  : '- なし'}
 
 ### Decision（意思決定）
 ${decisionItems.length > 0
   ? decisionItems.map((d: {id: string; title: string}) => `- ID: ${d.id} | "${d.title}"`).join('\n')
-  : '- なし（汎用分析を実施）'}
+  : '- なし'}
 
 ### Story（コミュニケーション）
 ${storyItems.length > 0
   ? storyItems.map((s: {id: string; title: string; audience: string}) => `- ID: ${s.id} | ${s.audience}向け | "${s.title}"`).join('\n')
-  : '- なし（汎用分析を実施）'}
+  : '- なし'}
 
-## 出力形式
-以下の JSON 配列を出力してください（\`\`\`json ブロックで囲んでください）。
-影響があると判断した要素のみを含めてください（影響なしは除外）。
+## 出力ルール（厳守）
+- 必ず JSON 配列のみを返すこと。説明文・前置き・後書きは一切不要。
+- Growth・Decision・Story それぞれ最低1件ずつ、合計3件以上を返すこと。
+- 上記リストに ID がない場合は "generic-growth"/"generic-decision"/"generic-story" を使うこと。
+- JSON は以下の形式のみ。コードブロック不要、配列だけ返す。
 
-\`\`\`json
 [
   {
-    "targetDomain": "growth" | "decision" | "story",
-    "targetItemId": "<上記リストのID、または 'generic-growth'/'generic-decision'/'generic-story'>",
+    "targetDomain": "growth",
+    "targetItemId": "<上記Growth IDまたはgeneric-growth>",
     "impactLevel": "high" | "medium" | "low",
     "impactDirection": "positive" | "negative" | "neutral",
     "reasoning": "なぜこの影響があるか（日本語・2〜3文）",
-    "confidence": <0.0〜1.0>
+    "confidence": 0.0〜1.0の数値
+  },
+  {
+    "targetDomain": "decision",
+    "targetItemId": "<上記Decision IDまたはgeneric-decision>",
+    "impactLevel": "high" | "medium" | "low",
+    "impactDirection": "positive" | "negative" | "neutral",
+    "reasoning": "意思決定にどう影響するか（日本語・2〜3文）",
+    "confidence": 0.0〜1.0の数値
+  },
+  {
+    "targetDomain": "story",
+    "targetItemId": "<上記Story IDまたはgeneric-story>",
+    "impactLevel": "high" | "medium" | "low",
+    "impactDirection": "positive" | "negative" | "neutral",
+    "reasoning": "コミュニケーションをどう変えるべきか（日本語・2〜3文）",
+    "confidence": 0.0〜1.0の数値
   }
-]
-\`\`\`
-
-分析のポイント：
-- Voice テキストが示す顧客の感情・ニーズ・問題を読み取る
-- それが Growth スコア（チャーン・リテンション・エクスパンション）にどう影響するか
-- 意思決定の判断材料として有益か
-- ストーリー（顧客/内部向けコミュニケーション）をどう変えるべきか`;
+]`;
 
     const response = await client.messages.create({
       model: "claude-haiku-4-5-20251001",
@@ -85,7 +95,7 @@ ${storyItems.length > 0
     if (codeMatch) {
       jsonStr = codeMatch[1].trim();
     } else {
-      // 2) JSON 配列を直接探す
+      // 2) JSON 配列を直接探す（最も外側の [ ] を取得）
       const arrayMatch = raw.match(/\[[\s\S]*\]/);
       jsonStr = arrayMatch ? arrayMatch[0] : raw.trim();
     }
@@ -95,8 +105,12 @@ ${storyItems.length > 0
       const parsed = JSON.parse(jsonStr);
       items = Array.isArray(parsed) ? parsed : [parsed];
     } catch {
-      // JSON parse 失敗時は空配列を返す（エラーにしない）
-      console.error("[impact-analysis] JSON parse failed:", jsonStr.slice(0, 200));
+      // JSON parse 失敗時: エラーを返してクライアント側で再試行できるようにする
+      console.error("[impact-analysis] JSON parse failed. raw:", raw.slice(0, 500));
+      return NextResponse.json(
+        { ok: false, error: `AI応答のJSON解析に失敗しました。再分析を試みてください。(raw: ${raw.slice(0, 100)})` },
+        { status: 500 }
+      );
     }
 
     // VoiceImpactIntelligence 形式に変換

@@ -131,6 +131,7 @@ export default function PowerMeetApp() {
       setGrowthItems(ghsItems)
       setDecisionItems(decisionItems)
       setStoryItems(storyItems)
+      setImpactItems([])   // フィクスチャの古い impact データをクリア
       setHumanTasks(humanTasks)
       setAITasks(aiTasks)
       initFromRoles(bundle.roles)
